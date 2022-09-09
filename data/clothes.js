@@ -1,7 +1,7 @@
-const clothes = [
+const CLOTHES = [
     {
         id: 1,
-        name: 'blue machine',
+        title: 'blue machine',
         price: 11165,
         colors:[
             {
@@ -13,11 +13,11 @@ const clothes = [
                 colorCode: 'gray'
             }
         ],
-        photo: 'https://e1.pngegg.com/pngimages/74/417/png-clipart-male-models-man-wearing-unzipped-hoodie-thumbnail.png'
+        // photo: 'https://e1.pngegg.com/pngimages/74/417/png-clipart-male-models-man-wearing-unzipped-hoodie-thumbnail.png'
     },
     {
         id: 4,
-        name: 'sky landers',
+        title: 'sky landers',
         price: 3355,
         colors:[
             {
@@ -32,4 +32,4 @@ const clothes = [
     }
 ];
 
-export default clothes;
+export default CLOTHES;

@@ -18,25 +18,27 @@ const Drawer = createDrawerNavigator();
 const App = () => {
   
   return (
-        <NavigationContainer>
-          <Drawer.Navigator 
-            screenOptions={{
-              drawerActiveBackgroundColor:'black', 
-              drawerActiveTintColor: 'white',
-              drawerType:'slide',
-            }} 
-            initialRouteName='Home'
-          >
-            <Drawer.Screen 
-              options={{
-                header:() => {}
+        // <View style={{backgroundColor: 'white'}}>
+          <NavigationContainer>
+            <Drawer.Navigator
+              screenOptions={{
+                drawerActiveBackgroundColor:'black',
+                drawerActiveTintColor: 'white',
+                drawerType:'slide',
               }}
-              name='Home' 
-              component={HomeScreen} 
-            />
-            <Drawer.Screen name='Settings' component={SettingsScreen} />
-          </Drawer.Navigator>
-        </NavigationContainer>
+              initialRouteName='Home'
+            >
+                <Drawer.Screen
+                  options={{
+                    header:() => {},
+                  }}
+                  name='Home'
+                  component={HomeScreen}
+                />
+              <Drawer.Screen name='Settings' component={SettingsScreen} />
+            </Drawer.Navigator>
+          </NavigationContainer>
+        // </View>
   )
 }
 
