@@ -1,7 +1,7 @@
 import { View, Image, Text } from 'react-native'
 import React from 'react'
-import StackHeader from '../StackHeader'
-import List from './List'
+import StackHeader from '../components/StackHeader'
+import List from '../components/Explore/List'
 
 const DATA = [
   {
@@ -60,7 +60,7 @@ const DATA = [
   },
 ];
 
-const Explore = () => {
+const ExploreScreen = () => {
 
   return (
     <View style={{height: '100%',}}>
@@ -68,7 +68,7 @@ const Explore = () => {
         title={'Explore'} 
         count={DATA.length} 
         HeaderRight={() => <View style={{flexDirection: 'row',}}>
-        <Image style={{height:30,width:30}} source={require('../../assets/bookmark-active.png')} /> 
+        <Image style={{height:30,width:30}} source={require('../assets/bookmark-active.png')} /> 
         <Text style={{color: 'black',fontSize: 20, fontWeight: '600'}}>{DATA.length}</Text>
       </View>}
         />
@@ -77,4 +77,4 @@ const Explore = () => {
   )
 }
 
-export default Explore;
+export default ExploreScreen;
