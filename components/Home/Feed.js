@@ -13,6 +13,7 @@ const Feed = ({style}) => {
         keyExtractor={item => item.id}
         renderItem={item => <Card cloth={item} />}
         horizontal={true}
+        style={{padding: '3%'}}
       />
     </View>
   )

@@ -6,7 +6,7 @@ const CardHeader = ({title,price}) => {
     <View style={styles.container}>
       <View style={{paddingRight: 10}}>
         <Text style={{color: 'black', fontSize: 24}}>{title.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</Text>
-        <Text style={{color: 'black', fontSize: 20, fontWeight: '900'}}>$ {Intl.NumberFormat('en-US').format(price)}</Text>
+        <Text style={{color: 'black', fontSize: 20, fontWeight: '900'}}>{price.toLocaleString('en-US',{style: 'currency',currency: 'USD'})}</Text>
       </View>
       <View>
         <Image source={require('../../assets/tag.png')} style={{height: 30, width: 30}} />

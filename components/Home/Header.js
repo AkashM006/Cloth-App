@@ -10,18 +10,21 @@ const Header = ({style}) => {
     const navigation = useNavigation();
   return (
     <View style={[styles.container,style]}>
-        <View style={{height: 25, width: 25,}}>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <HamBurger />
+        <View>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.openDrawer()}>
+                    <HamBurger height={25} width={25} />
                 </TouchableOpacity>
         </View>
         <View style={{flexDirection: 'row',}}>
             <View>
-                <Search width={25} height={25} />
+                <TouchableOpacity style={styles.iconContainer}>
+                    <Search width={25} height={25} />
+                </TouchableOpacity>
             </View>
             <View style={{marginLeft: 25}}>
-                <ShoppingBag width={25} height={25} />
-                {/* todo: maybe want to add badges to denote the number of items in basket */}
+                <TouchableOpacity style={styles.iconContainer}>
+                    <ShoppingBag width={25} height={25} />
+                </TouchableOpacity>
             </View>
         </View>
     </View>
@@ -32,9 +35,13 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
         padding: 20,
         paddingTop: 40
-    }
+    },
+    iconContainer: {
+        padding: 5,
+    },
 });
 
 export default Header

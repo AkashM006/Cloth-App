@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import React, { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import HomeScreen from './Screens/HomeScreen'
+import MainScreen from './Screens/MainScreen'
 
 const SettingsScreen = () => {
   return (
@@ -18,7 +18,6 @@ const Drawer = createDrawerNavigator();
 const App = () => {
   
   return (
-        // <View style={{backgroundColor: 'white'}}>
           <NavigationContainer>
             <Drawer.Navigator
               screenOptions={{
@@ -26,19 +25,20 @@ const App = () => {
                 drawerActiveTintColor: 'white',
                 drawerType:'slide',
               }}
-              initialRouteName='Home'
+              initialRouteName='Main'
             >
                 <Drawer.Screen
                   options={{
                     header:() => {},
+                    title: 'Home',
+                    swipeEnabled: false,
                   }}
-                  name='Home'
-                  component={HomeScreen}
+                  name='Main'
+                  component={MainScreen}
                 />
               <Drawer.Screen name='Settings' component={SettingsScreen} />
             </Drawer.Navigator>
           </NavigationContainer>
-        // </View>
   )
 }
 
