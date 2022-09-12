@@ -24,7 +24,7 @@ const StackHeader = ({title,HeaderRight}) => {
 
 const styles = StyleSheet.create({
     container: {
-        padding: '7%',
+        padding: '5%',
         flexDirection: 'row',
         // justifyContent: 'space-between',
         backgroundColor: 'white',
