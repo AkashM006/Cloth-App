@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 
-const StackHeader = ({title,count,HeaderRight}) => {
+const StackHeader = ({title,HeaderRight}) => {
     const navigation = useNavigation();
 
   return (

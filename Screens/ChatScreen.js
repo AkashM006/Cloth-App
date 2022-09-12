@@ -1,10 +1,13 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import StackHeader from '../components/StackHeader'
+import ChatFeed from '../components/Chat/ChatFeed'
 
 const ChatScreen = () => {
   return (
-    <View>
-      <Text style={{color:'black'}}>ChatScreen</Text>
+    <View style={{height: '100%',backgroundColor: 'white'}}>
+      <StackHeader title='Chat' />
+      <ChatFeed />
     </View>
   )
 }

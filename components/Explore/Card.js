@@ -1,5 +1,10 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
 import React from 'react'
+
+
+const {width,height} = Dimensions.get('screen');
+console.log(width)
+
 
 const Card = ({cloth,index}) => {
   return (

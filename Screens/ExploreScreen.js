@@ -63,7 +63,7 @@ const DATA = [
 const ExploreScreen = () => {
 
   return (
-    <View style={{height: '100%',}}>
+    <View style={{height: '100%',backgroundColor: 'white'}}>
       <StackHeader 
         title={'Explore'} 
         count={DATA.length} 

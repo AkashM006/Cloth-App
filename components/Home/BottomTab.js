@@ -13,7 +13,7 @@ const BottomTab = () => {
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Explore')}>
             <Image style={styles.icon} source={require('../../assets/bookmark.png')} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconContainer} >
+          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Chat')}>
             <Image style={styles.icon} source={require('../../assets/chat.png')} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconContainer} >

@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import React from 'react'
 import Header from '../components/Home/Header'
 import Feed from '../components/Home/Feed'
@@ -6,6 +6,8 @@ import BottomTab from '../components/Home/BottomTab'
 
 const Home = ({navigation}) => {
   return (
+    <>
+    <StatusBar />
     <View style={{backgroundColor: 'white',height: '100%',}}>
       <View style={{height: '90%'}}>
         <Header style={alignStyle} />
@@ -15,6 +17,7 @@ const Home = ({navigation}) => {
         <BottomTab />
       </View>
     </View>
+    </>
   )
 }
 
