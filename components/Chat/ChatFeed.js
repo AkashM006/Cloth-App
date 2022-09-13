@@ -64,6 +64,10 @@ const ChatFeed = () => {
 
     useEffect(() => {
         scrollRef.scrollToEnd({animated: true});
+    },[])
+
+    useEffect(() => {
+        scrollRef.scrollToEnd({animated: true});
     },[chat]);
 
     const addChat = (msgObj) => {
@@ -80,6 +84,8 @@ const ChatFeed = () => {
             renderItem={({item}) => <Message msg={item} />}
             showsVerticalScrollIndicator={false}
             ref={ref => {scrollRef = ref}}
+            contentContainerStyle={{flexDirection:'column-reverse'}}
+            inverted={true}
            />
       </View>
       <View style={styles.inputContainer}>

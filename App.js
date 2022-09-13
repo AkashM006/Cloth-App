@@ -24,7 +24,6 @@ const App = () => {
                 drawerActiveBackgroundColor:'black',
                 drawerActiveTintColor: 'white',
                 drawerType:'slide',
-                
               }}
               initialRouteName='Main'
             >

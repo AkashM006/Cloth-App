@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from "./HomeScreen"
 import ExploreScreen from "./ExploreScreen"
 import ChatScreen from './ChatScreen';
+import CartScreen from './CartScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,11 @@ const MainScreen = () => {
           component={ChatScreen}
           options={headerOptions}
          />
+         <Stack.Screen
+          name="Cart"
+          component={CartScreen}
+          options={headerOptions}
+          />
     </Stack.Navigator>
   )
 };

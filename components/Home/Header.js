@@ -6,7 +6,7 @@ import ShoppingBag from '../../assets/ShoppingBag.svg'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 
-const Header = ({style}) => {
+const Header = ({style,stackNavigation}) => {
     const navigation = useNavigation();
   return (
     <View style={[styles.container,style]}>
@@ -22,7 +22,7 @@ const Header = ({style}) => {
                 </TouchableOpacity>
             </View>
             <View style={{marginLeft: 25}}>
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={styles.iconContainer}>
                     <ShoppingBag width={25} height={25} />
                 </TouchableOpacity>
             </View>
