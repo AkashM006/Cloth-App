@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import React, { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import MainScreen from './Screens/MainScreen'
+import MainScreen from './src/Screens/MainScreen'
 
 const SettingsScreen = () => {
   return (
