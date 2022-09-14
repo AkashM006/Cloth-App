@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { FlatList } from 'react-native-gesture-handler';
 import Message from './Message';
 import ChatInput from './ChatInput';
@@ -59,16 +59,7 @@ const DATA = [
 
 const ChatFeed = () => {
 
-    let scrollRef;
     const [chat, setChat] = useState(DATA);
-
-    useEffect(() => {
-        scrollRef.scrollToEnd({animated: true});
-    },[])
-
-    useEffect(() => {
-        scrollRef.scrollToEnd({animated: true});
-    },[chat]);
 
     const addChat = (msgObj) => {
         msgObj.id = chat[chat.length-1].id + 1;
@@ -83,7 +74,6 @@ const ChatFeed = () => {
             keyExtractor={item => item.id}
             renderItem={({item}) => <Message msg={item} />}
             showsVerticalScrollIndicator={false}
-            ref={ref => {scrollRef = ref}}
             contentContainerStyle={{flexDirection:'column-reverse'}}
             inverted={true}
            />

@@ -4,6 +4,7 @@ import HomeScreen from "./HomeScreen"
 import ExploreScreen from "./ExploreScreen"
 import ChatScreen from './ChatScreen';
 import CartScreen from './CartScreen';
+import DetailScreen from './DetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,11 @@ const MainScreen = () => {
          <Stack.Screen
           name="Cart"
           component={CartScreen}
+          options={headerOptions}
+          />
+         <Stack.Screen 
+          name="Details"
+          component={DetailScreen}
           options={headerOptions}
           />
     </Stack.Navigator>

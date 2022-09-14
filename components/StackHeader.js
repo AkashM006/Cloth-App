@@ -13,7 +13,7 @@ const StackHeader = ({title,HeaderRight}) => {
         </TouchableOpacity>
       </View>
       <View style={{flex: 2,alignItems:'center'}}>
-        <Text style={{color: 'black',fontWeight: '700',fontSize: 20}}>{title}</Text>
+        <Text style={{color: 'black',fontWeight: '700',fontSize: 20}}>{title.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</Text>
       </View>
       {HeaderRight ? <View>
         <HeaderRight />
