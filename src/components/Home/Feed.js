@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import Card from './Card'
 import { FlatList } from 'react-native-gesture-handler'
-import CLOTHES from "../../../data/clothes"
+import CLOTHES from "../../data/clothes"
 
 const Feed = ({style}) => {
   return (

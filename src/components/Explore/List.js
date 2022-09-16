@@ -4,8 +4,10 @@ import { FlatList } from 'react-native-gesture-handler'
 import Card from './Card'
 
 const List = ({data}) => {
-    const DATA = [...data];
-    if(DATA.length%2 === 1)DATA.push({});    
+
+  const DATA = [...data];
+  if(DATA.length%2 === 1)DATA.push({});
+  
   return (
     <View style={styles.container}>
       <FlatList
