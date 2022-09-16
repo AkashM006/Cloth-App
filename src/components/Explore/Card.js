@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 import React from 'react'
 
 const Card = ({cloth,index}) => {
-  console.log("Cloth: ",cloth);
   return (
     <View style={[styles.container,(index%2==1?{marginTop: '7%',paddingTop: '7%'}:{})]}>
       {cloth.savedImage && <Image style={{width: '95%', height: 150, resizeMode: 'cover', borderRadius: 15}} source={{uri: cloth.savedImage}} />}
