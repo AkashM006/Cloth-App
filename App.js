@@ -6,6 +6,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import MainScreen from './src/Screens/MainScreen'
 import { Provider } from 'react-redux'
 import store from './src/redux/store'
+import {Provider as PaperProvider} from 'react-native-paper'
 
 const SettingsScreen = () => {
   return (
@@ -17,31 +18,39 @@ const SettingsScreen = () => {
 
 const Drawer = createDrawerNavigator();
 
+const theme = {
+  colors:{
+    primary: 'black',
+  }
+}
+
 const App = () => {
   
   return (
           <Provider store={store}>
-            <NavigationContainer>
-              <Drawer.Navigator
-                screenOptions={{
-                  drawerActiveBackgroundColor:'black',
-                  drawerActiveTintColor: 'white',
-                  drawerType:'slide',
-                }}
-                initialRouteName='Main'
-              >
-                  <Drawer.Screen
-                    options={{
-                      header:() => {},
-                      title: 'Home',
-                      swipeEnabled: false,
-                    }}
-                    name='Main'
-                    component={MainScreen}
-                  />
-                <Drawer.Screen name='Settings' component={SettingsScreen} />
-              </Drawer.Navigator>
-            </NavigationContainer>
+            <PaperProvider theme={theme}>
+              <NavigationContainer>
+                <Drawer.Navigator
+                  screenOptions={{
+                    drawerActiveBackgroundColor:'black',
+                    drawerActiveTintColor: 'white',
+                    drawerType:'slide',
+                  }}
+                  initialRouteName='Main'
+                >
+                    <Drawer.Screen
+                      options={{
+                        header:() => {},
+                        title: 'Home',
+                        swipeEnabled: false,
+                      }}
+                      name='Main'
+                      component={MainScreen}
+                    />
+                  <Drawer.Screen name='Settings' component={SettingsScreen} />
+                </Drawer.Navigator>
+              </NavigationContainer>
+            </PaperProvider>
           </Provider>
   )
 }

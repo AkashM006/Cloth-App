@@ -6,6 +6,13 @@ import Card from './Card'
 const List = ({data}) => {
 
   const DATA = [...data];
+  if(DATA.length === 0){
+    return (
+      <View style={{flex: 1, justifyContent: 'center',alignItems: 'center',}}>
+        <Text style={{color: 'black'}}>You have saved no items</Text>
+      </View>
+    )
+  }
   if(DATA.length%2 === 1)DATA.push({});
   
   return (
@@ -15,7 +22,7 @@ const List = ({data}) => {
         data={DATA}
         renderItem={({item,index}) => <Card cloth={item} index={index} />}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{width: '87.5%',marginLeft: 'auto',marginRight: 'auto',paddingBottom: '17%'}}
+        contentContainerStyle={{width: '87.5%',marginLeft: 'auto',marginRight: 'auto',paddingBottom: '17%',}}
         numColumns='2'
        />
     </View>
