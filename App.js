@@ -5,8 +5,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import MainScreen from './src/Screens/MainScreen'
 import { Provider } from 'react-redux'
-import store from './src/redux/store'
+import {store, persistor} from './src/redux/store'
 import {Provider as PaperProvider} from 'react-native-paper'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const SettingsScreen = () => {
   return (
@@ -28,29 +29,31 @@ const App = () => {
   
   return (
           <Provider store={store}>
-            <PaperProvider theme={theme}>
-              <NavigationContainer>
-                <Drawer.Navigator
-                  screenOptions={{
-                    drawerActiveBackgroundColor:'black',
-                    drawerActiveTintColor: 'white',
-                    drawerType:'slide',
-                  }}
-                  initialRouteName='Main'
-                >
-                    <Drawer.Screen
-                      options={{
-                        header:() => {},
-                        title: 'Home',
-                        swipeEnabled: false,
-                      }}
-                      name='Main'
-                      component={MainScreen}
-                    />
-                  <Drawer.Screen name='Settings' component={SettingsScreen} />
-                </Drawer.Navigator>
-              </NavigationContainer>
-            </PaperProvider>
+            <PersistGate loading={null} persistor={persistor}>
+              <PaperProvider theme={theme}>
+                <NavigationContainer>
+                  <Drawer.Navigator
+                    screenOptions={{
+                      drawerActiveBackgroundColor:'black',
+                      drawerActiveTintColor: 'white',
+                      drawerType:'slide',
+                    }}
+                    initialRouteName='Main'
+                  >
+                      <Drawer.Screen
+                        options={{
+                          header:() => {},
+                          title: 'Home',
+                          swipeEnabled: false,
+                        }}
+                        name='Main'
+                        component={MainScreen}
+                      />
+                    <Drawer.Screen name='Settings' component={SettingsScreen} />
+                  </Drawer.Navigator>
+                </NavigationContainer>
+              </PaperProvider>
+            </PersistGate>
           </Provider>
   )
 }
