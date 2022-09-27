@@ -21,11 +21,10 @@ const Card = ({cloth}) => {
             <View style={styles.container}>
               <Pressable onPress={navigationHandler}>
                 <LinearGradient colors={['#eef6f6','white']} locations={[0,0.65]} style={styles.gradientContainer}>
-                {/* <LinearGradient colors={['#e0eef5','white']} locations={[0,0.65]} style={styles.gradientContainer} > */}
-                  <View style={{flex: 1,padding: 10, paddingTop: 20}}>
+                  <View style={{height: '20%',padding: 10, paddingTop: 20}}>
                     <CardHeader title={cloth.item.title} price={cloth.item.price} />
                   </View>
-                  <View style={{flex: 4, paddingLeft: 10, paddingTop: 10}}>
+                  <View style={{height: '80%', paddingLeft: 10, paddingTop: 10,}}>
                     <CardFooter colors={cloth.item.colors}  />
                   </View>
                 </LinearGradient>
@@ -41,8 +40,9 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     container:{
-        height: '80%',
-        width: '85%',
+        height: '85%',
+        width: '95%',
+        minWidth: 220,
         borderRadius: 10,
         marginRight: 20,
         backgroundColor: 'white',

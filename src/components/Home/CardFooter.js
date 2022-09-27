@@ -13,7 +13,7 @@ const CardFooter = ({colors}) => {
         </View>
       </View>
       <View style={{flex: 4,flexDirection: 'row',justifyContent:'flex-end',marginTop: '30%'}}>
-         <Image style={{height: '100%', resizeMode: 'contain', width: '80%',}} source={require('../../icons/boy.png')} />
+         <Image style={{height: '100%', resizeMode: 'cover', width: '100%',}} source={require('../../icons/boy.png')} />
       </View>
     </View>
   )
