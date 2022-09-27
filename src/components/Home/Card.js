@@ -25,7 +25,7 @@ const Card = ({cloth}) => {
                     <CardHeader title={cloth.item.title} price={cloth.item.price} />
                   </View>
                   <View style={{height: '80%', paddingLeft: 10, paddingTop: 10,}}>
-                    <CardFooter colors={cloth.item.colors}  />
+                    <CardFooter img={cloth.item.savedImage} colors={cloth.item.colors}  />
                   </View>
                 </LinearGradient>
               </Pressable>

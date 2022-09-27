@@ -3,7 +3,7 @@ import React from 'react'
 
 const Circle = ({color}) => (<View style={[{backgroundColor:color},styles.iconContainer]} />)
 
-const CardFooter = ({colors}) => {
+const CardFooter = ({colors,img}) => {
   return (
     <View style={styles.container}>
       <View style={{flex: 1,justifyContent: 'center',}}>
@@ -13,7 +13,11 @@ const CardFooter = ({colors}) => {
         </View>
       </View>
       <View style={{flex: 4,flexDirection: 'row',justifyContent:'flex-end',marginTop: '30%'}}>
-         <Image style={{height: '100%', resizeMode: 'cover', width: '100%',}} source={require('../../icons/boy.png')} />
+         <Image 
+          style={{height: '100%', resizeMode: 'cover', width: '100%',}} 
+          // source={require('../../icons/boy.png')} 
+          source={{uri: img}}
+         />
       </View>
     </View>
   )
