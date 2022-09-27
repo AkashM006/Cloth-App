@@ -16,7 +16,7 @@ const Feed = ({style}) => {
     setTimeout(() => {
       setClothes(prevValue => [...prevValue,...prevValue.slice(0,3)])
       setIsLoading(false);
-    },5000);
+    },3000);
   }
 
   return (
@@ -32,7 +32,7 @@ const Feed = ({style}) => {
           keyExtractor={(item,index) => index}
           renderItem={item => <Card cloth={item} />}
           horizontal={true}
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={0.2}
           onEndReached={renderMore}
         />
       </View>
