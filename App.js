@@ -2,11 +2,12 @@ import 'react-native-reanimated'
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { store, persistor } from './src/redux/store'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { PersistGate } from 'redux-persist/integration/react'
-import HomeDrawer from './src/navigation/HomeDrawer'
+import MainScreen from './src/Screens/MainScreen'
+import SplashScreen from './src/Screens/SplashScreen'
 
 const theme = {
   colors: {
@@ -21,7 +22,7 @@ const App = () => {
       <PersistGate loading={null} persistor={persistor}>
         <PaperProvider theme={theme}>
           <NavigationContainer>
-            <HomeDrawer />
+            <MainScreen />
           </NavigationContainer>
         </PaperProvider>
       </PersistGate>

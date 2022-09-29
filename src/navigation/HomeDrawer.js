@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import MainScreen from '../Screens/MainScreen'
+import HomeStack from './HomeStack'
 import SplashScreen from '../Screens/SplashScreen'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 
@@ -31,7 +31,7 @@ const HomeDrawer = () => {
                     swipeEnabled: false,
                 }}
                 name='Main'
-                component={MainScreen}
+                component={HomeStack}
             />
             <Drawer.Screen
                 options={{

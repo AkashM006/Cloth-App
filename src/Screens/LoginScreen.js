@@ -3,8 +3,8 @@ import React from 'react'
 
 const LoginScreen = () => {
     return (
-        <View>
-            <Text style={{ color: 'black' }}>LoginScreen</Text>
+        <View style={{ flex: 1, backgroundColor: 'gray' }}>
+            <Text style={{ color: 'white' }}>LoginScreen</Text>
         </View>
     )
 }
