@@ -5,13 +5,13 @@ import { View } from 'react-native';
 
 const SplashScreen = () => {
     const animationRef = useRef(null);
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
 
-    useEffect(() => {
-        setTimeout(() => {
-            navigation.navigate('Main');
-        }, 5000);
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         navigation.navigate('Main');
+    //     }, 5000);
+    // }, [])
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>

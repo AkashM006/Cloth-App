@@ -4,7 +4,7 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: {
         user: null,
-        isLoading: false,
+        isLoading: true,
         error: null,
     },
     reducers: {
@@ -14,7 +14,7 @@ export const userSlice = createSlice({
         logout: (state, action) => {
             state.user = null
         },
-        setLoad: (state, action) => {
+        setIsLoading: (state, action) => {
             state.isLoading = action.payload.isLoading
         },
         setError: (state, action) => {
@@ -23,6 +23,6 @@ export const userSlice = createSlice({
     }
 })
 
-export const { login, logout } = userSlice.actions
+export const { login, logout, setIsLoading, setError } = userSlice.actions
 
 export default userSlice.reducer
