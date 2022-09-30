@@ -23,16 +23,22 @@ const rootReducer = combineReducers({
     user: userReducer,
 })
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// uncomment this when using redux persist
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+// export const store = configureStore({
+//     reducer: persistedReducer,
+//     middleware: getDefaultMiddleware =>
+//         getDefaultMiddleware({
+//             serializableCheck: false,
+//         })
+// })
+
+// export const persistor = persistStore(store);
 export const store = configureStore({
-    reducer: persistedReducer,
+    reducer: rootReducer,
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        })
+            serializableCheck: false,
+        }),
 })
-
-export const persistor = persistStore(store);

@@ -22,7 +22,7 @@ const HomeDrawer = () => {
                 drawerActiveTintColor: 'white',
                 drawerType: 'slide',
             }}
-            initialRouteName='Splash'
+            initialRouteName='Home'
         >
             <Drawer.Screen
                 options={{

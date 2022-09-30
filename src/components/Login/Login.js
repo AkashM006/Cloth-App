@@ -3,13 +3,16 @@ import React from 'react'
 import { Image } from 'react-native'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { loginUserThunk } from '../../redux/userSlice'
 
 const Login = () => {
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const loginHandler = () => {
-
+        dispatch(loginUserThunk({ email, password }))
     }
 
     const registerHandler = () => {
@@ -27,51 +30,53 @@ const Login = () => {
                 </View>
             </View>
             <View style={styles.footer}>
-                <View style={{ marginTop: '12%', marginHorizontal: '5%', }}>
-                    <View>
-                        <Text style={styles.text}>Email</Text>
-                        <View style={styles.inputContainer}>
-                            <Image style={styles.icon} source={require('../../icons/email.png')} />
-                            <TextInput
-                                placeholderTextColor={'gray'}
-                                placeholder='Your email'
-                                style={styles.input}
-                                keyboardType='email-address'
-                                defaultValue={email}
-                                onChange={newEmail => setEmail(newEmail)}
-                            />
-                        </View>
-                    </View>
-                    <View style={styles.formGroup}>
-                        <Text style={styles.text}>Password</Text>
-                        <View style={styles.inputContainer}>
-                            <Image style={styles.icon} source={require('../../icons/password.png')} />
-                            <TextInput
-                                placeholderTextColor={'gray'}
-                                placeholder='Your Password'
-                                style={styles.input}
-                                secureTextEntry={true}
-                                defaultValue={password}
-                                onChange={newPassword => setPassword(newPassword)}
-                            />
-                        </View>
-                    </View>
-                    <View style={styles.formGroup}>
+                <View style={styles.footerContentContainer}>
+                    <View style={{ marginTop: '12%', marginHorizontal: '5%', }}>
                         <View>
-                            <TouchableOpacity
-                                style={[styles.button, { backgroundColor: 'black', }]}
-                                onPress={loginHandler}
-                            >
-                                <Text style={[styles.heading, { color: 'white' }]}>LOGIN</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.text}>Email</Text>
+                            <View style={styles.inputContainer}>
+                                <Image style={styles.icon} source={require('../../icons/email.png')} />
+                                <TextInput
+                                    placeholderTextColor={'gray'}
+                                    placeholder='Your email'
+                                    style={styles.input}
+                                    keyboardType='email-address'
+                                    defaultValue={email}
+                                    onChangeText={newEmail => setEmail(newEmail)}
+                                />
+                            </View>
                         </View>
-                        <View>
-                            <TouchableOpacity
-                                style={[styles.button, { borderColor: 'black', borderWidth: 1, marginTop: '5%' }]}
-                                onPress={registerHandler}
-                            >
-                                <Text style={[styles.text, styles.heading]}>REGISTER</Text>
-                            </TouchableOpacity>
+                        <View style={styles.formGroup}>
+                            <Text style={styles.text}>Password</Text>
+                            <View style={styles.inputContainer}>
+                                <Image style={styles.icon} source={require('../../icons/password.png')} />
+                                <TextInput
+                                    placeholderTextColor={'gray'}
+                                    placeholder='Your Password'
+                                    style={styles.input}
+                                    secureTextEntry={true}
+                                    defaultValue={password}
+                                    onChangeText={newPassword => setPassword(newPassword)}
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.formGroup}>
+                            <View>
+                                <TouchableOpacity
+                                    style={[styles.button, { backgroundColor: 'black', }]}
+                                    onPress={loginHandler}
+                                >
+                                    <Text style={[styles.heading, { color: 'white' }]}>LOGIN</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View>
+                                <TouchableOpacity
+                                    style={[styles.button, { borderColor: 'black', borderWidth: 1, marginTop: '5%' }]}
+                                    onPress={registerHandler}
+                                >
+                                    <Text style={[styles.text, styles.heading]}>REGISTER</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -83,17 +88,16 @@ const Login = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black'
     },
     header: {
         flex: 1,
         justifyContent: 'flex-end',
+        backgroundColor: 'black',
+        borderBottomRightRadius: 30,
     },
     footer: {
         flex: 2,
-        backgroundColor: 'white',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        backgroundColor: 'black',
     },
     input: {
         color: 'black',
@@ -122,6 +126,11 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontWeight: '600',
+    },
+    footerContentContainer: {
+        flex: 1,
+        backgroundColor: 'white',
+        borderTopLeftRadius: 30,
     }
 })
 

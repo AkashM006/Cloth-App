@@ -7,7 +7,6 @@ import { store, persistor } from './src/redux/store'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { PersistGate } from 'redux-persist/integration/react'
 import MainScreen from './src/Screens/MainScreen'
-import SplashScreen from './src/Screens/SplashScreen'
 
 const theme = {
   colors: {
@@ -19,13 +18,13 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <PaperProvider theme={theme}>
-          <NavigationContainer>
-            <MainScreen />
-          </NavigationContainer>
-        </PaperProvider>
-      </PersistGate>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
+          <MainScreen />
+        </NavigationContainer>
+      </PaperProvider>
+      {/* </PersistGate> */}
     </Provider>
   )
 }

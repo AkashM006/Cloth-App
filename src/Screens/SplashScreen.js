@@ -14,7 +14,7 @@ const SplashScreen = () => {
     // }, [])
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
             <LottieView
                 source={require('../icons/loading.json')}
                 autoPlay
