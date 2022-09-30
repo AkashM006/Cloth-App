@@ -1,14 +1,16 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import HomeStack from './HomeStack'
 import SplashScreen from '../Screens/SplashScreen'
 import { createDrawerNavigator } from '@react-navigation/drawer'
+import { useEffect } from 'react'
+import auth from '@react-native-firebase/auth'
 
-const SettingsScreen = () => {
+const LogoutScreen = () => {
+    useEffect(() => {
+        auth().signOut();
+    }, [])
     return (
-        <View style={styles.container}>
-            <Text style={{ color: 'white' }}>Settings Screen</Text>
-        </View>
+        <></>
     )
 }
 
@@ -34,6 +36,15 @@ const HomeDrawer = () => {
                 component={HomeStack}
             />
             <Drawer.Screen
+                name='Logout'
+                component={LogoutScreen}
+                options={{
+                    header: () => { },
+                    swipeEnabled: false,
+                }}
+
+            />
+            {/* <Drawer.Screen
                 options={{
                     header: () => { },
                     swipeEnabled: false,
@@ -42,8 +53,7 @@ const HomeDrawer = () => {
                 }}
                 name='Splash'
                 component={SplashScreen}
-            />
-            <Drawer.Screen name='Settings' component={SettingsScreen} />
+            /> */}
         </Drawer.Navigator>
     )
 }
