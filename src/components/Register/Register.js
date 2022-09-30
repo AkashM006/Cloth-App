@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Button } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Button, Alert } from 'react-native'
 import React from 'react'
 import { Image } from 'react-native'
 import { useState } from 'react'
@@ -21,9 +21,15 @@ const Register = () => {
 
     const registerHandler = async () => {
         // first validate and then authenticate
-        const credentials = {
-            email, password
+        if (email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
+            Alert.alert('Invalid Credentials', 'Please fill all your details properly!', [{ text: 'OK' }])
+            return;
+        } else if (password !== confirmPassword) {
+            Alert.alert('Invalid Password', 'Your passwords do not match, Please try again!', [{ text: 'OK' }])
+            return;
         }
+
+        const credentials = { email, password }
         dispath(registerUserThunk(credentials));
     }
 
@@ -68,7 +74,7 @@ const Register = () => {
                         <View style={styles.formGroup}>
                             <Text style={styles.text}>Confirm Password</Text>
                             <View style={styles.inputContainer}>
-                                <Image style={styles.icon} source={require('../../icons/profile.png')} />
+                                <Image style={styles.icon} source={require('../../icons/password.png')} />
                                 <TextInput
                                     placeholderTextColor={'gray'}
                                     placeholder='Your Confirm Password'

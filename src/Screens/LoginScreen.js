@@ -1,19 +1,28 @@
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import React from 'react'
 import Login from '../components/Login/Login'
 import { useEffect } from 'react'
-import { useNavigation } from '@react-navigation/native'
-import { NavigationActions } from 'react-navigation'
+import { useDispatch, useSelector } from 'react-redux'
+import { setError } from '../redux/userSlice'
 
 const LoginScreen = () => {
-    const navigation = useNavigation();
 
-    // useEffect(() => {
-    //     navigation.reset({
-    //         index: 1,
-    //         actions: [NavigationActions.navigate({ routeName: 'Main' })]
-    //     });
-    // }, [])
+    const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (user.error && user.error.trim().length !== 0) {
+            Alert.alert('Whoops!'
+                , user.error,
+                [
+                    {
+                        text: 'OK',
+                        onPress: () => dispatch(setError(''))
+                    }
+                ])
+        }
+    }, [user.error])
+
     return (
         <View style={{ flex: 1, backgroundColor: 'white', }}>
             <Login />

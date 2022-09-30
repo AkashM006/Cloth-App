@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
 import { Image } from 'react-native'
 import { useState } from 'react'
@@ -12,6 +12,14 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const loginHandler = () => {
+        if (email.trim() === '' || password.trim() === '') {
+            Alert.alert('Invalid Credentials', 'Please fill all your details properly', [
+                {
+                    text: 'OK'
+                }
+            ])
+            return;
+        }
         dispatch(loginUserThunk({ email, password }))
     }
 

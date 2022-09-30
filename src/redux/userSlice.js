@@ -36,7 +36,7 @@ export const userSlice = createSlice({
             state.isLoading = action.payload.isLoading
         },
         setError: (state, action) => {
-            state.error = action.payload.error
+            state.error = action.payload
         }
     },
     extraReducers: builder => {
