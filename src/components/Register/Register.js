@@ -103,7 +103,7 @@ const Register = () => {
                                     style={[styles.button, { borderColor: 'black', borderWidth: 1, marginTop: '5%' }]}
                                     onPress={loginHandler}
                                 >
-                                    <Text style={[styles.text, styles.heading]}>LOGIN</Text>
+                                    <Text style={[styles.text, styles.heading]}>Sign In</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

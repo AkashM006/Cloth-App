@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Platform } from 'react-native'
 import React from 'react'
 import { Image } from 'react-native'
 import { useState } from 'react'
@@ -23,8 +23,10 @@ const Login = () => {
         dispatch(loginUserThunk({ email, password }))
     }
 
-    const registerHandler = () => {
-        navigation.navigate('Register')
+    const registerHandler = () => { navigation.navigate('Register') }
+
+    const googleSigninHandler = () => {
+
     }
 
     const [email, setEmail] = useState('');
@@ -74,7 +76,7 @@ const Login = () => {
                                     style={[styles.button, { backgroundColor: 'black', }]}
                                     onPress={loginHandler}
                                 >
-                                    <Text style={[styles.heading, { color: 'white' }]}>LOGIN</Text>
+                                    <Text style={[styles.heading, { color: 'white' }]}>Sign In</Text>
                                 </TouchableOpacity>
                             </View>
                             <View>
@@ -82,9 +84,26 @@ const Login = () => {
                                     style={[styles.button, { borderColor: 'black', borderWidth: 1, marginTop: '5%' }]}
                                     onPress={registerHandler}
                                 >
-                                    <Text style={[styles.text, styles.heading]}>REGISTER</Text>
+                                    <Text style={[styles.text, styles.heading]}>Register</Text>
                                 </TouchableOpacity>
                             </View>
+                            {Platform.OS === 'android' && <View>
+                                <TouchableOpacity
+                                    style={
+                                        [styles.button, {
+                                            backgroundColor: 'black',
+                                            marginTop: '5%',
+                                            flexDirection: 'row',
+                                            justifyContent: 'center',
+                                        }]}
+                                    onPress={googleSigninHandler}
+                                >
+                                    <Image source={require('../../icons/google.webp')} style={{
+                                        height: 30, width: 30,
+                                    }} />
+                                    <Text style={[styles.heading, { color: 'white' }]}>Sign In With Google</Text>
+                                </TouchableOpacity>
+                            </View>}
                         </View>
                     </View>
                 </View>

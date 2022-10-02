@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import Register from '../components/Register/Register'
 import { useDispatch, useSelector } from 'react-redux'
