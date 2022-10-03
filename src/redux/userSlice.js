@@ -24,13 +24,18 @@ export const userSlice = createSlice({
         isLoading: true,
         error: '',
         userLoading: false,
+        isGoogleAuth: false,
     },
     reducers: {
         login: (state, action) => {
             state.user = action.payload
         },
-        logout: (state, action) => {
+        setIsGoogleAuth: (state, action) => {
+            state.isGoogleAuth = action.payload
+        },
+        logout: state => {
             state.user = null
+            state.isGoogleAuth = false
         },
         setIsLoading: (state, action) => {
             state.isLoading = action.payload.isLoading
@@ -56,6 +61,7 @@ export const userSlice = createSlice({
         })
         builder.addCase(loginUserThunk.fulfilled, state => {
             state.userLoading = false
+            state.isGoogleAuth = false
         })
         builder.addCase(loginUserThunk.rejected, (state, action) => {
             state.userLoading = false
@@ -65,8 +71,8 @@ export const userSlice = createSlice({
     }
 })
 
-const { login, logout, setIsLoading, setError } = userSlice.actions;
+const { login, logout, setIsLoading, setError, setIsGoogleAuth } = userSlice.actions;
 
 
 export default userSlice.reducer
-export { login, logout, setIsLoading, setError, registerUserThunk, loginUserThunk }
+export { login, logout, setIsLoading, setError, setIsGoogleAuth, registerUserThunk, loginUserThunk }

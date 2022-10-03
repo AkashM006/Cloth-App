@@ -1,47 +1,47 @@
 {
-    "project_info": {
-      "project_number": "909548793641",
-      "project_id": "clothapp-396d0",
-      "storage_bucket": "clothapp-396d0.appspot.com"
-    },
-    "client": [
-      {
-        "client_info": {
-          "mobilesdk_app_id": "1:909548793641:android:d843eff79ee128a11f1138",
-          "android_client_info": {
-            "package_name": "com.clothapp"
+  "project_info": {
+    "project_number": "909548793641",
+    "project_id": "clothapp-396d0",
+    "storage_bucket": "clothapp-396d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909548793641:android:d843eff79ee128a11f1138",
+        "android_client_info": {
+          "package_name": "com.clothapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909548793641-nvvqfltbg69fnj1g1gu840alivgligfn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clothapp",
+            "certificate_hash": "8c38ea65cbf00085f87baf3b345fc5ada63170fd"
           }
         },
-        "oauth_client": [
-          {
-            "client_id": "909548793641-tispbn7arj39nmp5nmgc8tctrt5ft8tf.apps.googleusercontent.com",
-            "client_type": 1,
-            "android_info": {
-              "package_name": "com.clothapp",
-              "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+        {
+          "client_id": "909548793641-ovu0vlclskchdlu81e5uvrr2mrovlnnk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGQmy-aQQrHgzpH8d9lfVECoebFwgShA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909548793641-ovu0vlclskchdlu81e5uvrr2mrovlnnk.apps.googleusercontent.com",
+              "client_type": 3
             }
-          },
-          {
-            "client_id": "909548793641-ovu0vlclskchdlu81e5uvrr2mrovlnnk.apps.googleusercontent.com",
-            "client_type": 3
-          }
-        ],
-        "api_key": [
-          {
-            "current_key": "AIzaSyAGQmy-aQQrHgzpH8d9lfVECoebFwgShA4"
-          }
-        ],
-        "services": {
-          "appinvite_service": {
-            "other_platform_oauth_client": [
-              {
-                "client_id": "909548793641-ovu0vlclskchdlu81e5uvrr2mrovlnnk.apps.googleusercontent.com",
-                "client_type": 3
-              }
-            ]
-          }
+          ]
         }
       }
-    ],
-    "configuration_version": "1"
-  }
+    }
+  ],
+  "configuration_version": "1"
+}

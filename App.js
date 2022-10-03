@@ -7,6 +7,7 @@ import { store, persistor } from './src/redux/store'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { PersistGate } from 'redux-persist/integration/react'
 import MainScreen from './src/Screens/MainScreen'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
 const theme = {
   colors: {
@@ -15,6 +16,12 @@ const theme = {
 }
 
 const App = () => {
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: '909548793641-ovu0vlclskchdlu81e5uvrr2mrovlnnk.apps.googleusercontent.com'
+    })
+  }, [])
 
   return (
     <Provider store={store}>

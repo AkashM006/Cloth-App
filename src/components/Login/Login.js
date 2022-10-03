@@ -4,7 +4,9 @@ import { Image } from 'react-native'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { loginUserThunk } from '../../redux/userSlice'
+import { loginUserThunk, setIsGoogleAuth } from '../../redux/userSlice'
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Login = () => {
 
@@ -14,9 +16,7 @@ const Login = () => {
     const loginHandler = () => {
         if (email.trim() === '' || password.trim() === '') {
             Alert.alert('Invalid Credentials', 'Please fill all your details properly', [
-                {
-                    text: 'OK'
-                }
+                { text: 'OK', }
             ])
             return;
         }
@@ -25,8 +25,25 @@ const Login = () => {
 
     const registerHandler = () => { navigation.navigate('Register') }
 
-    const googleSigninHandler = () => {
+    async function onGoogleButtonPress() {
+        try {
+            const { idToken } = await GoogleSignin.signIn();
 
+            // Create a Google credential with the token
+            const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+            // Sign-in the user with the credential
+            return auth().signInWithCredential(googleCredential);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const googleSigninHandler = () => {
+        onGoogleButtonPress()
+            .then(() => {
+                dispatch(setIsGoogleAuth(true))
+            })
     }
 
     const [email, setEmail] = useState('');

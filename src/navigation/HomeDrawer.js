@@ -4,11 +4,29 @@ import SplashScreen from '../Screens/SplashScreen'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { useEffect } from 'react'
 import auth from '@react-native-firebase/auth'
+import { useSelector } from 'react-redux'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
 const LogoutScreen = () => {
-    useEffect(() => {
+    const user = useSelector(state => state.user)
+
+    const logout = async () => {
+        if (user.isGoogleAuth === true) {
+            try {
+                await GoogleSignin.revokeAccess();
+                await GoogleSignin.signOut();
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
         auth().signOut();
+    }
+    useEffect(() => {
+        logout()
     }, [])
+
     return (
         <></>
     )
