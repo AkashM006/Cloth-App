@@ -98,7 +98,7 @@ const Login = () => {
                             </View>
                             <View>
                                 <TouchableOpacity
-                                    style={[styles.button, { borderColor: 'black', borderWidth: 1, marginTop: '5%' }]}
+                                    style={[styles.button, styles.outlineButton]}
                                     onPress={registerHandler}
                                 >
                                     <Text style={[styles.text, styles.heading]}>Register</Text>
@@ -107,18 +107,16 @@ const Login = () => {
                             {Platform.OS === 'android' && <View>
                                 <TouchableOpacity
                                     style={
-                                        [styles.button, {
-                                            backgroundColor: 'black',
-                                            marginTop: '5%',
+                                        [styles.button, styles.outlineButton, {
                                             flexDirection: 'row',
                                             justifyContent: 'center',
                                         }]}
                                     onPress={googleSigninHandler}
                                 >
-                                    <Image source={require('../../icons/google.webp')} style={{
+                                    <Image source={require('../../icons/google.png')} style={{
                                         height: 30, width: 30,
                                     }} />
-                                    <Text style={[styles.heading, { color: 'white' }]}>Sign In With Google</Text>
+                                    <Text style={[styles.heading, styles.text]}>Sign In With Google</Text>
                                 </TouchableOpacity>
                             </View>}
                         </View>
@@ -175,6 +173,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         borderTopLeftRadius: 30,
+    },
+    outlineButton: {
+        borderColor: 'black',
+        borderWidth: 1,
+        marginTop: '5%'
     }
 })
 
