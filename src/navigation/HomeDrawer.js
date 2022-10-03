@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import auth from '@react-native-firebase/auth'
 import { useSelector } from 'react-redux'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import MoreScreen from '../Screens/MoreScreen'
 
 const LogoutScreen = () => {
     const user = useSelector(state => state.user)
@@ -54,13 +55,20 @@ const HomeDrawer = () => {
                 component={HomeStack}
             />
             <Drawer.Screen
+                name='More'
+                component={MoreScreen}
+                options={{
+                    header: () => { },
+                    swipeEnabled: false,
+                }}
+            />
+            <Drawer.Screen
                 name='Logout'
                 component={LogoutScreen}
                 options={{
                     header: () => { },
                     swipeEnabled: false,
                 }}
-
             />
             {/* <Drawer.Screen
                 options={{
