@@ -43,7 +43,7 @@ const HomeDrawer = () => {
                 return (
                     <DrawerContentScrollView  {...props}>
                         <DrawerItemList {...props} />
-                        <DrawerItem label='Logout' onPress={logout} style={styles.logout} />
+                        <DrawerItem label='Logout' onPress={logout} />
                     </DrawerContentScrollView>
                 )
             }}

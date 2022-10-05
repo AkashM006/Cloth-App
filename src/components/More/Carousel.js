@@ -37,6 +37,7 @@ const Carousel = () => {
                         [{ nativeEvent: { contentOffset: { x: scrollX } } }],
                         { useNativeDriver: true }
                     )}
+                    pagingEnabled={true}
                 />
                 <View style={styles.pagination}>
                     {ITEMS.map((_, index) => {
