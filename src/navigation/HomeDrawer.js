@@ -1,17 +1,22 @@
 import React from 'react'
 import HomeStack from './HomeStack'
-import SplashScreen from '../Screens/SplashScreen'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { useEffect } from 'react'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
 import auth from '@react-native-firebase/auth'
 import { useSelector } from 'react-redux'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
-import MoreScreen from '../Screens/MoreScreen'
 import MoreStack from './MoreStack'
 
-const LogoutScreen = () => {
-    const user = useSelector(state => state.user)
+const MoreMainScreen = () => {
+    return (
+        <MoreStack />
+    )
+}
 
+const Drawer = createDrawerNavigator();
+
+const HomeDrawer = () => {
+
+    const user = useSelector(state => state.user)
     const logout = async () => {
         if (user.isGoogleAuth === true) {
             try {
@@ -25,24 +30,7 @@ const LogoutScreen = () => {
 
         auth().signOut();
     }
-    useEffect(() => {
-        logout()
-    }, [])
 
-    return (
-        <></>
-    )
-}
-
-const MoreMainScreen = () => {
-    return (
-        <MoreStack />
-    )
-}
-
-const Drawer = createDrawerNavigator();
-
-const HomeDrawer = () => {
     return (
         <Drawer.Navigator
             screenOptions={{
@@ -51,6 +39,14 @@ const HomeDrawer = () => {
                 drawerType: 'slide',
             }}
             initialRouteName='Home'
+            drawerContent={props => {
+                return (
+                    <DrawerContentScrollView  {...props}>
+                        <DrawerItemList {...props} />
+                        <DrawerItem label='Logout' onPress={logout} style={styles.logout} />
+                    </DrawerContentScrollView>
+                )
+            }}
         >
             <Drawer.Screen
                 options={{
@@ -70,7 +66,7 @@ const HomeDrawer = () => {
                     unmountOnBlur: true,
                 }}
             />
-            <Drawer.Screen
+            {/* <Drawer.Screen
                 name='Logout'
                 component={LogoutScreen}
                 options={{
@@ -78,7 +74,7 @@ const HomeDrawer = () => {
                     swipeEnabled: false,
                     unmountOnBlur: true,
                 }}
-            />
+            /> */}
             {/* <Drawer.Screen
                 options={{
                     header: () => { },
