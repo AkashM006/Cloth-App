@@ -1,13 +1,16 @@
 import React from 'react'
 import HomeStack from './HomeStack'
 import SplashScreen from '../Screens/SplashScreen'
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import { useEffect } from 'react'
 import auth from '@react-native-firebase/auth'
 import { useSelector } from 'react-redux'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
-const LogoutScreen = () => {
+const Drawer = createDrawerNavigator();
+
+const HomeDrawer = () => {
+
     const user = useSelector(state => state.user)
 
     const logout = async () => {
@@ -23,18 +26,7 @@ const LogoutScreen = () => {
 
         auth().signOut();
     }
-    useEffect(() => {
-        logout()
-    }, [])
 
-    return (
-        <></>
-    )
-}
-
-const Drawer = createDrawerNavigator();
-
-const HomeDrawer = () => {
     return (
         <Drawer.Navigator
             screenOptions={{
@@ -43,6 +35,14 @@ const HomeDrawer = () => {
                 drawerType: 'slide',
             }}
             initialRouteName='Home'
+            drawerContent={props => {
+                return (
+                    <DrawerContentScrollView {...props}>
+                        <DrawerItemList {...props} />
+                        <DrawerItem label='Logout' onPress={logout} />
+                    </DrawerContentScrollView>
+                )
+            }}
         >
             <Drawer.Screen
                 options={{
@@ -53,15 +53,14 @@ const HomeDrawer = () => {
                 name='Main'
                 component={HomeStack}
             />
-            <Drawer.Screen
+            {/* <Drawer.Screen
                 name='Logout'
                 component={LogoutScreen}
                 options={{
                     header: () => { },
                     swipeEnabled: false,
                 }}
-
-            />
+            /> */}
             {/* <Drawer.Screen
                 options={{
                     header: () => { },
