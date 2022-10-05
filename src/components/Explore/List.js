@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
 import Card from './Card'
 
-const List = ({ data }) => {
+const List = ({ data, ...props }) => {
 
   const DATA = [...data];
   if (DATA.length === 0) {
@@ -18,9 +18,9 @@ const List = ({ data }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        keyExtractor={item => item.id}
+        keyExtractor={(_, index) => index}
         data={DATA}
-        renderItem={({ item, index }) => <Card cloth={item} index={index} />}
+        renderItem={({ item, index }) => <Card onPressNavigate={props.onPressNavigate ?? false} isActionShown={props.isActionShown ?? true} cloth={item} index={index} />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ width: '87.5%', marginLeft: 'auto', marginRight: 'auto', paddingBottom: '17%', }}
         numColumns='2'

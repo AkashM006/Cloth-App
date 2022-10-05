@@ -3,6 +3,9 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import HamBurger from '../icons/HamBurger.svg'
 import More from '../components/More/More'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
+const Stack = createNativeStackNavigator()
 
 const MoreScreen = () => {
     const navigation = useNavigation();

@@ -6,7 +6,7 @@ import Description from '../components/Detail/Description'
 import { useDispatch, useSelector } from 'react-redux'
 import { add, remove } from '../redux/savedItemSlice'
 
-const DetailScreen = ({ route, navigation }) => {
+const DetailScreen = ({ route }) => {
 
     const { id } = route.params;
 
