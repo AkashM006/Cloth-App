@@ -6,7 +6,7 @@ import Description from '../components/Detail/Description'
 import { useDispatch, useSelector } from 'react-redux'
 import { add, remove } from '../redux/savedItemSlice'
 
-const DetailScreen = ({ route, navigation }) => {
+const DetailScreen = ({ route }) => {
 
     const { id } = route.params;
 
@@ -15,7 +15,7 @@ const DetailScreen = ({ route, navigation }) => {
     return (
         <View style={{ flex: 1, backgroundColor: 'white', }}>
             <StackHeader title={cloth.title} HeaderRight={HeaderRight} cloth={cloth} />
-            <View style={{}}>
+            <View>
                 <Description cloth={cloth} />
             </View>
         </View>
@@ -46,6 +46,7 @@ const HeaderRight = ({ cloth }) => {
     const image = isBookmarked === false ?
         bookMark :
         bookMarkActive
+
 
     return <View>
         <TouchableOpacity onPress={() => saveHandler(cloth)}>

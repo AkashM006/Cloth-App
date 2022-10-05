@@ -1,18 +1,22 @@
 import React from 'react'
 import HomeStack from './HomeStack'
-import SplashScreen from '../Screens/SplashScreen'
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
-import { useEffect } from 'react'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
 import auth from '@react-native-firebase/auth'
 import { useSelector } from 'react-redux'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import MoreStack from './MoreStack'
+
+const MoreMainScreen = () => {
+    return (
+        <MoreStack />
+    )
+}
 
 const Drawer = createDrawerNavigator();
 
 const HomeDrawer = () => {
 
     const user = useSelector(state => state.user)
-
     const logout = async () => {
         if (user.isGoogleAuth === true) {
             try {
@@ -26,6 +30,9 @@ const HomeDrawer = () => {
 
         auth().signOut();
     }
+    useEffect(() => {
+        logout()
+    }, [])
 
     return (
         <Drawer.Navigator
@@ -37,7 +44,7 @@ const HomeDrawer = () => {
             initialRouteName='Home'
             drawerContent={props => {
                 return (
-                    <DrawerContentScrollView {...props}>
+                    <DrawerContentScrollView  {...props}>
                         <DrawerItemList {...props} />
                         <DrawerItem label='Logout' onPress={logout} />
                     </DrawerContentScrollView>
@@ -53,12 +60,22 @@ const HomeDrawer = () => {
                 name='Main'
                 component={HomeStack}
             />
+            <Drawer.Screen
+                name='More'
+                component={MoreMainScreen}
+                options={{
+                    header: () => { },
+                    swipeEnabled: false,
+                    unmountOnBlur: true,
+                }}
+            />
             {/* <Drawer.Screen
                 name='Logout'
                 component={LogoutScreen}
                 options={{
                     header: () => { },
                     swipeEnabled: false,
+                    unmountOnBlur: true,
                 }}
             /> */}
             {/* <Drawer.Screen

@@ -78,7 +78,7 @@ const Description = ({ cloth }) => {
           </Text>
         </ScrollView>
       </View>
-      <View style={{ marginTop: '5%', padding: '5%', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <View style={{ marginTop: '5%', padding: '5%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
         <View style={{ flex: 1 }}>
           <Text style={{ fontWeight: '800', fontSize: 20, color: 'black', alignItems: 'center' }}>
             $ 200
