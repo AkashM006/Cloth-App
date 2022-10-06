@@ -36,7 +36,7 @@ const Card = ({ cloth, index, isActionShown, onPressNavigate }) => {
     <View style={[styles.container, (index % 2 == 1 ? { marginTop: '7%', paddingTop: '7%' } : {})]}>
       <View>
         <Pressable onPress={onItemPressHandler}>
-          {cloth.savedImage && <Image style={{ width: '95%', height: 150, resizeMode: 'cover', borderRadius: 15 }} source={{ uri: cloth.savedImage }} />}
+          {cloth.savedImage && <Image style={{ width: '95%', height: 150, resizeMode: 'cover', borderRadius: 15 }} source={cloth.savedImage} />}
           {cloth.title && <Text style={{ color: '#A9A9A9', marginTop: '5%', fontSize: 15 }}>{cloth.title.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</Text>}
           {cloth.price && <Text style={[styles.text, { fontSize: 17, fontWeight: '800' }]}>{cloth.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</Text>}
         </Pressable>

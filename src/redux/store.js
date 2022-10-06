@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import savedItemReducer from './savedItemSlice'
 import userReducer from './userSlice'
+import cartReducer from './cartSlice'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     persistStore,
@@ -21,6 +22,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     savedItems: savedItemReducer,
     user: userReducer,
+    cart: cartReducer,
 })
 
 // uncomment this when using redux persist

@@ -1,12 +1,56 @@
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Slider from '@react-native-community/slider'
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, modify } from '../../redux/cartSlice';
 
 const Description = ({ cloth }) => {
 
-  const [sliderValue, setSliderValue] = useState(0);
+  const dispatch = useDispatch();
 
+  const [sliderValue, setSliderValue] = useState(0);
   const [currentSize, setCurrentSize] = useState('p');
+  // const [currentCount, setCurrentCount] = useState(0);
+
+  const [sizeCount, setSizeCount] = useState({
+    p: 0,
+    m: 0,
+    g: 0,
+    gg: 0
+  })
+
+  // first use a state object so that we can keep track of the count of each size here.
+  // after clicking the button we can add it to the store
+
+  const addHandler = () => {
+    setSizeCount(prevValue => {
+      return { ...prevValue, [currentSize]: prevValue[currentSize] + 1 }
+    })
+  }
+
+  const reduceHandler = () => {
+    if (sizeCount[currentSize] === 0) return;
+    setSizeCount(prevValue => {
+      return { ...prevValue, [currentSize]: prevValue[currentSize] - 1 }
+    })
+  }
+
+  const addToBasket = () => {
+    // send all to the store
+    for (let size in sizeCount) {
+      if (sizeCount[size] === 0) continue
+      dispatch(addItem({
+        id: cloth.id,
+        size,
+        count: sizeCount[size],
+        price: cloth.price,
+        title: cloth.title,
+        savedImage: cloth.savedImage,
+        discount: cloth.discount
+      }))
+    }
+  }
+
 
   useEffect(() => {
     switch (sliderValue) {
@@ -29,7 +73,7 @@ const Description = ({ cloth }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{}}>
+      <View>
         <View style={{ width: '100%', alignItems: 'center' }}>
           <Image style={{ height: 250, width: 200 }} source={require('../../icons/cloth.png')} />
         </View>
@@ -80,26 +124,28 @@ const Description = ({ cloth }) => {
       </View>
       <View style={{ marginTop: '5%', padding: '5%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontWeight: '800', fontSize: 20, color: 'black', alignItems: 'center' }}>
-            $ 200
+          <Text style={{
+            fontWeight: '800', color: 'black', alignItems: 'center'
+          }}>
+            {cloth.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
           </Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', flex: 2 }}>
-          <TouchableOpacity>
-            <Image style={{ height: 40, width: 40 }} source={require('../../icons/minus.png')} />
+          <TouchableOpacity onPress={reduceHandler}>
+            <Image style={{ height: 40, width: 40 }} onPre source={require('../../icons/minus.png')} />
           </TouchableOpacity>
-          <Text style={{ fontSize: 20, fontWeight: '600', color: 'black' }}>1</Text>
-          <TouchableOpacity>
+          <Text style={{ fontSize: 20, fontWeight: '600', color: 'black' }}>{sizeCount[currentSize]}</Text>
+          <TouchableOpacity onPress={addHandler}>
             <Image style={{ height: 40, width: 40 }} source={require('../../icons/plus.png')} />
           </TouchableOpacity>
         </View>
         <View style={{ flex: 1, alignItems: 'flex-end', }}>
-          <TouchableOpacity style={{ backgroundColor: '#E2E6E6', borderRadius: 20, padding: '10%' }}>
+          <TouchableOpacity style={{ backgroundColor: '#E2E6E6', borderRadius: 20, padding: '10%' }} onPress={addToBasket} >
             <Image style={{ height: 30, width: 30, }} source={require('../../icons/basket.png')} />
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </View >
   )
 };
 
