@@ -16,7 +16,7 @@ const BottomTab = () => {
         <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Chat')}>
           <Image style={styles.icon} source={require('../../icons/chat.png')} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.iconContainer} >
+        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Profile')} >
           <Image style={styles.icon} source={require('../../icons/profile.png')} />
         </TouchableOpacity>
       </View>

@@ -30,9 +30,6 @@ const HomeDrawer = () => {
 
         auth().signOut();
     }
-    useEffect(() => {
-        logout()
-    }, [])
 
     return (
         <Drawer.Navigator
