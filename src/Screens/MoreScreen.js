@@ -1,28 +1,18 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
-import HamBurger from '../icons/HamBurger.svg'
 import More from '../components/More/More'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import DrawerHeader from '../components/DrawerHeader'
 
-const Stack = createNativeStackNavigator()
 
 const MoreScreen = () => {
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
 
-    const navigationHandler = () => {
-        navigation.openDrawer()
-    }
+    // const navigationHandler = () => {
+    //     navigation.openDrawer()
+    // }
     return (
         <View style={{ backgroundColor: 'white', flex: 1 }}>
-            <View style={styles.headerContainer}>
-                <TouchableOpacity onPress={navigationHandler}>
-                    <HamBurger height={25} width={25} />
-                </TouchableOpacity>
-                <View style={{ marginLeft: '5%' }}>
-                    <Text style={{ fontSize: 24, color: 'black', }}>More</Text>
-                </View>
-            </View>
+            <DrawerHeader title={'More'} />
             <More />
         </View>
     )

@@ -5,12 +5,15 @@ import auth from '@react-native-firebase/auth'
 import { useSelector } from 'react-redux'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import MoreStack from './MoreStack'
+import DebugScreen from '../Screens/DebugScreen'
 
 const MoreMainScreen = () => {
     return (
         <MoreStack />
     )
 }
+
+const header = () => { }
 
 const Drawer = createDrawerNavigator();
 
@@ -29,6 +32,11 @@ const HomeDrawer = () => {
         }
 
         auth().signOut();
+    }
+
+    let options = {
+        header,
+        swipeEnabled: false
     }
 
     return (
@@ -50,7 +58,7 @@ const HomeDrawer = () => {
         >
             <Drawer.Screen
                 options={{
-                    header: () => { },
+                    header,
                     title: 'Home',
                     swipeEnabled: false,
                 }}
@@ -61,7 +69,16 @@ const HomeDrawer = () => {
                 name='More'
                 component={MoreMainScreen}
                 options={{
-                    header: () => { },
+                    header,
+                    swipeEnabled: false,
+                    unmountOnBlur: true,
+                }}
+            />
+            <Drawer.Screen
+                name='Debug'
+                component={DebugScreen}
+                options={{
+                    header,
                     swipeEnabled: false,
                     unmountOnBlur: true,
                 }}
