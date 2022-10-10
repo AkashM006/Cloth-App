@@ -16,7 +16,7 @@ const Description = ({ cloth }) => {
     p: 0,
     m: 0,
     g: 0,
-    gg: 0
+    gg: 0,
   })
 
   // first use a state object so that we can keep track of the count of each size here.
@@ -49,6 +49,12 @@ const Description = ({ cloth }) => {
         discount: cloth.discount
       }))
     }
+    setSizeCount({
+      p: 0,
+      m: 0,
+      g: 0,
+      gg: 0,
+    })
   }
 
 

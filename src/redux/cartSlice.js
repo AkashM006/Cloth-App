@@ -13,8 +13,8 @@ export const cartSlice = createSlice({
             const { id, size, toAdd } = action.payload
             const idx = state.items.findIndex(item => item.id === id && item.size === size)
             state.items[idx].count += toAdd
-            if (toAdd == -1 && state.items[idx].count === 0)
-                state.items = state.items.filter(item => item.id !== id && item.size !== size)
+            if (state.items[idx].count === 0)
+                state.items = state.items.filter(item => item.id !== id || item.size !== size)
         },
         addItem: (state, action) => {
             const { id, size, count, price, title, savedImage, discount } = action.payload
