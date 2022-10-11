@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import MoreStack from './MoreStack'
 import DebugScreen from '../Screens/DebugScreen'
+import SettingsScreen from '../Screens/SettingsScreen'
 
 const MoreMainScreen = () => {
     return (
@@ -81,6 +82,15 @@ const HomeDrawer = () => {
                     header,
                     swipeEnabled: false,
                     unmountOnBlur: true,
+                }}
+            />
+            <Drawer.Screen
+                name='Settings'
+                component={SettingsScreen}
+                options={{
+                    header,
+                    swipeEnabled: false,
+                    unmountOnBlur: true
                 }}
             />
             {/* <Drawer.Screen
