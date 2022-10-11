@@ -1,5 +1,5 @@
 import 'react-native-reanimated'
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, Alert } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { Provider, useSelector } from 'react-redux'
@@ -8,6 +8,7 @@ import { Provider as PaperProvider } from 'react-native-paper'
 import { PersistGate } from 'redux-persist/integration/react'
 import MainScreen from './src/Screens/MainScreen'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import messaging from '@react-native-firebase/messaging'
 
 const theme = {
   colors: {
@@ -20,6 +21,13 @@ const App = () => {
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: '909548793641-ovu0vlclskchdlu81e5uvrr2mrovlnnk.apps.googleusercontent.com'
+    })
+  }, [])
+
+  useEffect(() => {
+    messaging().onNotificationOpenedApp(message => {
+      console.log("App opened: ", message)
+      Alert.alert(message.notification.title, message.notification.body)
     })
   }, [])
 
