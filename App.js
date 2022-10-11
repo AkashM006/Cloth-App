@@ -24,11 +24,13 @@ const App = () => {
     })
   }, [])
 
+  const messageHanlder = message => {
+    Alert.alert(message.notification.title, message.notification.body)
+  }
   useEffect(() => {
-    messaging().onNotificationOpenedApp(message => {
-      console.log("App opened: ", message)
-      Alert.alert(message.notification.title, message.notification.body)
-    })
+    const subscriber = messaging().onMessage(messageHanlder)
+    messaging().onNotificationOpenedApp(messageHanlder)
+    return subscriber
   }, [])
 
   return (
