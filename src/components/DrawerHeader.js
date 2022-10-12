@@ -14,8 +14,8 @@ const DrawerHeader = ({ title }) => {
             <TouchableOpacity onPress={navigationHandler}>
                 <HamBurger height={25} width={25} />
             </TouchableOpacity>
-            <View style={{ marginLeft: '5%' }}>
-                <Text style={{ fontSize: 24, color: 'black', }}>{title}</Text>
+            <View style={styles.textContainer}>
+                <Text style={styles.text}>{title}</Text>
             </View>
         </View>
     )
@@ -27,6 +27,14 @@ const styles = StyleSheet.create({
         paddingVertical: '10%',
         flexDirection: 'row',
         alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    text: {
+        fontSize: 24,
+        color: 'black',
+    },
+    textContainer: {
+        marginLeft: '5%'
     }
 })
 

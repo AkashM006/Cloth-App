@@ -1,0 +1,10 @@
+{
+    "translation": {
+        "hello": "Hello",
+        "home": "Home",
+        "more": "More",
+        "settings": "Settings",
+        "logout": "Logout",
+        "language": "Language"
+    }
+}

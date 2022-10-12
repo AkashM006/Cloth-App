@@ -9,6 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import MainScreen from './src/Screens/MainScreen'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import messaging from '@react-native-firebase/messaging'
+import './src/i18n/i18n'
 
 const theme = {
   colors: {

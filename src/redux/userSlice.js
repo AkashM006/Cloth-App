@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import auth from '@react-native-firebase/auth'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
 const registerUserThunk = createAsyncThunk('user/register', (credentials, thunkApi) => {
     return auth()
@@ -17,6 +18,22 @@ const loginUserThunk = createAsyncThunk('user/login', (credentials, thunkApi) =>
         })
 })
 
+const logoutUserThunk = createAsyncThunk('user/logout', (isGoogleAuth, thunkApi) => {
+    if (isGoogleAuth) {
+        return GoogleSignin
+            .revokeAccess()
+            .then(_ => {
+                return GoogleSignin.signOut()
+            })
+            .then(_ => {
+                auth().signOut()
+                return {}
+            })
+    }
+    auth().signOut()
+    return {}
+})
+
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -25,6 +42,10 @@ export const userSlice = createSlice({
         error: '',
         userLoading: false,
         isGoogleAuth: false,
+        language: {
+            code: 'en',
+            name: 'English'
+        }
     },
     reducers: {
         login: (state, action) => {
@@ -42,6 +63,9 @@ export const userSlice = createSlice({
         },
         setError: (state, action) => {
             state.error = action.payload
+        },
+        setLanguage: (state, action) => {
+            state.language = action.payload
         }
     },
     extraReducers: builder => {
@@ -68,11 +92,17 @@ export const userSlice = createSlice({
             state.user = null
             state.error = action.error.message
         })
+        builder.addCase(logoutUserThunk.fulfilled, state => {
+            state.isGoogleAuth = false
+        })
+        builder.addCase(logoutUserThunk.rejected, (state, action) => {
+            state.error = action.error.message
+        })
     }
 })
 
-const { login, logout, setIsLoading, setError, setIsGoogleAuth } = userSlice.actions;
+const { login, logout, setIsLoading, setError, setIsGoogleAuth, setLanguage } = userSlice.actions;
 
 
 export default userSlice.reducer
-export { login, logout, setIsLoading, setError, setIsGoogleAuth, registerUserThunk, loginUserThunk }
+export { login, logout, setIsLoading, setError, setIsGoogleAuth, setLanguage, registerUserThunk, loginUserThunk, logoutUserThunk }
