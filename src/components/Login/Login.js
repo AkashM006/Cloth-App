@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Platform } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Platform, Pressable } from 'react-native'
 import React from 'react'
 import { Image } from 'react-native'
 import { useState } from 'react'
@@ -46,6 +46,10 @@ const Login = () => {
             })
     }
 
+    const forgotPasswordHandler = () => {
+        navigation.navigate('ForgotPassword')
+    }
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -87,6 +91,11 @@ const Login = () => {
                                 />
                             </View>
                         </View>
+                        <Pressable onPress={forgotPasswordHandler}>
+                            <View style={[styles.formGroup, { alignSelf: 'center' }]}>
+                                <Text style={styles.text}>Forgot Password?</Text>
+                            </View>
+                        </Pressable>
                         <View style={styles.formGroup}>
                             <View>
                                 <TouchableOpacity
@@ -138,7 +147,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 30,
     },
     footer: {
-        flex: 2,
+        flex: 3,
         backgroundColor: 'black',
     },
     input: {
