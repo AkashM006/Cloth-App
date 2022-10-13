@@ -2,23 +2,59 @@ import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, Alert } fro
 import React from 'react'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import * as yup from 'yup'
+import auth from '@react-native-firebase/auth'
 
 const ForgotPasswordScreen = () => {
 
     const [email, setEmail] = useState('')
     const navigation = useNavigation()
 
+    const forgotPasswordValidator = yup.object().shape({
+        email: yup.string().email().required()
+    })
+
     const passwordResetHandler = () => {
-        if (email.trim().length === 0) {
-            Alert.alert('Error', 'Email should not be empty!', [
-                {
-                    text: 'OK'
+        // if (email.trim().length === 0) {
+        //     Alert.alert('Error', 'Email should not be empty!', [
+        //         {
+        //             text: 'OK'
+        //         }
+        //     ],
+        //         { cancelable: true }
+        //     )
+        //     return
+        // }
+        forgotPasswordValidator.isValid({ email })
+            .then(valid => {
+                // console.log('Is valid: ', valid)
+                if (!valid) {
+                    Alert.alert('Error!', 'Please enter valid email!', [
+                        {
+                            text: 'OK'
+                        }
+                    ],
+                        { cancelable: true }
+                    )
+                    return
                 }
-            ],
-                { cancelable: true }
-            )
-            return
-        }
+
+                auth().sendPasswordResetEmail(email)
+                    .then(_ => {
+                        Alert.alert('Mail sent', 'Password reset mail has been sent to your email', [
+                            {
+                                text: 'OK',
+                                onPress: () => navigation.goBack()
+                            }
+                        ])
+                    })
+                    .catch(err => {
+                        // console.log("err:", err.message)
+                        Alert.alert('Whoops!', err.message, [{
+                            text: 'OK'
+                        }], { cancelable: true })
+                    })
+            })
 
     }
 
