@@ -57,6 +57,8 @@ export const userSlice = createSlice({
         logout: state => {
             state.user = null
             state.isGoogleAuth = false
+            state.language.code = 'en'
+            state.language.name = 'English'
         },
         setIsLoading: (state, action) => {
             state.isLoading = action.payload.isLoading
@@ -94,6 +96,8 @@ export const userSlice = createSlice({
         })
         builder.addCase(logoutUserThunk.fulfilled, state => {
             state.isGoogleAuth = false
+            state.language.code = 'en'
+            state.language.name = 'English'
         })
         builder.addCase(logoutUserThunk.rejected, (state, action) => {
             state.error = action.error.message
