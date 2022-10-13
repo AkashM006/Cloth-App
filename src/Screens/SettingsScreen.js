@@ -1,7 +1,6 @@
+import { View, Text } from 'react-native'
 import React from 'react'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import DrawerHeader from '../components/DrawerHeader'
-import BottomSheet from '../components/Settings/BottomSheet'
 import SettingsFeed from '../components/Settings/SettingsFeed'
 
 const SettingsScreen = () => {

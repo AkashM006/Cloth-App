@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black'
     },
     footer: {
-        flex: 2,
+        flex: 3,
         backgroundColor: 'black',
     },
     input: {
