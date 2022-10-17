@@ -232,6 +232,20 @@ android {
         }
     }
 
+    flavorDimensions "default"
+
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+        }
+        qa {
+            applicationIdSuffix ".qa"
+        }
+        prod {
+            applicationId "com.clothapp"
+        }
+    }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->

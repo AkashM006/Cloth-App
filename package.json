@@ -7,7 +7,10 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "android-dev": "react-native run-android --variant=devDebug --appIdSuffix=dev",
+    "android-qa": "react-native run-android --variant=qaDebug --appIdSuffix=qa",
+    "android-prod": "react-native run-android --variant=prodDebug"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.10",
