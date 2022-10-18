@@ -20,6 +20,10 @@ const MainScreen = () => {
             dispatch(login(currentUser))
             if (user.isLoading) dispatch(setIsLoading({ isLoading: false }))
         })
+
+        auth().onUserChanged(user => {
+            dispatch(login(user))
+        })
         return subscriber
     }, [dispatch])
 

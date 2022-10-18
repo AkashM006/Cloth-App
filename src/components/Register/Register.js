@@ -17,10 +17,12 @@ const Register = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setconfirmPassword] = useState('');
+    const [name, setName] = useState('');
 
     const registerHandler = async () => {
         // first validate and then authenticate
+
+        // todo: Do password validation
         if (email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
             Alert.alert('Invalid Credentials', 'Please fill all your details properly!', [{ text: 'OK' }])
             return;
@@ -29,7 +31,7 @@ const Register = () => {
             return;
         }
 
-        const credentials = { email, password }
+        const credentials = { email, password, name }
         dispath(registerUserThunk(credentials));
     }
 
@@ -58,6 +60,19 @@ const Register = () => {
                             </View>
                         </View>
                         <View style={styles.formGroup}>
+                            <Text style={styles.text}>Name</Text>
+                            <View style={styles.inputContainer}>
+                                <Image style={styles.icon} source={require('../../icons/profile.png')} />
+                                <TextInput
+                                    placeholderTextColor={'gray'}
+                                    placeholder='Your Name'
+                                    style={styles.input}
+                                    defaultValue={name}
+                                    onChangeText={newName => setName(newName)}
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.formGroup}>
                             <Text style={styles.text}>Password</Text>
                             <View style={styles.inputContainer}>
                                 <Image style={styles.icon} source={require('../../icons/password.png')} />
@@ -68,20 +83,6 @@ const Register = () => {
                                     secureTextEntry={true}
                                     defaultValue={password}
                                     onChangeText={newPassword => setPassword(newPassword)}
-                                />
-                            </View>
-                        </View>
-                        <View style={styles.formGroup}>
-                            <Text style={styles.text}>Confirm Password</Text>
-                            <View style={styles.inputContainer}>
-                                <Image style={styles.icon} source={require('../../icons/password.png')} />
-                                <TextInput
-                                    placeholderTextColor={'gray'}
-                                    placeholder='Your Confirm Password'
-                                    style={styles.input}
-                                    secureTextEntry={true}
-                                    defaultValue={confirmPassword}
-                                    onChangeText={newconfirmPassword => setconfirmPassword(newconfirmPassword)}
                                 />
                             </View>
                         </View>

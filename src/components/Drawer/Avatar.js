@@ -1,34 +1,23 @@
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigation } from '@react-navigation/native'
 
 const DIMENSION = 70
 
 const Avatar = () => {
 
     const user = useSelector(state => state.user.user)
-    const navigation = useNavigation()
 
-    const pressHandler = () => {
-        navigation.navigate('Profile')
-    }
-
-    const img = user.photoURL.trim().length === 0 ? require('../../icons/profile.png') : { uri: user.photoURL }
+    const img = user.photoURL?.trim().length === 0 || user.photoURL === null ? require('../../icons/profile.png') : { uri: user.photoURL }
 
     return (
         <View style={styles.container}>
             <Image source={img} style={styles.photo} />
             <View style={{ justifyContent: 'space-between', }}>
                 <View>
-                    <Text style={[styles.text, styles.heading]}>{user.displayName}</Text>
-                    <Text style={styles.text}>{user.email}</Text>
+                    <Text style={[styles.text, styles.heading]}>{user.displayName?.length <= 17 ? user.displayName : user.displayName.substring(0, 14) + '...'}</Text>
+                    <Text style={styles.text}>{user.email.length <= 17 ? user.email : user.email.substring(0, 14) + '...'}</Text>
                 </View>
-                <Pressable onPress={pressHandler}>
-                    <View style={{ marginTop: '5%' }}>
-                        <Text style={[styles.text, styles.heading]}>View Profile</Text>
-                    </View>
-                </Pressable>
             </View>
         </View>
     )
@@ -47,6 +36,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginTop: '3%',
         flex: 1,
+        // height: height / 4
     },
     photo: {
         height: DIMENSION,

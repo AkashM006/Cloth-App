@@ -6,6 +6,9 @@ const registerUserThunk = createAsyncThunk('user/register', (credentials, thunkA
     return auth()
         .createUserWithEmailAndPassword(credentials.email, credentials.password)
         .then(userToken => {
+            return auth().currentUser.updateProfile({ displayName: credentials.name })
+        })
+        .then(_ => {
             return {}
         })
 })
