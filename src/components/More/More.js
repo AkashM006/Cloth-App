@@ -22,9 +22,9 @@ const More = () => {
             <FlatList
                 data={count}
                 keyExtractor={(_, index) => index}
-                renderItem={({ item }) =>
+                renderItem={({ item, index }) =>
                     <View style={{ flex: 1 }}>
-                        <Carousel />
+                        {index === 0 && <Carousel />}
                         <List onPressNavigate={true} isActionShown={false} data={data} />
                     </View>
                 }

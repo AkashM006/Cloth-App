@@ -13,12 +13,12 @@ const ExploreScreen = () => {
       <StackHeader
         title={'Explore'}
         count={savedItems.length}
-        HeaderRight={() => <View style={{ flexDirection: 'row', }}>
-          <Image style={{ height: 30, width: 30 }} source={require('../icons/bookmark-active.png')} />
-          <Text style={{ color: 'black', fontSize: 20, fontWeight: '600' }}>{savedItems.length}</Text>
-        </View>}
+      // HeaderRight={() => <View style={{ flexDirection: 'row', }}>
+      //   <Image style={{ height: 30, width: 30 }} source={require('../icons/bookmark-active.png')} />
+      //   <Text style={{ color: 'black', fontSize: 20, fontWeight: '600' }}>{savedItems.length}</Text>
+      // </View>}
       />
-      <List data={savedItems} />
+      <List data={savedItems} onPressNavigate={true} />
     </View>
   )
 }

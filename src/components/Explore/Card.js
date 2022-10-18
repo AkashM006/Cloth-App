@@ -41,7 +41,13 @@ const Card = ({ cloth, index, isActionShown, onPressNavigate }) => {
           {cloth.price && <Text style={[styles.text, { fontSize: 17, fontWeight: '800' }]}>{cloth.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</Text>}
         </Pressable>
       </View>
-      {isActionShown && Object.keys(cloth).length !== 0 &&
+      {
+        isActionShown && Object.keys(cloth).length !== 0 &&
+        <Pressable onPress={removeHandler}>
+          <Image style={styles.close} source={require('../../icons/close.png')} />
+        </Pressable>
+      }
+      {/* {isActionShown && Object.keys(cloth).length !== 0 &&
         <Menu
           visible={isVisible}
           onDismiss={() => setIsVisible(false)}
@@ -72,7 +78,7 @@ const Card = ({ cloth, index, isActionShown, onPressNavigate }) => {
               </View>
             }
           />
-        </Menu>}
+        </Menu>} */}
     </View>
   )
 }
@@ -94,6 +100,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  close: {
+    height: 20,
+    width: 20,
   },
   text: {
     color: 'black'

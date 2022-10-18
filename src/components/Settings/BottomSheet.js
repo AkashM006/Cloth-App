@@ -5,7 +5,7 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 
 const { height, width } = Dimensions.get('screen')
-const maxTranslateY = -height * 0.8
+const maxTranslateY = -height / 2
 
 const BottomSheet = React.forwardRef(({ children, containerStyle }, ref) => {
 
@@ -34,7 +34,7 @@ const BottomSheet = React.forwardRef(({ children, containerStyle }, ref) => {
     }).onEnd(() => {
         if (translateY.value > -height / 2.5)
             scrollTo(0)
-        else if (translateY.value > -height / 2)
+        else
             scrollTo(maxTranslateY)
 
     })

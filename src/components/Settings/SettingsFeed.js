@@ -23,7 +23,7 @@ const SettingsFeed = () => {
         if (ref?.current?.getIsActive() === true)
             ref?.current?.scrollTo(0)
         else
-            ref?.current?.scrollTo(-height / 1.25)
+            ref?.current?.scrollTo(-height / 2)
     }
 
     const changeLanguage = (languageObj) => {
