@@ -15,11 +15,11 @@ const BottomTab = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Explore')}>
           <Image style={styles.icon} source={require('../../icons/bookmark-icon.png')} />
-          <View style={styles.badge}>
+          {items.length !== 0 && <View style={styles.badge}>
             <Text style={{ color: 'white' }}>
               {items.length >= 100 ? '99+' : items.length}
             </Text>
-          </View>
+          </View>}
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Chat')}>
           <Image style={styles.icon} source={require('../../icons/chat.png')} />

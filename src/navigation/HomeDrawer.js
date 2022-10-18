@@ -9,6 +9,8 @@ import DebugScreen from '../Screens/DebugScreen'
 import SettingsScreen from '../Screens/SettingsScreen'
 import { logoutUserThunk } from '../redux/userSlice'
 import { useTranslation } from 'react-i18next'
+import { View, Text } from 'react-native'
+import Avatar from '../components/Drawer/Avatar'
 
 const MoreMainScreen = () => {
     return (
@@ -56,6 +58,7 @@ const HomeDrawer = () => {
             drawerContent={props => {
                 return (
                     <DrawerContentScrollView  {...props}>
+                        <Avatar />
                         <DrawerItemList {...props} />
                         <DrawerItem label={t('logout')} onPress={logout} />
                     </DrawerContentScrollView>

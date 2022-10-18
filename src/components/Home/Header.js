@@ -31,11 +31,11 @@ const Header = ({ style, title, stackNavigation }) => {
                 <View style={{ marginLeft: 25 }}>
                     <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={styles.iconContainer}>
                         <ShoppingBag width={width} height={height} />
-                        <View style={styles.badge}>
+                        {items.length !== 0 && <View style={styles.badge}>
                             <Text style={{ color: 'white', fontWeight: '600' }}>
                                 {items.length >= 100 ? '99+' : items.length}
                             </Text>
-                        </View>
+                        </View>}
                     </TouchableOpacity>
                 </View>
             </View>

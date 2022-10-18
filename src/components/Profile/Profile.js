@@ -6,8 +6,6 @@ import { useSelector } from 'react-redux'
 const Profile = () => {
 
     const user = useSelector(state => state.user)
-    // console.log(user)
-    // console.log(user.user.displayName)
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
