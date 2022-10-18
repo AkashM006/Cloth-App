@@ -10,6 +10,9 @@ import { useSelector } from 'react-redux'
 const Header = ({ style, title, stackNavigation }) => {
 
     const items = useSelector(state => state.cart.items);
+    const count = items.reduce((total, item) => {
+        return total + item.count
+    }, 0)
 
     const height = 35;
     const width = 35;
@@ -31,9 +34,9 @@ const Header = ({ style, title, stackNavigation }) => {
                 <View style={{ marginLeft: 25 }}>
                     <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={styles.iconContainer}>
                         <ShoppingBag width={width} height={height} />
-                        {items.length !== 0 && <View style={styles.badge}>
+                        {count !== 0 && <View style={styles.badge}>
                             <Text style={{ color: 'white', fontWeight: '600' }}>
-                                {items.length >= 100 ? '99+' : items.length}
+                                {count >= 100 ? '99+' : count}
                             </Text>
                         </View>}
                     </TouchableOpacity>
@@ -59,7 +62,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         position: 'absolute',
-        padding: '10%',
+        padding: '5%',
+        paddingHorizontal: '10%',
         zIndex: 100,
         backgroundColor: 'black',
         top: 0,

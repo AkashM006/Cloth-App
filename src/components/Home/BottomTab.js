@@ -52,16 +52,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     position: 'absolute',
-    padding: '10%',
+    padding: '5%',
+    paddingHorizontal: '10%',
     zIndex: 100,
     backgroundColor: 'black',
     top: 0,
     right: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    // height: 25,
-    // width: 25,
-
   },
 })
 

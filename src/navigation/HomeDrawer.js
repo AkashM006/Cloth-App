@@ -9,7 +9,7 @@ import DebugScreen from '../Screens/DebugScreen'
 import SettingsScreen from '../Screens/SettingsScreen'
 import { logoutUserThunk } from '../redux/userSlice'
 import { useTranslation } from 'react-i18next'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import Avatar from '../components/Drawer/Avatar'
 
 const MoreMainScreen = () => {
@@ -59,6 +59,7 @@ const HomeDrawer = () => {
                 return (
                     <DrawerContentScrollView  {...props}>
                         <Avatar />
+                        <DrawerItem label='' style={styles.divider} />
                         <DrawerItemList {...props} />
                         <DrawerItem label={t('logout')} onPress={logout} />
                     </DrawerContentScrollView>
@@ -126,5 +127,14 @@ const HomeDrawer = () => {
         </Drawer.Navigator>
     )
 }
+
+const styles = StyleSheet.create({
+    divider: {
+        height: 1,
+        borderTopColor: 'lightgray',
+        borderTopWidth: 1,
+        marginBottom: '5%',
+    }
+})
 
 export default HomeDrawer
