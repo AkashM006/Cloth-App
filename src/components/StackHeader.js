@@ -2,14 +2,18 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 
-const StackHeader = ({ title, HeaderRight, onClickBackButton, ...props }) => {
+const StackHeader = ({ title, HeaderRight, onClickBackButton, route, ...props }) => {
   const navigation = useNavigation();
 
+  console.log("State: ", navigation.getState())
   const navgiateBack = () => {
     if (onClickBackButton)
       onClickBackButton();
     else if (navigation.canGoBack())
       navigation.goBack()
+    else if (!navigation.canGoBack()) {
+      navigation.replace('Home')
+    }
   }
 
   return (

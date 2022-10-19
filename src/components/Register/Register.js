@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { registerUserThunk } from '../../redux/userSlice'
 import { useDispatch } from 'react-redux'
+import { registerValidator } from '../../validators/register'
 
 const Register = () => {
 
@@ -21,18 +22,15 @@ const Register = () => {
 
     const registerHandler = async () => {
         // first validate and then authenticate
-
         // todo: Do password validation
-        if (email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
-            Alert.alert('Invalid Credentials', 'Please fill all your details properly!', [{ text: 'OK' }])
-            return;
-        } else if (password !== confirmPassword) {
-            Alert.alert('Invalid Password', 'Your passwords do not match, Please try again!', [{ text: 'OK' }])
-            return;
-        }
-
-        const credentials = { email, password, name }
-        dispath(registerUserThunk(credentials));
+        const credentials = { email, name, password }
+        registerValidator.validate(credentials)
+            .then(value => {
+                dispath(registerUserThunk(credentials));
+            })
+            .catch(err => {
+                Alert.alert('Whoops!', err.errors[0], [{ text: 'OK' }], { cancelable: true })
+            })
     }
 
     return (

@@ -6,10 +6,16 @@ import ChatScreen from '../Screens/ChatScreen';
 import CartScreen from '../Screens/CartScreen';
 import DetailScreen from '../Screens/DetailScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
+import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
 
 const Stack = createNativeStackNavigator();
 
 const HomeStack = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.closeDrawer()
+  }, [])
   const headerOptions = { header: () => { } };
   return (
     <Stack.Navigator initialRouteName="Home">

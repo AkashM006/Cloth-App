@@ -11,6 +11,7 @@ import { logoutUserThunk } from '../redux/userSlice'
 import { useTranslation } from 'react-i18next'
 import { View, Text, StyleSheet } from 'react-native'
 import Avatar from '../components/Drawer/Avatar'
+import { useNavigation } from '@react-navigation/native'
 
 const MoreMainScreen = () => {
     return (
@@ -22,7 +23,7 @@ const header = () => { }
 
 const Drawer = createDrawerNavigator();
 
-const HomeDrawer = () => {
+const HomeDrawer = ({ navigation }) => {
 
     const user = useSelector(state => state.user)
     const dispatch = useDispatch();
@@ -40,6 +41,12 @@ const HomeDrawer = () => {
 
         // auth().signOut();
         dispatch(logoutUserThunk(user.isGoogleAuth))
+            .then(_ => {
+                navigation.closeDrawer();
+            })
+            .catch(err => {
+                console.log('err', err)
+            })
     }
 
     let options = {
@@ -58,7 +65,7 @@ const HomeDrawer = () => {
             drawerContent={props => {
                 return (
                     <DrawerContentScrollView  {...props}>
-                        <Avatar />
+                        <Avatar navigation={navigation} />
                         <DrawerItem label='' style={styles.divider} />
                         <DrawerItemList {...props} />
                         <DrawerItem label={t('logout')} onPress={logout} />
