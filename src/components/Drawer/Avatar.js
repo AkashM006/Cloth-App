@@ -8,13 +8,15 @@ const Avatar = ({ navigation }) => {
 
     const user = useSelector(state => state.user.user)
 
-    const img = user.photoURL?.trim().length === 0 || user.photoURL === null ? require('../../icons/profile.png') : { uri: user.photoURL }
+    const img = user?.photoURL?.trim().length === 0 || user.photoURL === null ? require('../../icons/profile.png') : { uri: user.photoURL }
 
     const navigationHandler = () => {
-        if (navigation.getState().index === 0)
+        const currentIndex = navigation.getState().index;
+        const routes = navigation.getState().routeNames;
+        if (currentIndex === 0)
             navigation.navigate('Profile')
         else
-            navigation.navigate('Main', { screen: 'Profile' })
+            navigation.navigate('Main', { screen: 'Profile', params: { goBackTo: routes[currentIndex], index: currentIndex } })
     }
 
     return (

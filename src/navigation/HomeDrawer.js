@@ -11,7 +11,6 @@ import { logoutUserThunk } from '../redux/userSlice'
 import { useTranslation } from 'react-i18next'
 import { View, Text, StyleSheet } from 'react-native'
 import Avatar from '../components/Drawer/Avatar'
-import { useNavigation } from '@react-navigation/native'
 
 const MoreMainScreen = () => {
     return (
@@ -29,17 +28,6 @@ const HomeDrawer = ({ navigation }) => {
     const dispatch = useDispatch();
     const { t, i18n } = useTranslation();
     const logout = async () => {
-        // if (user.isGoogleAuth === true) {
-        //     try {
-        //         await GoogleSignin.revokeAccess();
-        //         await GoogleSignin.signOut();
-
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // }
-
-        // auth().signOut();
         dispatch(logoutUserThunk(user.isGoogleAuth))
             .then(_ => {
                 navigation.closeDrawer();

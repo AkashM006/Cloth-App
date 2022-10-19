@@ -14,7 +14,6 @@ const MainScreen = () => {
     const dispatch = useDispatch();
     const language = user.language.code
     const navigation = useNavigation();
-
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
