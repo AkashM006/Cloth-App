@@ -21,8 +21,6 @@ const Register = () => {
     const [name, setName] = useState('');
 
     const registerHandler = async () => {
-        // first validate and then authenticate
-        // todo: Do password validation
         const credentials = { email, name, password }
         registerValidator.validate(credentials)
             .then(value => {

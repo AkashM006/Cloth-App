@@ -28,18 +28,13 @@ const HomeDrawer = ({ navigation }) => {
     const dispatch = useDispatch();
     const { t, i18n } = useTranslation();
     const logout = async () => {
+        ;
         dispatch(logoutUserThunk(user.isGoogleAuth))
             .then(_ => {
-                navigation.closeDrawer();
             })
             .catch(err => {
                 console.log('err', err)
             })
-    }
-
-    let options = {
-        header,
-        swipeEnabled: false
     }
 
     return (

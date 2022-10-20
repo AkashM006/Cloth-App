@@ -10,15 +10,6 @@ const Avatar = ({ navigation }) => {
 
     const img = user?.photoURL?.trim().length === 0 || user.photoURL === null ? require('../../icons/profile.png') : { uri: user.photoURL }
 
-    const navigationHandler = () => {
-        const currentIndex = navigation.getState().index;
-        const routes = navigation.getState().routeNames;
-        if (currentIndex === 0)
-            navigation.navigate('Profile')
-        else
-            navigation.navigate('Main', { screen: 'Profile', params: { goBackTo: routes[currentIndex], index: currentIndex } })
-    }
-
     return (
         <View style={styles.container}>
             <Image source={img} style={styles.photo} />
@@ -26,11 +17,6 @@ const Avatar = ({ navigation }) => {
                 <View>
                     <Text style={[styles.text, styles.heading]}>{user.displayName?.length <= 17 ? user.displayName : user.displayName?.substring(0, 14) + '...'}</Text>
                     <Text style={styles.text}>{user.email.length <= 17 ? user.email : user.email?.substring(0, 14) + '...'}</Text>
-                </View>
-                <View>
-                    <Pressable onPress={navigationHandler}>
-                        <Text style={[styles.text, styles.heading]}>View Profile</Text>
-                    </Pressable>
                 </View>
             </View>
         </View>
