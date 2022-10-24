@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 const DIMENSION = 70
 
-const Avatar = ({ navigation }) => {
+const Avatar = () => {
 
     const user = useSelector(state => state.user.user)
 

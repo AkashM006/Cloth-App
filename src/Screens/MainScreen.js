@@ -7,13 +7,11 @@ import { useEffect } from 'react';
 import auth from '@react-native-firebase/auth'
 import { login, setIsLoading } from '../redux/userSlice';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 
 const MainScreen = () => {
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
     const language = user.language.code
-    const navigation = useNavigation();
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
@@ -41,7 +39,7 @@ const MainScreen = () => {
     return (
         <>
             {user.isLoading === true ? <SplashScreen /> :
-                user.user !== null ? <HomeDrawer navigation={navigation} /> : <LoginStack />}
+                user.user !== null ? <HomeDrawer /> : <LoginStack />}
         </>
     )
 }

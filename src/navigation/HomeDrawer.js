@@ -23,7 +23,7 @@ const header = () => { }
 
 const Drawer = createDrawerNavigator();
 
-const HomeDrawer = ({ navigation }) => {
+const HomeDrawer = () => {
 
     const user = useSelector(state => state.user)
     const dispatch = useDispatch();
@@ -37,11 +37,11 @@ const HomeDrawer = ({ navigation }) => {
             })
     }
 
-    useEffect(() => {
-        return () => {
-            navigation.closeDrawer();
-        }
-    }, [])
+    // useEffect(() => {
+    //     return function () {
+    //         navigation.closeDrawer();
+    //     }
+    // }, [])
 
     return (
         <Drawer.Navigator
@@ -54,7 +54,7 @@ const HomeDrawer = ({ navigation }) => {
             drawerContent={props => {
                 return (
                     <DrawerContentScrollView  {...props}>
-                        <Avatar navigation={navigation} />
+                        <Avatar />
                         <DrawerItem label='' style={styles.divider} />
                         <DrawerItemList {...props} />
                         <DrawerItem label={t('logout')} onPress={logout} />
