@@ -88,9 +88,7 @@ const Slider = () => {
     })
         .onEnd(_ => {
             if (translateX.value <= (0.33 / 2) * RANGE) scrollTo(MIN_SLIDER_VALUE, 'P')
-            // else if (translateX.value > (0.33 / 2) * RANGE && translateX.value <= 0.33 * RANGE) scrollTo(0.33 * RANGE, 'M')
             else if (translateX.value > (0.33 / 2) * RANGE && translateX.value <= (0.99 / 2) * RANGE) scrollTo(0.33 * RANGE, 'M')
-            // else if (translateX.value > (0.99 / 2) * RANGE && translateX.value <= 0.66 * RANGE) scrollTo(0.66 * RANGE, 'G')
             else if (translateX.value > (0.99 / 2) * RANGE && translateX.value <= (1.65 / 2) * RANGE) scrollTo(0.66 * RANGE, 'G')
             else scrollTo(MAX_SLIDER_VALUE, 'GG')
         })
