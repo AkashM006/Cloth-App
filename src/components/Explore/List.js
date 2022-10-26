@@ -9,7 +9,7 @@ const List = ({ data, ...props }) => {
   if (DATA.length === 0) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
-        <Text style={{ color: 'black' }}>You have no saved items</Text>
+        <Text style={{ color: 'black' }}>You have saved no items</Text>
       </View>
     )
   }
@@ -17,6 +17,9 @@ const List = ({ data, ...props }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.countContainer}>
+        <Text style={{ color: 'black' }}>You have saved {data.length} {data.length === 1 ? 'item' : 'items'}</Text>
+      </View>
       <FlatList
         keyExtractor={(_, index) => index}
         data={DATA}
@@ -34,6 +37,11 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingBottom: '10%',
     backgroundColor: 'white'
+  },
+  countContainer: {
+    marginHorizontal: '5%',
+    marginBottom: '2%',
+    padding: '2%'
   }
 })
 

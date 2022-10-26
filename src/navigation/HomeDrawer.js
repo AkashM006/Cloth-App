@@ -7,11 +7,13 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import MoreStack from './MoreStack'
 import DebugScreen from '../Screens/DebugScreen'
 import SettingsScreen from '../Screens/SettingsScreen'
-import { logoutUserThunk } from '../redux/userSlice'
+import { logoutUserThunk, resetUser } from '../redux/userSlice'
 import { useTranslation } from 'react-i18next'
 import { View, Text, StyleSheet } from 'react-native'
 import Avatar from '../components/Drawer/Avatar'
 import { useEffect } from 'react'
+import { resetCart } from '../redux/cartSlice'
+import { resetSavedItems } from '../redux/savedItemSlice'
 
 const MoreMainScreen = () => {
     return (
@@ -37,11 +39,13 @@ const HomeDrawer = () => {
             })
     }
 
-    // useEffect(() => {
-    //     return function () {
-    //         navigation.closeDrawer();
-    //     }
-    // }, [])
+    useEffect(() => {
+        return function () {
+            dispatch(resetUser())
+            dispatch(resetCart())
+            dispatch(resetSavedItems())
+        }
+    }, [])
 
     return (
         <Drawer.Navigator

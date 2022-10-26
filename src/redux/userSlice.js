@@ -37,19 +37,21 @@ const logoutUserThunk = createAsyncThunk('user/logout', (isGoogleAuth, thunkApi)
     return {}
 })
 
+let initialState = {
+    user: null,
+    isLoading: true,
+    error: '',
+    userLoading: false,
+    isGoogleAuth: false,
+    language: {
+        code: 'en',
+        name: 'English'
+    }
+}
+
 export const userSlice = createSlice({
     name: 'user',
-    initialState: {
-        user: null,
-        isLoading: true,
-        error: '',
-        userLoading: false,
-        isGoogleAuth: false,
-        language: {
-            code: 'en',
-            name: 'English'
-        }
-    },
+    initialState,
     reducers: {
         login: (state, action) => {
             state.user = action.payload
@@ -71,7 +73,8 @@ export const userSlice = createSlice({
         },
         setLanguage: (state, action) => {
             state.language = action.payload
-        }
+        },
+        resetUser: _ => initialState
     },
     extraReducers: builder => {
         builder.addCase(registerUserThunk.pending, state => {
@@ -108,8 +111,27 @@ export const userSlice = createSlice({
     }
 })
 
-const { login, logout, setIsLoading, setError, setIsGoogleAuth, setLanguage } = userSlice.actions;
+const {
+    login,
+    logout,
+    setIsLoading,
+    setError,
+    setIsGoogleAuth,
+    setLanguage,
+    resetUser
+} = userSlice.actions;
 
 
 export default userSlice.reducer
-export { login, logout, setIsLoading, setError, setIsGoogleAuth, setLanguage, registerUserThunk, loginUserThunk, logoutUserThunk }
+export {
+    login,
+    logout,
+    setIsLoading,
+    setError,
+    setIsGoogleAuth,
+    setLanguage,
+    resetUser,
+    registerUserThunk,
+    loginUserThunk,
+    logoutUserThunk,
+}

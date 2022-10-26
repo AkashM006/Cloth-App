@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Checkbox } from 'react-native-paper'
 import { useState } from 'react';
@@ -7,10 +7,6 @@ import { resetColor, setColor } from '../../redux/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Card = ({ color, index }) => {
-
-    // create a redux slice or another property in already existing slice so that we can store the active color
-    // while unmounting clear the colors in the slice
-    // later on use that to add to the cart along with the color
 
     const [isChecked, setIsChecked] = useState(index === 0 ? true : false)
     const dispatch = useDispatch()
@@ -25,16 +21,20 @@ const Card = ({ color, index }) => {
             setIsChecked(false)
     }, [currentColor])
 
+    const updateHandler = () => {
+        if (isChecked === false) setIsChecked(true)
+    }
+
     return (
-        <View style={styles.container}>
-            <Checkbox
-                status={isChecked ? 'checked' : 'unchecked'}
-                onPress={() => {
-                    if (isChecked === false) setIsChecked(true)
-                }}
-            />
-            <Text style={styles.innerContainer}>{color.name}</Text>
-        </View>
+        <TouchableOpacity onPress={updateHandler}>
+            <View style={styles.container}>
+                <Checkbox
+                    status={isChecked ? 'checked' : 'unchecked'}
+                    onPress={updateHandler}
+                />
+                <Text style={styles.innerContainer}>{color.name}</Text>
+            </View>
+        </TouchableOpacity>
     )
 }
 

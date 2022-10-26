@@ -21,9 +21,8 @@ const Description = ({ cloth }) => {
 
   const addToBasketHandler = () => {
 
-    // todo: start from here
     if (selectedColor.trim().length === 0) {
-      Alert.alert('Whoops!', 'Please select a for you cloth!', [{ text: 'OK' }], { cancelable: true })
+      Alert.alert('Whoops!', 'Please select a color for you cloth!', [{ text: 'OK' }], { cancelable: true })
       return
     }
     if (count === 0) {
@@ -59,7 +58,7 @@ const Description = ({ cloth }) => {
         <View style={styles.colorsContainer}>
           <FlatList
             data={cloth.colors}
-            keyExtractor={(item, index) => item.id}
+            keyExtractor={(item) => item.id}
             renderItem={({ item, index }) => <Card index={index} dispatch={dispatch} key={index} color={item} />}
             showsHorizontalScrollIndicator={false}
             horizontal
@@ -81,15 +80,15 @@ const Description = ({ cloth }) => {
             {cloth.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
           </Text>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+        <View style={styles.counterContainer}>
           <TouchableOpacity onPress={reduceHandler}>
-            <Image source={require('../../icons/minus.png')} style={[styles.icon, { marginRight: '5%' }]} />
+            <Image source={require('../../icons/minus.png')} style={[styles.icon,]} />
           </TouchableOpacity>
           <Text style={styles.counterText}>
             {count}
           </Text>
           <TouchableOpacity onPress={addHandler}>
-            <Image source={require('../../icons/plus.png')} style={[styles.icon, { marginLeft: '5%' }]} />
+            <Image source={require('../../icons/plus.png')} style={[styles.icon,]} />
           </TouchableOpacity>
         </View>
         <View style={styles.basketContainer}>
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
   },
   contentContainer: {
-    height: '35%',
+    height: '40%',
     marginTop: '5%',
     marginHorizontal: '2.5%',
   },
@@ -153,6 +152,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgray',
     padding: '2%',
     alignSelf: 'center'
+  },
+  counterContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    flex: 1,
+    marginHorizontal: '5%',
   }
 })
 
