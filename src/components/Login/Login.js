@@ -4,7 +4,7 @@ import { Image } from 'react-native'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { loginUserThunk, setIsGoogleAuth } from '../../redux/userSlice'
+import { loginUserThunk, setIsGoogleAuth, setIsLoading } from '../../redux/userSlice'
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
@@ -20,7 +20,11 @@ const Login = () => {
             ])
             return;
         }
+        dispatch(setIsLoading(true))
         dispatch(loginUserThunk({ email, password }))
+            .then(_ => {
+                dispatch(setIsLoading(false))
+            })
     }
 
     const registerHandler = () => { navigation.navigate('Register') }
@@ -40,9 +44,14 @@ const Login = () => {
     }
 
     const googleSigninHandler = () => {
+        dispatch(setIsLoading(true))
         onGoogleButtonPress()
             .then(() => {
                 dispatch(setIsGoogleAuth(true))
+                dispatch(setIsLoading(false))
+            })
+            .catch(err => {
+                dispatch(setIsLoading(false))
             })
     }
 

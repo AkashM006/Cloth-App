@@ -1,20 +1,21 @@
 import { View, Text, Image, StyleSheet, Pressable, Platform, Alert } from 'react-native'
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Form from './Form'
 import { launchImageLibrary } from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage'
 import auth from '@react-native-firebase/auth'
+import { setIsLoading } from '../../redux/userSlice'
 
 const Profile = () => {
 
     const user = useSelector(state => state.user)
-
+    const dispatch = useDispatch()
     const img = user.user.photoURL === null ? require('../../icons/profile.png') : { uri: user.user.photoURL }
 
     const pressHandler = () => {
-
+        dispatch(setIsLoading(true))
         const options = {
             mediaType: 'photo',
             maxWidth: 2000,
@@ -26,10 +27,13 @@ const Profile = () => {
         launchImageLibrary(options, async response => {
             if (response.didCancel) {
                 console.log("User cancelled file upload")
+                dispatch(setIsLoading(false))
                 return
             }
             if (response.errorCode) {
+                dispatch(setIsLoading(false))
                 console.log("Error message: ", response.errorMessage)
+                Alert.alert('Whoops!', response.errorMessage, [{ text: 'OK' }], { cancelable: true })
                 return
             }
 
@@ -41,6 +45,7 @@ const Profile = () => {
                 await storage().ref(fileName).putFile(imgUri)
             } catch (err) {
                 console.log("Unable to upload to firebase storage: ", err)
+                dispatch(setIsLoading(false))
                 return
             }
 
@@ -49,6 +54,7 @@ const Profile = () => {
                 fileUrl = await storage().ref(fileName).getDownloadURL()
             } catch (err) {
                 console.log("Unable to get file: ", err)
+                dispatch(setIsLoading(false))
                 return
             }
 
@@ -57,10 +63,12 @@ const Profile = () => {
             try {
                 await auth().currentUser.updateProfile(update)
             } catch (err) {
+                dispatch(setIsLoading(false))
                 console.log("Unable to change the profile photo: ", err)
                 return
             }
 
+            dispatch(setIsLoading(false))
             Alert.alert('Hooray!', 'Your profile photo has changed!', [{ text: 'OK' }], { cancelable: true })
 
         })

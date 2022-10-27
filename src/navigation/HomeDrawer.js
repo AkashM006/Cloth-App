@@ -7,7 +7,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import MoreStack from './MoreStack'
 import DebugScreen from '../Screens/DebugScreen'
 import SettingsScreen from '../Screens/SettingsScreen'
-import { logoutUserThunk, resetUser } from '../redux/userSlice'
+import { logoutUserThunk, resetUser, setIsLoading } from '../redux/userSlice'
 import { useTranslation } from 'react-i18next'
 import { View, Text, StyleSheet } from 'react-native'
 import Avatar from '../components/Drawer/Avatar'
@@ -31,8 +31,10 @@ const HomeDrawer = () => {
     const dispatch = useDispatch();
     const { t, i18n } = useTranslation();
     const logout = async () => {
+        dispatch(setIsLoading(true))
         dispatch(logoutUserThunk(user.isGoogleAuth))
             .then(_ => {
+                dispatch(setIsLoading(false))
             })
             .catch(err => {
                 console.log('err', err)

@@ -66,7 +66,7 @@ export const userSlice = createSlice({
             state.language.name = 'English'
         },
         setIsLoading: (state, action) => {
-            state.isLoading = action.payload.isLoading
+            state.isLoading = action.payload
         },
         setError: (state, action) => {
             state.error = action.payload

@@ -17,7 +17,7 @@ const MainScreen = () => {
     useEffect(() => {
         const subscriber = auth().onAuthStateChanged((currentUser) => {
             dispatch(login(currentUser))
-            if (user.isLoading) dispatch(setIsLoading({ isLoading: false }))
+            if (user.isLoading) dispatch(setIsLoading(false))
         })
 
         auth().onUserChanged(user => {
@@ -38,7 +38,7 @@ const MainScreen = () => {
 
     return (
         <>
-            {user.isLoading === true ? <SplashScreen /> :
+            {user === true ? <SplashScreen /> :
                 user.user !== null ? <HomeDrawer /> : <LoginStack />}
         </>
     )

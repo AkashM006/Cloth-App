@@ -1,12 +1,14 @@
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import auth from '@react-native-firebase/auth'
 import * as yup from 'yup'
+import { setIsLoading } from '../../redux/userSlice'
 
 const Form = () => {
     const data = useSelector(state => state.user)
+    const dispatch = useDispatch()
     const user = data.user
 
     const [email, setEmail] = useState(user.email)
@@ -22,6 +24,7 @@ const Form = () => {
 
         if (hasChanged === false) return
 
+        dispatch(setIsLoading(true))
         // implement validation and then change the credentials
         let validatedEmail = email;
         let validatedName = name;
@@ -34,6 +37,7 @@ const Form = () => {
                 }).validate({ email })
                 validatedEmail = result.email
             } catch (err) {
+                dispatch(setIsLoading(false))
                 alert(err.errors[0])
                 return
             }
@@ -49,6 +53,7 @@ const Form = () => {
                 }).validate({ name })
                 validatedName = result.name
             } catch (err) {
+                dispatch(setIsLoading(false))
                 alert(err.errors[0])
                 return
             }
@@ -64,6 +69,7 @@ const Form = () => {
                 }).validate({ password })
                 validatedPassword = result.password
             } catch (err) {
+                dispatch(setIsLoading(false))
                 alert(err.errors[0])
                 return
             }
@@ -75,6 +81,7 @@ const Form = () => {
             try {
                 result = await auth().currentUser.updateEmail(validatedEmail)
             } catch (err) {
+                dispatch(setIsLoading(false))
                 alert(err.message)
                 return
             }
@@ -84,6 +91,7 @@ const Form = () => {
             try {
                 const result = auth().currentUser.updateProfile({ displayName: validatedName })
             } catch (err) {
+                dispatch(setIsLoading(false))
                 alert(err.message)
                 return
             }
@@ -93,11 +101,13 @@ const Form = () => {
             try {
                 const result = await auth().currentUser.updatePassword(validatedPassword)
             } catch (err) {
+                dispatch(setIsLoading(false))
                 alert(err.message)
                 return
             }
         }
 
+        dispatch(setIsLoading(false))
         Alert.alert('Success', 'Your profile has been updated!', [{ text: 'OK' }], { cancelable: true })
         setPassword('')
     }

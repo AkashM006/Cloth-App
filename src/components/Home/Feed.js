@@ -4,18 +4,23 @@ import Card from './Card'
 import { FlatList } from 'react-native-gesture-handler'
 import CLOTHES from "../../data/clothes"
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setIsLoading } from '../../redux/userSlice'
 
 const Feed = ({ style }) => {
 
   const [clothes, setClothes] = useState(CLOTHES.slice(0, 3));
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector(state => state.user.isLoading)
+  const dispatch = useDispatch()
 
   const renderMore = () => {
-    if (isLoading === true) return;
-    setIsLoading(true);
+    // if (isLoading === true) return;
+    // setIsLoading(true);
+    dispatch(setIsLoading(true))
     setTimeout(() => {
+      console.log("Must end")
+      dispatch(setIsLoading(false))
       setClothes(prevValue => [...prevValue, ...prevValue.slice(0, 3)])
-      setIsLoading(false);
     }, 3000);
   }
 
@@ -23,10 +28,10 @@ const Feed = ({ style }) => {
     <View style={[style, styles.container]}>
       <Text style={styles.title}>Autumn Winter</Text>
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        {isLoading && <View
+        {/* {isLoading && <View
           style={styles.loader}>
           <ActivityIndicator size='large' color='#1338BE' />
-        </View>}
+        </View>} */}
         <FlatList
           data={clothes}
           keyExtractor={(item, index) => index}
