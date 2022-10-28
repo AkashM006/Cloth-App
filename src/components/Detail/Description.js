@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, FlatList, 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, setCount } from '../../redux/cartSlice';
+import { setMsg } from '../../redux/userSlice'
 import Card from './Card'
 import Slider from './Slider'
 
@@ -22,11 +23,13 @@ const Description = ({ cloth }) => {
   const addToBasketHandler = () => {
 
     if (selectedColor.trim().length === 0) {
-      Alert.alert('Whoops!', 'Please select a color for you cloth!', [{ text: 'OK' }], { cancelable: true })
+      // Alert.alert('Whoops!', 'Please select a color for you cloth!', [{ text: 'OK' }], { cancelable: true })
+      dispatch(setMsg({ text: 'Please select a color for your cloth!' }))
       return
     }
     if (count === 0) {
-      Alert.alert('Whoops!', 'Select at least one item!', [{ text: 'OK' }], { cancelable: true })
+      // Alert.alert('Whoops!', 'Select at least one item!', [{ text: 'OK' }], { cancelable: true })
+      dispatch(setMsg({ text: 'Select at least one item!' }))
       return
     }
 
@@ -38,6 +41,7 @@ const Description = ({ cloth }) => {
       discount: cloth.discount,
     }))
     dispatch(setCount(0))
+    dispatch(setMsg({ text: 'Cloth added to your cart!' }))
   }
 
   useEffect(() => {

@@ -11,6 +11,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import messaging from '@react-native-firebase/messaging'
 import './src/i18n/i18n'
 import Loader from './src/components/Loader'
+import SnackBar from './src/components/SnackBar'
 
 const theme = {
   colors: {
@@ -42,6 +43,7 @@ const App = () => {
         <NavigationContainer>
           <MainScreen />
           <Loader />
+          <SnackBar />
         </NavigationContainer>
       </PaperProvider>
       {/* </PersistGate> */}

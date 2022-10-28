@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import auth from '@react-native-firebase/auth'
 import * as yup from 'yup'
-import { setIsLoading } from '../../redux/userSlice'
+import { setIsLoading, setMsg } from '../../redux/userSlice'
 
 const Form = () => {
     const data = useSelector(state => state.user)
@@ -17,7 +17,8 @@ const Form = () => {
     const [hasChanged, setHasChanged] = useState(false)
 
     const alert = (description) => {
-        Alert.alert('Whoops!', description, [{ text: 'OK' }], { cancelable: true })
+        // Alert.alert('Whoops!', description, [{ text: 'OK' }], { cancelable: true })
+        dispatch(setMsg(description))
     }
 
     const updateHandler = async () => {
@@ -108,7 +109,8 @@ const Form = () => {
         }
 
         dispatch(setIsLoading(false))
-        Alert.alert('Success', 'Your profile has been updated!', [{ text: 'OK' }], { cancelable: true })
+        // Alert.alert('Success', 'Your profile has been updated!', [{ text: 'OK' }], { cancelable: true })
+        dispatch(setMsg({ text: 'Your profile has been updated!' }))
         setPassword('')
     }
 

@@ -26,18 +26,19 @@ const BottomSheet = React.forwardRef(({ children, containerStyle }, ref) => {
 
     useImperativeHandle(ref, () => ({ scrollTo, getIsActive }), [scrollTo])
 
-    const gesture = Gesture.Pan().onStart(() => {
-        context.value = { y: translateY.value }
-    }).onUpdate(event => {
-        translateY.value = event.translationY + context.value.y
-        translateY.value = Math.max(translateY.value, maxTranslateY)
-    }).onEnd(() => {
-        if (translateY.value > -height / 2.5)
-            scrollTo(0)
-        else
-            scrollTo(maxTranslateY)
+    const gesture = Gesture.Pan()
+        .onStart(() => {
+            context.value = { y: translateY.value }
+        }).onUpdate(event => {
+            translateY.value = event.translationY + context.value.y
+            translateY.value = Math.max(translateY.value, maxTranslateY)
+        }).onEnd(() => {
+            if (translateY.value > -height / 2.5)
+                scrollTo(0)
+            else
+                scrollTo(maxTranslateY)
 
-    })
+        })
 
     const animatedBottomSheetStyle = useAnimatedStyle(() => {
 

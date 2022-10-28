@@ -46,6 +46,9 @@ let initialState = {
     language: {
         code: 'en',
         name: 'English'
+    },
+    msg: {
+        text: ''
     }
 }
 
@@ -73,6 +76,9 @@ export const userSlice = createSlice({
         },
         setLanguage: (state, action) => {
             state.language = action.payload
+        },
+        setMsg: (state, action) => {
+            state.msg = action.payload
         },
         resetUser: _ => initialState
     },
@@ -118,6 +124,7 @@ const {
     setError,
     setIsGoogleAuth,
     setLanguage,
+    setMsg,
     resetUser
 } = userSlice.actions;
 
@@ -130,6 +137,7 @@ export {
     setError,
     setIsGoogleAuth,
     setLanguage,
+    setMsg,
     resetUser,
     registerUserThunk,
     loginUserThunk,

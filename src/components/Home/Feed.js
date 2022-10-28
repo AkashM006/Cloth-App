@@ -18,7 +18,6 @@ const Feed = ({ style }) => {
     // setIsLoading(true);
     dispatch(setIsLoading(true))
     setTimeout(() => {
-      console.log("Must end")
       dispatch(setIsLoading(false))
       setClothes(prevValue => [...prevValue, ...prevValue.slice(0, 3)])
     }, 3000);

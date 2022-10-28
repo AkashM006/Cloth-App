@@ -1,7 +1,9 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import crashlytics from '@react-native-firebase/crashlytics'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import analytics from '@react-native-firebase/analytics'
+import { setMsg } from '../../redux/userSlice'
 
 const Debug = () => {
 
@@ -9,7 +11,10 @@ const Debug = () => {
         crashlytics().crash()
     }
 
-    let x;
+    let x; // for creating an error to log to firebase console
+
+    const dispatch = useDispatch();
+
 
     const user = useSelector(state => state.user);
 
@@ -27,13 +32,32 @@ const Debug = () => {
         }
     }
 
+    const logAnalytics = async () => {
+        try {
+            await analytics().logEvent('test')
+            console.log("Logged")
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const toastHandler = () => {
+        dispatch(setMsg({ text: 'Test toast notification' }))
+    }
+
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
             <TouchableOpacity onPress={createCrash} style={styles.button}>
-                <Text style={{ color: 'black', textAlign: 'center' }}>Crash</Text>
+                <Text style={styles.text}>Crash</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={createNewError} style={styles.button}>
-                <Text style={{ color: 'black', textAlign: 'center' }}>Error</Text>
+                <Text style={styles.text}>Error</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={logAnalytics} style={styles.button}>
+                <Text style={styles.text}>Analytics Log</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={toastHandler} style={styles.button}>
+                <Text style={styles.text}>Toast</Text>
             </TouchableOpacity>
         </View>
     )
@@ -49,7 +73,8 @@ const styles = {
         padding: '5%',
         width: '100%',
         marginBottom: '5%',
-    }
+    },
+    text: { color: 'black', textAlign: 'center' }
 }
 
 export default Debug
