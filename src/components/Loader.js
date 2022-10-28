@@ -26,10 +26,7 @@ const Loader = () => {
 
     useEffect(() => {
         animate()
-        return () => {
-            console.log("Loading unmounted")
-            translateX.value = 0
-        }
+        return () => { translateX.value = 0 }
     }, [])
 
     return (

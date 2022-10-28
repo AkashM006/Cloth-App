@@ -5,8 +5,9 @@ import LoginStack from '../navigation/LoginStack'
 import SplashScreen from './SplashScreen';
 import { useEffect } from 'react';
 import auth from '@react-native-firebase/auth'
-import { login, setIsLoading } from '../redux/userSlice';
+import { login, setHasInternet, setIsLoading, setMsg } from '../redux/userSlice';
 import { useTranslation } from 'react-i18next';
+import NetInfo from "@react-native-community/netinfo";
 
 const MainScreen = () => {
     const user = useSelector(state => state.user);
@@ -35,6 +36,23 @@ const MainScreen = () => {
                 console.log('err', err)
             })
     }, [language, i18n])
+
+    useEffect(() => {
+        const unsubscribe = NetInfo.addEventListener(state => {
+            dispatch(setHasInternet(state.isConnected))
+        });
+
+        return () => {
+            unsubscribe();
+        }
+    }, [])
+
+    useEffect(() => {
+        NetInfo.fetch().then(state => {
+            dispatch(setHasInternet(state.isConnected))
+            dispatch(setMsg(state.isConnected === true ? { text: 'You are now online' } : { text: 'You are now offline' }))
+        })
+    }, [user.user])
 
     return (
         <>

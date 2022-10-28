@@ -49,7 +49,8 @@ let initialState = {
     },
     msg: {
         text: ''
-    }
+    },
+    hasInternet: true,
 }
 
 export const userSlice = createSlice({
@@ -79,6 +80,9 @@ export const userSlice = createSlice({
         },
         setMsg: (state, action) => {
             state.msg = action.payload
+        },
+        setHasInternet: (state, action) => {
+            state.hasInternet = action.payload
         },
         resetUser: _ => initialState
     },
@@ -125,6 +129,7 @@ const {
     setIsGoogleAuth,
     setLanguage,
     setMsg,
+    setHasInternet,
     resetUser
 } = userSlice.actions;
 
@@ -138,6 +143,7 @@ export {
     setIsGoogleAuth,
     setLanguage,
     setMsg,
+    setHasInternet,
     resetUser,
     registerUserThunk,
     loginUserThunk,

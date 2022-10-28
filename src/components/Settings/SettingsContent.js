@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutUserThunk } from '../../redux/userSlice'
 import { useTranslation } from 'react-i18next'
 
-const { height, width } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 const SettingsContent = ({ pressHandler }) => {
 
@@ -29,6 +29,9 @@ const SettingsContent = ({ pressHandler }) => {
                         </TouchableOpacity>
                     </View>
                 </Pressable>
+            </View>
+            <View style={styles.internetContainer}>
+                <Text style={styles.text}>{user.hasInternet ? 'You are connected to the internet' : 'You are not connected to the internet'}</Text>
             </View>
             <TouchableOpacity style={styles.logout} onPress={logout}>
                 <Text style={styles.text}>{t('logout')}</Text>
@@ -80,6 +83,10 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 'auto',
         borderRadius: 7
+    },
+    internetContainer: {
+        marginVertical: '5%',
+        alignItems: 'center',
     }
 })
 
