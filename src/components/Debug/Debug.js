@@ -34,10 +34,14 @@ const Debug = () => {
 
     const logAnalytics = async () => {
         try {
-            await analytics().logEvent('test')
-            console.log("Logged")
+            await analytics().logEvent('login', {
+                // email: user.user.email
+                method: user.isGoogleAuth === true ? 'google' : 'Email/Password'
+            })
+            dispatch(setMsg({ text: "Event logged" }))
         } catch (err) {
             console.log(err)
+            dispatch(setMsg({ text: "Error: ", err }))
         }
     }
 
