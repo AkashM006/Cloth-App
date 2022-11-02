@@ -1,11 +1,13 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import crashlytics from '@react-native-firebase/crashlytics'
 import { useDispatch, useSelector } from 'react-redux'
 import analytics from '@react-native-firebase/analytics'
 import { setMsg } from '../../redux/userSlice'
 
 const Debug = () => {
+
+    const [count, setCount] = useState(0)
 
     const createCrash = () => {
         crashlytics().crash()
@@ -38,15 +40,19 @@ const Debug = () => {
                 // email: user.user.email
                 method: user.isGoogleAuth === true ? 'google' : 'Email/Password'
             })
-            dispatch(setMsg({ text: "Event logged" }))
+            dispatch(setMsg({ title: 'Google Analytics Event', text: "Event logged" }))
         } catch (err) {
             console.log(err)
-            dispatch(setMsg({ text: "Error: ", err }))
+            dispatch(setMsg({ title: 'Error while logging to Google Analytics', text: "Error: ", err }))
         }
     }
 
     const toastHandler = () => {
-        dispatch(setMsg({ text: 'Test toast notification' }))
+        setCount(prev => prev + 1)
+        if (count % 2 == 0)
+            dispatch(setMsg({ title: 'Test', text: 'Test toast notification' }))
+        else
+            dispatch(setMsg({ text: 'Test toast notification' }))
     }
 
     return (

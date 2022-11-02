@@ -24,12 +24,12 @@ const Description = ({ cloth }) => {
 
     if (selectedColor.trim().length === 0) {
       // Alert.alert('Whoops!', 'Please select a color for you cloth!', [{ text: 'OK' }], { cancelable: true })
-      dispatch(setMsg({ text: 'Please select a color for your cloth!' }))
+      dispatch(setMsg({ title: 'Whoops! Not able to add to cart', text: 'Please select a color for your cloth!' }))
       return
     }
     if (count === 0) {
       // Alert.alert('Whoops!', 'Select at least one item!', [{ text: 'OK' }], { cancelable: true })
-      dispatch(setMsg({ text: 'Select at least one item!' }))
+      dispatch(setMsg({ title: 'Whoops! Not able to add to cart', text: 'Select at least one item!' }))
       return
     }
 
@@ -41,7 +41,7 @@ const Description = ({ cloth }) => {
       discount: cloth.discount,
     }))
     dispatch(setCount(0))
-    dispatch(setMsg({ text: 'Cloth added to your cart!' }))
+    dispatch(setMsg({ title: 'Hooray!', text: 'Cloth added to your cart!' }))
   }
 
   useEffect(() => {

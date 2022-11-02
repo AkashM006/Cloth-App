@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Platform, Pressable } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image } from 'react-native'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
@@ -54,6 +54,10 @@ const Login = () => {
                 dispatch(setIsLoading(false))
             })
     }
+
+    useEffect(() => {
+        dispatch(setIsLoading(false))
+    }, [])
 
     const forgotPasswordHandler = () => {
         navigation.navigate('ForgotPassword')

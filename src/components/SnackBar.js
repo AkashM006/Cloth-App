@@ -8,7 +8,6 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 
 const SnackBar = () => {
 
-    const dispatch = useDispatch()
     const msg = useSelector(state => state.user.msg)
 
     const bottom = useSharedValue(-200)
@@ -38,6 +37,9 @@ const SnackBar = () => {
 
     return (
         <Animated.View style={[styles.container, bottomStyle]}>
+            {('title') in msg && msg.title !== '' && <Animated.Text style={[styles.text, styles.title, textStyle]}>
+                {msg.title}
+            </Animated.Text>}
             <Animated.Text style={[styles.text, textStyle]}>
                 {msg.text}
             </Animated.Text>
@@ -56,7 +58,6 @@ const styles = StyleSheet.create({
         padding: '4%',
         borderRadius: 200,
         backgroundColor: 'black',
-        flexDirection: 'row',
     },
     statusContainer: {
         backgroundColor: 'green',
@@ -67,6 +68,9 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'white'
+    },
+    title: {
+        fontWeight: '700'
     }
 })
 
