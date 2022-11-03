@@ -14,6 +14,9 @@ import Avatar from '../components/Drawer/Avatar'
 import { useEffect } from 'react'
 import { resetCart } from '../redux/cartSlice'
 import { resetSavedItems } from '../redux/savedItemSlice'
+import { setState } from '../redux/oneSignalSlice'
+import OneSignal from 'react-native-onesignal'
+import uuidv4 from 'uuidv4'
 
 const MoreMainScreen = () => {
     return (
@@ -28,6 +31,7 @@ const Drawer = createDrawerNavigator();
 const HomeDrawer = () => {
 
     const user = useSelector(state => state.user)
+    const oneSignalData = useSelector(state => state.oneSignal)
     const dispatch = useDispatch();
     const { t, i18n } = useTranslation();
     const logout = async () => {
@@ -42,6 +46,17 @@ const HomeDrawer = () => {
     }
 
     useEffect(() => {
+        // here check for one signal and update the external user id
+        if (oneSignalData.isLoggedIn === false) {
+            let id = uuidv4()
+            OneSignal.setExternalUserId(id, results => {
+                dispatch(setState({
+                    isLoggedIn: true,
+                    externalUserID: id
+                }))
+            })
+        }
+
         return function () {
             dispatch(resetUser())
             dispatch(resetCart())

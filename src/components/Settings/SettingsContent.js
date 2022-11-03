@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, Dimensions, Image, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Dimensions, Image, TouchableOpacity, Pressable, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUserThunk } from '../../redux/userSlice'
@@ -10,6 +10,7 @@ const SettingsContent = ({ pressHandler }) => {
 
     const currentLanguage = useSelector(state => state.user.language)
     const user = useSelector(state => state.user)
+    const oneSignalData = useSelector(state => state.oneSignal)
     const dispatch = useDispatch();
     const { t, i18n } = useTranslation()
 
@@ -29,6 +30,12 @@ const SettingsContent = ({ pressHandler }) => {
                         </TouchableOpacity>
                     </View>
                 </Pressable>
+            </View>
+            <View style={styles.idContainer}>
+                <Text style={styles.text}>
+                    OneSignal Id:{' '}
+                    {oneSignalData.externalUserID === '' ? <ActivityIndicator /> : oneSignalData.externalUserID}
+                </Text>
             </View>
             <View style={styles.internetContainer}>
                 <Text style={styles.text}>{user.hasInternet ? 'You are connected to the internet' : 'You are not connected to the internet'}</Text>
@@ -87,6 +94,9 @@ const styles = StyleSheet.create({
     internetContainer: {
         marginVertical: '5%',
         alignItems: 'center',
+    },
+    idContainer: {
+        marginVertical: '5%'
     }
 })
 
