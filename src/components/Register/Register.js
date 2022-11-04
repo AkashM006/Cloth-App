@@ -3,7 +3,7 @@ import React from 'react'
 import { Image } from 'react-native'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { registerUserThunk } from '../../redux/userSlice'
+import { registerUserThunk, setMsg } from '../../redux/userSlice'
 import { useDispatch } from 'react-redux'
 import { registerValidator } from '../../validators/register'
 
@@ -27,7 +27,12 @@ const Register = () => {
                 dispath(registerUserThunk(credentials));
             })
             .catch(err => {
-                Alert.alert('Whoops!', err.errors[0], [{ text: 'OK' }], { cancelable: true })
+                // Alert.alert('Whoops!', err.errors[0], [{ text: 'OK' }], { cancelable: true })
+                dispath(setMsg({
+                    title: 'Whoops!',
+                    text: err.errors[0],
+                    status: 'failure'
+                }))
             })
     }
 

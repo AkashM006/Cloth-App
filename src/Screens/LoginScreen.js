@@ -3,7 +3,7 @@ import React from 'react'
 import Login from '../components/Login/Login'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setError } from '../redux/userSlice'
+import { setError, setMsg } from '../redux/userSlice'
 
 const LoginScreen = () => {
 
@@ -12,14 +12,19 @@ const LoginScreen = () => {
 
     useEffect(() => {
         if (user.error && user.error.trim().length !== 0) {
-            Alert.alert('Whoops!'
-                , user.error,
-                [
-                    {
-                        text: 'OK',
-                        onPress: () => dispatch(setError(''))
-                    }
-                ])
+            // Alert.alert('Whoops!'
+            //     , user.error,
+            //     [
+            //         {
+            //             text: 'OK',
+            //             onPress: () => dispatch(setError(''))
+            //         }
+            //     ])
+            dispatch(setMsg({
+                title: 'Whoops!',
+                text: user.error,
+                status: 'failure'
+            }))
         }
     }, [user.error])
 

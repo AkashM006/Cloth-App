@@ -40,19 +40,23 @@ const Debug = () => {
                 // email: user.user.email
                 method: user.isGoogleAuth === true ? 'google' : 'Email/Password'
             })
-            dispatch(setMsg({ title: 'Google Analytics Event', text: "Event logged" }))
+            dispatch(setMsg({ title: 'Google Analytics Event', text: "Event logged", status: 'success' }))
         } catch (err) {
             console.log(err)
-            dispatch(setMsg({ title: 'Error while logging to Google Analytics', text: "Error: ", err }))
+            dispatch(setMsg({ title: 'Error while logging to Google Analytics', text: "Error: ", err, status: 'failure' }))
         }
     }
 
     const toastHandler = () => {
         setCount(prev => prev + 1)
         if (count % 2 == 0)
-            dispatch(setMsg({ title: 'Test', text: 'A really big notification body for testing if the text is displaying if its long' }))
+            dispatch(setMsg({
+                title: 'Test',
+                text: 'A really big notification body for testing if the text is displaying if its long',
+                status: 'success'
+            }))
         else
-            dispatch(setMsg({ text: 'Test toast notification' }))
+            dispatch(setMsg({ text: 'Test toast notification', status: 'success' }))
     }
 
     return (

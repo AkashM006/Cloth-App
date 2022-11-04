@@ -34,7 +34,7 @@ const Profile = () => {
                 dispatch(setIsLoading(false))
                 console.log("Error message: ", response.errorMessage)
                 // Alert.alert('Whoops!', response.errorMessage, [{ text: 'OK' }], { cancelable: true })
-                dispatch(setMsg({ title: 'Whoops!', text: response.errorMessage }))
+                dispatch(setMsg({ title: 'Whoops!', text: response.errorMessage, status: 'failure' }))
                 return
             }
 
@@ -71,7 +71,7 @@ const Profile = () => {
 
             dispatch(setIsLoading(false))
             // Alert.alert('Hooray!', 'Your profile photo has changed!', [{ text: 'OK' }], { cancelable: true })
-            dispatch(setMsg({ title: 'Hooray!', text: 'Your profile photo has been changed!' }))
+            dispatch(setMsg({ title: 'Hooray!', text: 'Your profile photo has been changed!', status: 'success' }))
 
         })
     }

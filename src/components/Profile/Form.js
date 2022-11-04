@@ -18,7 +18,7 @@ const Form = () => {
 
     const alert = (description) => {
         // Alert.alert('Whoops!', description, [{ text: 'OK' }], { cancelable: true })
-        dispatch(setMsg({ title: 'Oops!', text: description }))
+        dispatch(setMsg({ title: 'Whoops!', text: description, status: 'failure' }))
     }
 
     const updateHandler = async () => {
@@ -110,7 +110,7 @@ const Form = () => {
 
         dispatch(setIsLoading(false))
         // Alert.alert('Success', 'Your profile has been updated!', [{ text: 'OK' }], { cancelable: true })
-        dispatch(setMsg({ title: 'Hooray!', text: 'Your profile has been updated!' }))
+        dispatch(setMsg({ title: 'Hooray!', text: 'Your profile has been updated!', status: 'success' }))
         setPassword('')
     }
 

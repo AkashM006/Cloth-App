@@ -50,6 +50,7 @@ let initialState = {
     msg: {
         text: '',
         title: '',
+        status: 'dark'
     },
     hasInternet: true,
 }
@@ -83,6 +84,8 @@ export const userSlice = createSlice({
             state.msg = action.payload
             if (!('title' in action.payload))
                 state.msg.title = ''
+            if (!('status' in action.payload))
+                state.msg.status = 'dark'
         },
         setHasInternet: (state, action) => {
             state.hasInternet = action.payload

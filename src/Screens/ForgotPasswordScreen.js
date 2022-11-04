@@ -4,8 +4,12 @@ import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import * as yup from 'yup'
 import auth from '@react-native-firebase/auth'
+import { useDispatch } from 'react-redux'
+import { setMsg } from '../redux/userSlice'
 
 const ForgotPasswordScreen = () => {
+
+    const dispatch = useDispatch()
 
     const [email, setEmail] = useState('')
     const navigation = useNavigation()
@@ -29,30 +33,39 @@ const ForgotPasswordScreen = () => {
             .then(valid => {
                 // console.log('Is valid: ', valid)
                 if (!valid) {
-                    Alert.alert('Error!', 'Please enter valid email!', [
-                        {
-                            text: 'OK'
-                        }
-                    ],
-                        { cancelable: true }
-                    )
+                    // Alert.alert('Error!', 'Please enter valid email!', [{text: 'OK'}],{ cancelable: true })
+                    dispatch(setMsg({
+                        title: 'Whoops!',
+                        text: 'Please enter valid email',
+                        status: 'failure'
+                    }))
                     return
                 }
 
                 auth().sendPasswordResetEmail(email)
                     .then(_ => {
-                        Alert.alert('Mail sent', 'Password reset mail has been sent to your email', [
-                            {
-                                text: 'OK',
-                                onPress: () => navigation.goBack()
-                            }
-                        ])
+                        // Alert.alert('Mail sent', 'Password reset mail has been sent to your email', [
+                        //     {
+                        //         text: 'OK',
+                        //         onPress: () => navigation.goBack()
+                        //     }])
+                        dispatch(setMsg({
+                            title: 'Mail sent',
+                            text: 'Password reset mail has been sent to you email',
+                            status: 'success'
+                        }))
+                        navigation.goBack()
                     })
                     .catch(err => {
                         // console.log("err:", err.message)
-                        Alert.alert('Whoops!', err.message, [{
-                            text: 'OK'
-                        }], { cancelable: true })
+                        // Alert.alert('Whoops!', err.message, [{
+                        //     text: 'OK'
+                        // }], { cancelable: true })
+                        dispatch(setMsg({
+                            title: 'Whoops!',
+                            text: err.message,
+                            status: 'failure'
+                        }))
                     })
             })
 

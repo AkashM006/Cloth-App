@@ -15,9 +15,14 @@ const Login = () => {
 
     const loginHandler = () => {
         if (email.trim() === '' || password.trim() === '') {
-            Alert.alert('Invalid Credentials', 'Please fill all your details properly', [
-                { text: 'OK', }
-            ])
+            // Alert.alert('Invalid Credentials', 'Please fill all your details properly', [
+            //     { text: 'OK', }
+            // ])
+            dispatch(setMsg({
+                title: 'Whoops!',
+                text: 'Please fill all your details properly!',
+                status: 'failure'
+            }))
             return;
         }
         dispatch(setIsLoading(true))
@@ -40,7 +45,7 @@ const Login = () => {
             return auth().signInWithCredential(googleCredential);
         } catch (err) {
             console.log(err)
-            dispatch(setMsg({ title: "Whoops! Something went wrong!", text: err }))
+            dispatch(setMsg({ title: "Whoops! Something went wrong!", text: err, status: 'failure' }))
         }
     }
 

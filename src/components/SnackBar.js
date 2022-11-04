@@ -35,11 +35,20 @@ const SnackBar = () => {
         }
     }, [msg])
 
+    const background = {
+        success: 'green',
+        failure: 'red',
+        dark: 'black'
+    }
+
     return (
         <Animated.View style={[styles.container, bottomStyle]}>
-            {('title') in msg && msg.title !== '' && <Animated.Text style={[styles.text, styles.title, textStyle]}>
-                {msg.title}
-            </Animated.Text>}
+            <View style={{ flexDirection: 'row' }}>
+                {('title') in msg && msg.title !== '' && <Animated.Text style={[styles.text, styles.title, textStyle]}>
+                    {msg.title}
+                </Animated.Text>}
+                <View style={[styles.status, { backgroundColor: background[msg.status] }]} />
+            </View>
             <Animated.Text style={[styles.text, textStyle]}>
                 {msg.text}
             </Animated.Text>
@@ -71,6 +80,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: '700'
+    },
+    status: {
+        height: 20,
+        width: 20,
+        borderRadius: 100,
+        marginLeft: '2%'
     }
 })
 

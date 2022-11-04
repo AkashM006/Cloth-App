@@ -32,7 +32,7 @@ const MainScreen = () => {
         const body = notification.body
 
         dispatch(setMsg({
-            title, text: body
+            title, text: body, status: 'success'
         }))
     })
 
@@ -80,8 +80,8 @@ const MainScreen = () => {
         NetInfo.fetch().then(state => {
             dispatch(setHasInternet(state.isConnected))
             dispatch(setMsg(state.isConnected === true ?
-                { title: 'Connection Status', text: 'You are now online' } :
-                { title: 'Connection Status', text: 'You are now offline' }))
+                { title: 'Connection Status', text: 'You are online', status: 'success' } :
+                { title: 'Connection Status', text: 'You are offline', status: 'failure' }))
         })
     }, [user.isConnected])
 
