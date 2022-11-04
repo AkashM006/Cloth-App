@@ -33,7 +33,6 @@ import { useSelector } from 'react-redux'
 
 const CartFeed = () => {
   const items = useSelector(state => state.cart.items)
-  // console.log(items)
 
   return (
     <View style={styles.container}>

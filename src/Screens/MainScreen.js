@@ -26,14 +26,13 @@ const MainScreen = () => {
 
 
     OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent => {
-        console.log("Notification Event: ", notificationReceivedEvent)
         let notification = notificationReceivedEvent.getNotification()
 
         const title = notification.title
         const body = notification.body
 
         dispatch(setMsg({
-            title, body
+            title, text: body
         }))
     })
 

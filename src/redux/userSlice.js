@@ -81,7 +81,7 @@ export const userSlice = createSlice({
         },
         setMsg: (state, action) => {
             state.msg = action.payload
-            if (!'title' in action.payload)
+            if (!('title' in action.payload))
                 state.msg.title = ''
         },
         setHasInternet: (state, action) => {

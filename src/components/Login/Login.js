@@ -4,7 +4,7 @@ import { Image } from 'react-native'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { loginUserThunk, setIsGoogleAuth, setIsLoading } from '../../redux/userSlice'
+import { loginUserThunk, setIsGoogleAuth, setIsLoading, setMsg } from '../../redux/userSlice'
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
@@ -40,6 +40,7 @@ const Login = () => {
             return auth().signInWithCredential(googleCredential);
         } catch (err) {
             console.log(err)
+            dispatch(setMsg({ title: "Whoops! Something went wrong!", text: err }))
         }
     }
 

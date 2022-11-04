@@ -26,14 +26,14 @@ const MoreMainScreen = () => {
 
 const header = () => { }
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator()
 
 const HomeDrawer = () => {
 
     const user = useSelector(state => state.user)
     const oneSignalData = useSelector(state => state.oneSignal)
-    const dispatch = useDispatch();
-    const { t, i18n } = useTranslation();
+    const dispatch = useDispatch()
+    const { t, i18n } = useTranslation()
     const logout = async () => {
         dispatch(setIsLoading(true))
         dispatch(logoutUserThunk(user.isGoogleAuth))
@@ -47,13 +47,14 @@ const HomeDrawer = () => {
 
     useEffect(() => {
         // here check for one signal and update the external user id
-        if (oneSignalData.isLoggedIn === false) {
+        if (oneSignalData.isLoggedIn === false) { // the user is logging in
             let id = uuidv4()
             OneSignal.setExternalUserId(id, results => {
                 dispatch(setState({
                     isLoggedIn: true,
                     externalUserID: id
                 }))
+                OneSignal.sendTag('operation', 'login')
             })
         }
 

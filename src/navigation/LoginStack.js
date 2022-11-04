@@ -20,7 +20,7 @@ const LoginStack = () => {
         // here reset oneSignal
         if (oneSignalData.isLoggedIn === true)
             OneSignal.removeExternalUserId(result => { dispatch(resetOneSignalData()) })
-
+        OneSignal.sendTag("operation", "")
     }, [])
 
     return (

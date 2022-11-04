@@ -50,7 +50,7 @@ const Debug = () => {
     const toastHandler = () => {
         setCount(prev => prev + 1)
         if (count % 2 == 0)
-            dispatch(setMsg({ title: 'Test', text: 'Test toast notification' }))
+            dispatch(setMsg({ title: 'Test', text: 'A really big notification body for testing if the text is displaying if its long' }))
         else
             dispatch(setMsg({ text: 'Test toast notification' }))
     }
