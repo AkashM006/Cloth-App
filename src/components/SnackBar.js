@@ -1,7 +1,7 @@
 import { View, Text, Modal, StyleSheet } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Animated, { interpolate, useAnimatedStyle, useSharedValue, withDelay, withSequence, withSpring, withTiming } from 'react-native-reanimated'
+import Animated, { interpolate, runOnJS, useAnimatedReaction, useAnimatedStyle, useSharedValue, withDelay, withSequence, withSpring, withTiming } from 'react-native-reanimated'
 import { useEffect } from 'react'
 import { setMsg } from '../redux/userSlice'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
@@ -9,9 +9,9 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 const SnackBar = () => {
 
     const msg = useSelector(state => state.user.msg)
+    const dispatch = useDispatch()
 
     const bottom = useSharedValue(-200)
-    const context = useSharedValue({ bottom: -200 })
 
     const bottomStyle = useAnimatedStyle(() => {
         return {
@@ -30,10 +30,32 @@ const SnackBar = () => {
         if (msg.text !== '') {
             bottom.value = withSequence(
                 withSpring(50, { damping: 50 }),
-                withDelay(3000, withTiming(-200)),
+                withDelay(3000, withTiming(-300)),
             )
         }
     }, [msg])
+
+    const setMessage = () => {
+        dispatch(setMsg({
+            title: '',
+            text: '',
+            status: 'dark'
+        }))
+    }
+
+    useAnimatedReaction(
+        () => bottom.value,
+        (result, previous) => {
+            'worklet'
+            if (bottom.value === -300) {
+                bottom.value = -200
+                runOnJS(setMessage)()
+            }
+        },
+        [
+            bottom.value
+        ]
+    )
 
     const background = {
         success: 'green',

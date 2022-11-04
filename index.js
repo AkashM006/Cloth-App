@@ -7,7 +7,7 @@ import { name as appName } from './app.json';
 import messaging from '@react-native-firebase/messaging'
 
 // react-native-firebase message handler
-// messaging().setBackgroundMessageHandler(async message => { })
+messaging().setBackgroundMessageHandler(async message => { })
 
 AppRegistry.registerComponent(appName, () => App);
 

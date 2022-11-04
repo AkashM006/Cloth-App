@@ -32,12 +32,20 @@ const MainScreen = () => {
         const body = notification.body
 
         dispatch(setMsg({
-            title, text: body, status: 'success'
+            title,
+            text: body,
+            status: 'success'
         }))
     })
 
     OneSignal.setNotificationOpenedHandler(notification => {
         console.log('Notification Opened: ', notification)
+        const { title, body } = notification.notification
+        dispatch(setMsg({
+            title,
+            text: body,
+            status: 'success'
+        }))
     })
 
     useEffect(() => {
@@ -68,23 +76,15 @@ const MainScreen = () => {
         // adding event listener to change the internet connection
         const unsubscribe = NetInfo.addEventListener(state => {
             dispatch(setHasInternet(state.isConnected))
+            dispatch(setMsg(state.isConnected === true ?
+                { title: 'Connection Status', text: 'You are online', status: 'success' } :
+                { title: 'Connection Status', text: 'You are offline', status: 'failure' }))
         });
 
         return () => {
             unsubscribe();
         }
     }, [])
-
-    useEffect(() => {
-        // for checking internet connection and changing whenever the user logs out since we are reseting the state
-        NetInfo.fetch().then(state => {
-            dispatch(setHasInternet(state.isConnected))
-            dispatch(setMsg(state.isConnected === true ?
-                { title: 'Connection Status', text: 'You are online', status: 'success' } :
-                { title: 'Connection Status', text: 'You are offline', status: 'failure' }))
-        })
-    }, [user.isConnected])
-
 
     return (
         <>
