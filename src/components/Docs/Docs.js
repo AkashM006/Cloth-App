@@ -18,7 +18,7 @@ const Docs = () => {
 
     const [canGoBack, setCanGoBack] = useState(false)
     const [canGoForward, setCanGoForward] = useState(false)
-    const [currentUrl, setCurrentUrl] = useState('www.google.in')// https://reactnative.dev/docs/getting-started
+    const [currentUrl, setCurrentUrl] = useState('www.google.com')// https://reactnative.dev/docs/getting-started
     const [isLoading, setIsLoading] = useState(false)
 
     const goBackHandler = () => { if (webViewRef.current && canGoBack) webViewRef.current.goBack() }
