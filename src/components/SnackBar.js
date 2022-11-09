@@ -66,11 +66,16 @@ const SnackBar = () => {
     return (
         <Animated.View style={[styles.container, bottomStyle]}>
             <View style={{ flexDirection: 'row' }}>
-                {('title') in msg && msg.title !== '' && <Animated.Text style={[styles.text, styles.title, textStyle]}>
-                    {msg.title}
-                </Animated.Text>}
-                <View style={[styles.status, { backgroundColor: background[msg.status] }]} />
+                {
+                    ('title') in msg && msg.title !== '' && <>
+                        <Animated.Text style={[styles.text, styles.title, textStyle]}>
+                            {msg.title}
+                        </Animated.Text>
+                        <View style={[styles.status, { backgroundColor: background[msg.status] }]} />
+                    </>
+                }
             </View>
+            {!(('title') in msg) && <View style={[styles.status, { backgroundColor: background[msg.status] }]} />}
             <Animated.Text style={[styles.text, textStyle]}>
                 {msg.text}
             </Animated.Text>

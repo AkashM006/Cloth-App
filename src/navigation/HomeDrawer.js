@@ -17,6 +17,7 @@ import { resetSavedItems } from '../redux/savedItemSlice'
 import { setState } from '../redux/oneSignalSlice'
 import OneSignal from 'react-native-onesignal'
 import uuidv4 from 'uuidv4'
+import WebViewScreen from '../Screens/WebViewScreen'
 
 const MoreMainScreen = () => {
     return (
@@ -121,6 +122,16 @@ const HomeDrawer = () => {
                     swipeEnabled: false,
                     unmountOnBlur: true,
                     title: t('settings')
+                }}
+            />
+            <Drawer.Screen
+                name='WebView'
+                component={WebViewScreen}
+                options={{
+                    header,
+                    swipeEnabled: false,
+                    unmountOnBlur: true,
+                    title: "WebView Docs"
                 }}
             />
             {/* <Drawer.Screen
