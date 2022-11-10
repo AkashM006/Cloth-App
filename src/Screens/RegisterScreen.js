@@ -2,7 +2,7 @@ import { View, Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import Register from '../components/Register/Register'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMsg } from '../redux/userSlice'
+import { setError } from '../redux/userSlice'
 
 const RegisterScreen = () => {
 

@@ -5,10 +5,11 @@ import LoginStack from '../navigation/LoginStack'
 import SplashScreen from './SplashScreen';
 import { useEffect } from 'react';
 import auth from '@react-native-firebase/auth'
-import { login, setHasInternet, setIsLoading, setMsg } from '../redux/userSlice';
+import { login, setHasInternet, setIsLoading, setMsg, setType } from '../redux/userSlice';
 import { useTranslation } from 'react-i18next';
 import NetInfo from "@react-native-community/netinfo";
 import OneSignal, { NotificationReceivedEvent } from 'react-native-onesignal';
+import firestore from '@react-native-firebase/firestore'
 
 // OneSignal Initialization
 OneSignal.setAppId('0931b6fa-78dd-449d-a3f1-8343c08b4be7')
@@ -50,9 +51,32 @@ const MainScreen = () => {
 
     useEffect(() => {
         // for changing the user
-        const subscriber = auth().onAuthStateChanged((currentUser) => {
+        const subscriber = auth().onAuthStateChanged(async currentUser => {
             dispatch(login(currentUser))
             if (user.isLoading) dispatch(setIsLoading(false))
+            if (currentUser === null) return
+
+            try { // to check if the user already exists so that we can get user's type
+                const result = await firestore().collection('users').where('email', '==', currentUser.email).get()
+                if (result.size !== 0) {
+                    dispatch(setType(result.docs[0]._data.type))
+                    return
+                }
+            } catch (err) {
+                console.log("Error: ", err)
+                return
+            }
+
+            try { // if the user does not exist then we can create an entry and mention as customer
+                await firestore().collection('users').add({
+                    email: currentUser.email,
+                    type: 'customer'
+                })
+                dispatch(setType('customer'))
+            } catch (err) {
+                console.log("Error: ", err)
+                return
+            }
         })
 
         auth().onUserChanged(user => {

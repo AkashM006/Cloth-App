@@ -1,4 +1,3 @@
-import React from 'react'
 import { interpolateColor, useAnimatedStyle } from 'react-native-reanimated'
 
 const useReanimatedIndicatorStyle = (valueObject, inputRange, outputRange) => {

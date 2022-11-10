@@ -20,17 +20,17 @@ const theme = {
 }
 
 const App = () => {
-
-
   // react native firebase config
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: '909548793641-ovu0vlclskchdlu81e5uvrr2mrovlnnk.apps.googleusercontent.com'
     })
   }, [])
+
   const messageHanlder = message => {
     //   Alert.alert(message.notification.title, message.notification.body)
   }
+
   useEffect(() => {
     const subscriber = messaging().onMessage(messageHanlder)
     messaging().onNotificationOpenedApp(messageHanlder)

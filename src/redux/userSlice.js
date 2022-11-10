@@ -53,6 +53,7 @@ let initialState = {
         status: 'dark'
     },
     hasInternet: true,
+    type: ''
 }
 
 export const userSlice = createSlice({
@@ -89,6 +90,9 @@ export const userSlice = createSlice({
         },
         setHasInternet: (state, action) => {
             state.hasInternet = action.payload
+        },
+        setType: (state, action) => {
+            state.type = action.payload
         },
         resetUser: _ => initialState
     },
@@ -136,6 +140,7 @@ const {
     setLanguage,
     setMsg,
     setHasInternet,
+    setType,
     resetUser
 } = userSlice.actions;
 
@@ -150,6 +155,7 @@ export {
     setLanguage,
     setMsg,
     setHasInternet,
+    setType,
     resetUser,
     registerUserThunk,
     loginUserThunk,

@@ -8,6 +8,7 @@ import { setMsg } from '../../redux/userSlice'
 const Debug = () => {
 
     const [count, setCount] = useState(0)
+    const user = useSelector(state => state.user);
 
     const createCrash = () => {
         crashlytics().crash()
@@ -16,9 +17,6 @@ const Debug = () => {
     let x; // for creating an error to log to firebase console
 
     const dispatch = useDispatch();
-
-
-    const user = useSelector(state => state.user);
 
     const createNewError = async () => {
         try {
@@ -73,6 +71,7 @@ const Debug = () => {
             <TouchableOpacity onPress={toastHandler} style={styles.button}>
                 <Text style={styles.text}>Toast</Text>
             </TouchableOpacity>
+            <Text style={[styles.bigText, styles.text]}>Type: {user.type.slice(0, 1).toUpperCase() + user.type.substring(1)}</Text>
         </View>
     )
 }
@@ -88,7 +87,8 @@ const styles = {
         width: '100%',
         marginBottom: '5%',
     },
-    text: { color: 'black', textAlign: 'center' }
+    text: { color: 'black', textAlign: 'center' },
+    bigText: { fontSize: 18 }
 }
 
 export default Debug
