@@ -6,12 +6,12 @@ import { Provider } from 'react-redux'
 import { store, persistor } from './src/redux/store'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { PersistGate } from 'redux-persist/integration/react'
-import MainScreen from './src/Screens/MainScreen'
+import MainScreen from './src/customer/Screens/MainScreen'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import messaging from '@react-native-firebase/messaging'
 import './src/i18n/i18n'
-import Loader from './src/components/Loader'
-import SnackBar from './src/components/SnackBar'
+import Loader from './src/customer/components/Loader'
+import SnackBar from './src/customer/components/SnackBar'
 
 const theme = {
   colors: {
