@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, Pressable, Platform, Alert, useWindowDimensions, TouchableOpacity, Modal } from 'react-native'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { useDispatch, useSelector } from 'react-redux'
 import Form from './Form'
@@ -8,8 +8,6 @@ import storage from '@react-native-firebase/storage'
 import auth from '@react-native-firebase/auth'
 import { setIsLoading, setMsg } from '../../redux/userSlice'
 import BottomSheet from '../Settings/BottomSheet'
-import { useRef } from 'react'
-import { useState } from 'react'
 
 const Profile = () => {
 
@@ -18,8 +16,7 @@ const Profile = () => {
     const img = user.user.photoURL === null ? require('../../icons/profile.png') : { uri: user.user.photoURL }
     const bottomSheetRef = useRef(null)
     const [isFull, setIsFull] = useState(false)
-
-    const { height, window } = useWindowDimensions()
+    const { height, width } = useWindowDimensions()
 
     const photoSelectionCallback = async response => {
         if (response.didCancel) {
@@ -39,6 +36,8 @@ const Profile = () => {
         imgUri = Platform.OS === 'android' ? imgUri.replace('file://', '') : imgUri
         let fileName = imgUri.substring(imgUri.lastIndexOf('/') + 1)
 
+        // get the current photo link and remove it and then add the current photo
+        const oldPhoto = user.user.photoURL
 
         try {
             await storage().ref(fileName).putFile(imgUri)
@@ -64,6 +63,13 @@ const Profile = () => {
         } catch (err) {
             dispatch(setIsLoading(false))
             console.log("Unable to change the profile photo: ", err)
+            return
+        }
+
+        try {
+            await storage().refFromURL(oldPhoto).delete()
+        } catch (errr) {
+            console.log("Unable to delete old file: ", err)
             return
         }
 
@@ -106,6 +112,7 @@ const Profile = () => {
     return (
         <View style={{ flex: 1, backgroundColor: 'white', }}>
             <Modal
+                onRequestClose={() => setIsFull(false)}
                 transparent={true}
                 animationType='slide'
                 visible={isFull}
@@ -225,7 +232,8 @@ const styles = StyleSheet.create({
     },
     photoFull: {
         height: '80%',
-        width: '100%'
+        width: '100%',
+        resizeMode: 'contain'
     },
     modalContainer: {
         backgroundColor: 'black',
