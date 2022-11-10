@@ -29,6 +29,7 @@ const RSTYLE = [
         textOutputRange: ['white', 'black', 'black'],
         backgroundOutputRange: ['black', 'lightgray', 'lightgray'],
         style: { transform: [{ translateX: MIN_SLIDER_VALUE - KNOB_DIMESNION / 2 }] },
+        pos: MIN_SLIDER_VALUE,
     },
     {
         text: 'M',
@@ -36,6 +37,7 @@ const RSTYLE = [
         textOutputRange: ['black', 'white', 'black', 'black'],
         backgroundOutputRange: ['lightgray', 'black', 'lightgray', 'lightgray'],
         style: { transform: [{ translateX: 0.33 * RANGE - KNOB_DIMESNION / 2 }] },
+        pos: 0.33 * RANGE,
     },
     {
         text: 'G',
@@ -43,6 +45,7 @@ const RSTYLE = [
         textOutputRange: ['black', 'black', 'white', 'black'],
         backgroundOutputRange: ['lightgray', 'lightgray', 'black', 'lightgray'],
         style: { transform: [{ translateX: 0.66 * RANGE - KNOB_DIMESNION / 2 }] },
+        pos: 0.66 * RANGE,
     },
     {
         text: 'GG',
@@ -50,6 +53,7 @@ const RSTYLE = [
         textOutputRange: ['black', 'black', 'white'],
         backgroundOutputRange: ['lightgray', 'lightgray', 'black'],
         style: { transform: [{ translateX: MAX_SLIDER_VALUE - KNOB_DIMESNION / 2 }] },
+        pos: MAX_SLIDER_VALUE,
     }
 ]
 
@@ -119,6 +123,8 @@ const Slider = () => {
                             text={rStyle.text}
                             object={translateX}
                             key={index}
+                            position={rStyle.pos}
+                            scrollTo={scrollTo}
                         />
                     )
                 })}

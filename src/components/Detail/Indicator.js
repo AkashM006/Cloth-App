@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 import Animated, { interpolateColor, useAnimatedStyle } from 'react-native-reanimated'
 import { useEffect } from 'react'
 
-const Indicator = ({ style, inputRange, textRange, backgroundRange, text, object }) => {
+const Indicator = ({ style, inputRange, textRange, backgroundRange, text, object, position, scrollTo }) => {
 
     const rBgStyle = useAnimatedStyle(() => {
         const backgroundColor = interpolateColor(object.value, inputRange, backgroundRange)
@@ -15,22 +15,29 @@ const Indicator = ({ style, inputRange, textRange, backgroundRange, text, object
         return { color }
     })
 
+    const pressHandler = () => {
+        // console.log("Pressed")
+        scrollTo(position, text)
+    }
+
     return (
-        <Animated.View
-            style={[
-                styles.indicator,
-                style,
-                rBgStyle
-            ]}>
-            <Animated.Text
+        <Pressable onPress={pressHandler} style={[styles.indicator, style]}>
+            <Animated.View
                 style={[
-                    styles.text,
-                    rTextStyle
-                ]}
-            >
-                {text}
-            </Animated.Text>
-        </Animated.View>
+                    styles.indicator,
+                    // style,
+                    rBgStyle
+                ]}>
+                <Animated.Text
+                    style={[
+                        styles.text,
+                        rTextStyle
+                    ]}
+                >
+                    {text}
+                </Animated.Text>
+            </Animated.View>
+        </Pressable>
     )
 }
 
