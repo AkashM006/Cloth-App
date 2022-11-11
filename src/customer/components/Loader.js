@@ -7,7 +7,7 @@ const Loader = () => {
 
     const translateX = useSharedValue(0)
     const visible = useSelector(state => state.user.isLoading)
-
+    const user = useSelector(state => state.user)
 
     const inputRange = [0, 1]
     const outputRange = [-40, 40]
@@ -30,12 +30,14 @@ const Loader = () => {
     }, [])
 
     return (
-        <Modal transparent visible={visible}>
-            <View style={styles.background}>
-                <Image source={require('../../icons/app.png')} style={styles.icon} />
-                <Animated.View style={[styles.loader, rStyle]} />
-            </View>
-        </Modal>
+        <>
+            {user.type === 'customer' && <Modal transparent visible={visible}>
+                <View style={styles.background}>
+                    <Image source={require('../../icons/app.png')} style={styles.icon} />
+                    <Animated.View style={[styles.loader, rStyle]} />
+                </View>
+            </Modal>}
+        </>
     )
 }
 

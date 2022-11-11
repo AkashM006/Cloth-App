@@ -8,6 +8,7 @@ import { setMsg } from '../../redux/userSlice'
 const SnackBar = () => {
 
     const msg = useSelector(state => state.user.msg)
+    const user = useSelector(state => state.user)
     const dispatch = useDispatch()
 
     const bottom = useSharedValue(-200)
@@ -63,22 +64,24 @@ const SnackBar = () => {
     }
 
     return (
-        <Animated.View style={[styles.container, bottomStyle]}>
-            <View style={{ flexDirection: 'row' }}>
-                {
-                    ('title') in msg && msg.title !== '' && <>
-                        <Animated.Text style={[styles.text, styles.title, textStyle]}>
-                            {msg.title}
-                        </Animated.Text>
-                        <View style={[styles.status, { backgroundColor: background[msg.status] }]} />
-                    </>
-                }
-            </View>
-            {!(('title') in msg) && <View style={[styles.status, { backgroundColor: background[msg.status] }]} />}
-            <Animated.Text style={[styles.text, textStyle]}>
-                {msg.text}
-            </Animated.Text>
-        </Animated.View>
+        <>
+            {user.type === 'customer' && <Animated.View style={[styles.container, bottomStyle]}>
+                <View style={{ flexDirection: 'row' }}>
+                    {
+                        ('title') in msg && msg.title !== '' && <>
+                            <Animated.Text style={[styles.text, styles.title, textStyle]}>
+                                {msg.title}
+                            </Animated.Text>
+                            <View style={[styles.status, { backgroundColor: background[msg.status] }]} />
+                        </>
+                    }
+                </View>
+                {!(('title') in msg) && <View style={[styles.status, { backgroundColor: background[msg.status] }]} />}
+                <Animated.Text style={[styles.text, textStyle]}>
+                    {msg.text}
+                </Animated.Text>
+            </Animated.View>}
+        </>
     )
 }
 

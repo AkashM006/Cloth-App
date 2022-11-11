@@ -1,15 +1,16 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import HomeDrawer from '../navigation/HomeDrawer';
-import LoginStack from '../navigation/LoginStack'
-import SplashScreen from './SplashScreen';
+import HomeDrawer from './customer/navigation/HomeDrawer';
+import LoginStack from './customer/navigation/LoginStack'
+import SplashScreen from './customer/Screens/SplashScreen';
 import { useEffect } from 'react';
 import auth from '@react-native-firebase/auth'
-import { login, setHasInternet, setIsLoading, setMsg, setType } from '../../redux/userSlice';
+import { login, setHasInternet, setIsLoading, setMsg, setType } from './redux/userSlice';
 import { useTranslation } from 'react-i18next';
 import NetInfo from "@react-native-community/netinfo";
 import OneSignal, { NotificationReceivedEvent } from 'react-native-onesignal';
 import firestore from '@react-native-firebase/firestore'
+import AdminHomeNavigation from './admin/navigation/AdminHomeNavigation';
 
 // OneSignal Initialization
 OneSignal.setAppId('0931b6fa-78dd-449d-a3f1-8343c08b4be7')
@@ -110,12 +111,32 @@ const MainScreen = () => {
         }
     }, [])
 
+
+
     return (
         <>
-            {user === true ? <SplashScreen /> :
-                user.user !== null ? <HomeDrawer /> : <LoginStack />}
+            {user === true ? <SplashScreen /> : user.user !== null ? <Splitter /> : <LoginStack />}
         </>
     )
+}
+
+const Splitter = () => {
+    const user = useSelector(state => state.user)
+
+    const loginMapper = {
+        'customer': <HomeDrawer />,
+        'admin': <AdminHomeNavigation />
+    }
+
+    return (
+        <>
+            {loginMapper[user.type]}
+        </>
+    )
+}
+
+const Admin = () => {
+
 }
 
 export default MainScreen
