@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
         marginHorizontal: '2.5%',
         marginTop: '25%',
         height: '100%',
+        alignItems: 'flex-start'
         // flex: 1,
     },
 })

@@ -1,11 +1,21 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import DashboardScreen from '../Screens/DashboardScreen'
+
+const Stack = createNativeStackNavigator()
 
 const AdminHomeNavigation = () => {
+    const options = {
+        header: () => { }
+    }
     return (
-        <View>
-            <Text>AdminHomeNavigation</Text>
-        </View>
+        <Stack.Navigator screenOptions={{ contentStyle: { borderRadius: 10 } }} initialRouteName='Dashboard'>
+            <Stack.Screen
+                name='Dashboard'
+                options={options}
+                component={DashboardScreen}
+            />
+        </Stack.Navigator>
     )
 }
 

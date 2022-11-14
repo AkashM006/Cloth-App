@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import NetInfo from "@react-native-community/netinfo";
 import OneSignal, { NotificationReceivedEvent } from 'react-native-onesignal';
 import firestore from '@react-native-firebase/firestore'
-import BackgroundScreen from './admin/Screens/BackgroundScreen'
+import HomeScreen from './admin/Screens/HomeScreen';
 
 // OneSignal Initialization
 OneSignal.setAppId('0931b6fa-78dd-449d-a3f1-8343c08b4be7')
@@ -125,7 +125,7 @@ const Splitter = () => {
 
     const loginMapper = {
         'customer': <HomeDrawer />,
-        'admin': <BackgroundScreen />
+        'admin': <HomeScreen />
     }
 
     return (

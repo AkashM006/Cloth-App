@@ -1,9 +1,13 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { setDrawerState } from '../../../redux/drawerSlice'
 
 const Header = () => {
 
-    const closeHandler = () => { }
+    const dispatch = useDispatch()
+
+    const closeHandler = () => { dispatch(setDrawerState(false)) }
 
     return (
         <>
@@ -12,11 +16,9 @@ const Header = () => {
                     <Text style={[{ color: 'white' }, styles.heading]}>Cloth</Text>
                     <Text style={[{ color: '#e2c648' }, styles.heading]}>App</Text>
                 </View>
-                <View style={styles.iconContainer}>
-                    <TouchableOpacity style={{ alignSelf: 'center' }} onPress={closeHandler}>
-                        <Image source={require('../../../icons/right.png')} style={styles.icon} />
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.iconContainer} onPress={closeHandler}>
+                    <Image source={require('../../../icons/right.png')} style={styles.icon} />
+                </TouchableOpacity>
             </View>
             <View style={styles.subtitleContainer}>
                 <Text style={styles.subtitle}>fashion app</Text>
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
         padding: '5%',
         backgroundColor: '#1a8eff',
         borderRadius: 15,
+        alignSelf: 'center',
     },
     subtitleContainer: {
         marginHorizontal: '2.5%',

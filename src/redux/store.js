@@ -3,6 +3,7 @@ import savedItemReducer from './savedItemSlice'
 import userReducer from './userSlice'
 import cartReducer from './cartSlice'
 import oneSignalReducer from './oneSignalSlice'
+import drawerReducer from './drawerSlice'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     persistStore,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
     savedItems: savedItemReducer,
     user: userReducer,
     cart: cartReducer,
-    oneSignal: oneSignalReducer
+    oneSignal: oneSignalReducer,
+    drawer: drawerReducer
 })
 
 // uncomment this when using redux persist

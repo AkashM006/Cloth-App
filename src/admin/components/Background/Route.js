@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     icon: {
         width: 30,
         height: 30,
-        marginRight: '2.5%',
+        marginRight: '10%',
     },
 })
 
