@@ -10,8 +10,8 @@ const routes = [
     },
     {
         id: 2,
-        text: 'Settings',
-        icon: require('../../../icons/gear.png'),
+        text: 'Merchandise',
+        icon: require('../../../icons/admin-cloth.png'),
     },
 ]
 
@@ -19,7 +19,6 @@ const Routes = () => {
     return (
         <View style={styles.container}>
             {routes.map(route => <Route text={route.text} icon={route.icon} key={route.id} />)}
-            {/* <Route text={routes[0].text} icon={routes[0].icon} /> */}
         </View>
     )
 }
@@ -30,7 +29,6 @@ const styles = StyleSheet.create({
         marginTop: '25%',
         height: '100%',
         alignItems: 'flex-start'
-        // flex: 1,
     },
 })
 

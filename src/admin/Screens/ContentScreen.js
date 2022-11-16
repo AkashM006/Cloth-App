@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
-import Header from '../components/Dashboard/Header'
 import { useSelector } from 'react-redux'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import AdminHomeNavigation from '../navigation/AdminHomeNavigation'

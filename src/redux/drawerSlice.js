@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 let initialState = {
-    isDrawerOpen: false
+    isDrawerOpen: false,
+    activeRoute: 'Dashboard'
 }
 
 export const drawerSlice = createSlice({
@@ -11,10 +12,13 @@ export const drawerSlice = createSlice({
         setDrawerState: (state, action) => {
             state.isDrawerOpen = action.payload
         },
+        setActiveRoute: (state, action) => {
+            state.activeRoute = action.payload
+        },
         resetDrawer: _ => initialState
     }
 })
 
-export const { setDrawerState, resetDrawer } = drawerSlice.actions
+export const { setDrawerState, setActiveRoute, resetDrawer } = drawerSlice.actions
 
 export default drawerSlice.reducer

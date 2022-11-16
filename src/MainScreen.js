@@ -11,6 +11,8 @@ import NetInfo from "@react-native-community/netinfo";
 import OneSignal, { NotificationReceivedEvent } from 'react-native-onesignal';
 import firestore from '@react-native-firebase/firestore'
 import HomeScreen from './admin/Screens/HomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { setActiveRoute } from './redux/drawerSlice';
 
 // OneSignal Initialization
 OneSignal.setAppId('0931b6fa-78dd-449d-a3f1-8343c08b4be7')
@@ -111,11 +113,19 @@ const MainScreen = () => {
         }
     }, [])
 
+    const navigationStateChangeHandler = state => {
+        if (user.type !== 'admin') return
 
+        const route = state.routes[state.routes.length - 1].name
+        dispatch(setActiveRoute(route))
+
+    }
 
     return (
         <>
-            {user === true ? <SplashScreen /> : user.user !== null ? <Splitter /> : <LoginStack />}
+            <NavigationContainer onStateChange={navigationStateChangeHandler} >
+                {user === true ? <SplashScreen /> : user.user !== null ? <Splitter /> : <LoginStack />}
+            </NavigationContainer>
         </>
     )
 }

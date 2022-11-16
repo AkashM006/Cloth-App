@@ -1,6 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import DashboardScreen from '../Screens/DashboardScreen'
+import MerchandiseScreen from '../Screens/MerchandiseScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -14,6 +15,11 @@ const AdminHomeNavigation = () => {
                 name='Dashboard'
                 options={options}
                 component={DashboardScreen}
+            />
+            <Stack.Screen
+                name='Merchandise'
+                options={options}
+                component={MerchandiseScreen}
             />
         </Stack.Navigator>
     )

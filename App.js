@@ -1,7 +1,5 @@
 import 'react-native-reanimated'
-import { Alert } from 'react-native'
 import React, { useEffect } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
 import { Provider } from 'react-redux'
 import { store, persistor } from './src/redux/store'
 import { Provider as PaperProvider } from 'react-native-paper'
@@ -41,11 +39,11 @@ const App = () => {
     <Provider store={store}>
       {/* <PersistGate loading={null} persistor={persistor}> */}
       <PaperProvider theme={theme}>
-        <NavigationContainer>
-          <MainScreen />
-          <Loader />
-          <SnackBar />
-        </NavigationContainer>
+        {/* <NavigationContainer> */}
+        <MainScreen />
+        <Loader />
+        <SnackBar />
+        {/* </NavigationContainer> */}
       </PaperProvider>
       {/* </PersistGate> */}
     </Provider>
