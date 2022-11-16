@@ -18,7 +18,7 @@ const Route = ({ text, icon }) => {
 
     const pressHandler = () => {
         dispatch(setActiveRoute(text))
-        dispatch(setDrawerState(false))
+        // dispatch(setDrawerState(false))
         navigation.navigate(text)
     }
 

@@ -12,7 +12,7 @@ import OneSignal, { NotificationReceivedEvent } from 'react-native-onesignal';
 import firestore from '@react-native-firebase/firestore'
 import HomeScreen from './admin/Screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import { setActiveRoute } from './redux/drawerSlice';
+import { setActiveRoute, setDrawerState } from './redux/drawerSlice';
 
 // OneSignal Initialization
 OneSignal.setAppId('0931b6fa-78dd-449d-a3f1-8343c08b4be7')
@@ -26,6 +26,7 @@ const MainScreen = () => {
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
     const language = user.language.code
+    const drawerState = useSelector(state => state.drawer)
     const { t, i18n } = useTranslation();
 
 
@@ -118,6 +119,8 @@ const MainScreen = () => {
 
         const route = state.routes[state.routes.length - 1].name
         dispatch(setActiveRoute(route))
+
+        if (drawerState?.isDrawerOpen === true) dispatch(setDrawerState(false))
 
     }
 

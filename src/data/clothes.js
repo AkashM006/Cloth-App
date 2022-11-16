@@ -19,6 +19,7 @@ const CLOTHES = [
         savedImage: require('../icons/cloth-1.png'),
         adminImage: require('../icons/sample/1.jpg'),
         discount: 0,
+        rating: 4.5,
     },
     {
         id: 4,
@@ -45,6 +46,7 @@ const CLOTHES = [
         savedImage: require('../icons/cloth-2.png'),
         adminImage: require('../icons/sample/2.jpg'),
         discount: 0,
+        rating: 3.5,
     },
     {
         id: 7,
@@ -76,6 +78,7 @@ const CLOTHES = [
         // savedImage: 'https://s3-alpha-sig.figma.com/img/4946/5377/c29b01c9377d036c1c9278c3923d3afa?Expires=1665360000&Signature=DITpLGD6Wa1Bb8wY-mVjsz9FHRvgBNMagtj4FF0m4RE1ZOUiUBSCyVLgezOIFmMghJUC7hjz0o6XQ-YnS8wns2bGEsJXlRN3Kg4gZ9sOZeXAkTbrT~jeHNNf1dlgTPi3ojnwARWP7~i1AEKL5j9jKmaNhC9N5EvLDroxzlQdsT9b2Np4dqXhbBcSWjbJqQe2b1sn4zCkKhaAWi6Wab02qCj5NIiCXFmDxb8R38oQIsfAp7Q5wfhOjFrKShBsyMEdNHE08HOe7GTOVOfXRPG1pG-3LuiR30USy7OhWWrRNcZmhCqZ8CK-Vb6BAjh5ubFPEKWJpMiVAOKvWlnrWP0T3A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
         savedImage: require('../icons/cloth-3.png'),
         adminImage: require('../icons/sample/3.jpg'),
+        rating: 4.0,
     }
 ];
 

@@ -3,6 +3,8 @@ import { FlatList } from 'react-native-gesture-handler'
 import React from 'react'
 import Card from './Card'
 import CLOTHES from '../../../data/clothes'
+import { useState } from 'react'
+import { useCallback } from 'react'
 
 const Header = () => {
     return (
@@ -14,17 +16,28 @@ const Header = () => {
 }
 
 const Content = () => {
-    let clothes = [...CLOTHES, ...CLOTHES, ...CLOTHES]
+    let cl = [...CLOTHES, ...CLOTHES, ...CLOTHES]
+
+    const [clothes, setClothes] = useState(cl)
+
+    const endReachedHandler = () => { setClothes(prev => [...prev, ...cl]) }
+
+    const renderItem = useCallback(({ item, index }) => <Card cloth={item} index={index} />, [])
+
     return (
         <View style={styles.container}>
             <FlatList
                 data={clothes}
                 keyExtractor={(_, index) => index}
-                renderItem={({ item, index }) => <Card cloth={item} index={index} />}
+                renderItem={renderItem}
                 contentContainerStyle={{ paddingBottom: '51%' }}
                 numColumns={2}
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={Header}
+                bounces={false}
+                onEndReached={endReachedHandler}
+                onEndReachedThreshold={0.25}
+            // extraData={pages}
             />
         </View>
     )
