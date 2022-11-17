@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     contentContainer: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#0180ff',
+        backgroundColor: '#377fc8',
         borderRadius: 14,
         paddingHorizontal: '2%',
         paddingTop: '2%'
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         width: 20
     },
     ratingText: {
-        fontWeight: '600',
+        fontWeight: '700',
         fontSize: 14,
         color: '#ffc107',
     }

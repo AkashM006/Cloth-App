@@ -51,6 +51,7 @@ const Content = () => {
                 onEndReached={endReachedHandler}
                 onEndReachedThreshold={0.25}
                 contentContainerStyle={{ paddingBottom: '25%' }}
+                showsVerticalScrollIndicator={false}
             />
         </View>
     )
