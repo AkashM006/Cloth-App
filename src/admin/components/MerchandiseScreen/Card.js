@@ -1,10 +1,20 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { memo } from 'react'
 import { capitalize, formatCurrency } from '../../../utils/text'
+import { useNavigation } from '@react-navigation/native'
 
 const Card = ({ cloth, index }) => {
 
-    const pressHandler = () => { console.log("Pressed") }
+    const navigation = useNavigation()
+
+    const pressHandler = () => {
+        navigation.navigate('Detail', {
+            id: cloth.id,
+            name: cloth.title,
+            image: cloth.adminImage,
+            rating: cloth.rating
+        })
+    }
 
     return (
         <View

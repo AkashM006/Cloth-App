@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, Image, SectionList } from 'react-native'
+import { View, StyleSheet, SectionList } from 'react-native'
 import React from 'react'
 import Card from './Card'
 import CLOTHES from '../../../data/clothes'
 import { useState } from 'react'
-import Header from '../MerchandiseScreen/Header'
+import StackHeader from '../StackHeader'
 
 const Content = () => {
     let cl = [...CLOTHES, ...CLOTHES, ...CLOTHES]
@@ -19,24 +19,20 @@ const Content = () => {
     const renderItem = ({ item, index }) => {
         if (index % 2 === 0) {
             items = []
-            items.push(<Card cloth={item} index={index} />)
-            return (index === clothes[0].data.length - 1) ? <View style={styles.row}>{items}</View> : null
+            items.push(<Card key={Math.random()} cloth={item} index={index} />)
+            return (index === clothes[0].data.length - 1) ? <View key={Math.random()} style={styles.row}>{items}</View> : null
         }
 
-        items.push(<Card cloth={item} index={index} />)
+        items.push(<Card key={Math.random()} cloth={item} index={index} />)
         return (
-            <View style={styles.row}>
+            <View key={Math.random()} style={styles.row}>
                 {items}
             </View>
         )
     }
 
     const renderSectionHeader = () => {
-        return (
-            <View style={styles.header}>
-                <Header />
-            </View>
-        )
+        return <StackHeader title={'Merchandise'} />
     }
 
     return (
@@ -44,7 +40,7 @@ const Content = () => {
             <SectionList
                 sections={clothes}
                 renderItem={renderItem}
-                keyExtractor={(item, index) => index}
+                keyExtractor={(item, index) => Math.random()}
                 renderSectionHeader={renderSectionHeader}
                 stickyHeaderHiddenOnScroll={true}
                 stickySectionHeadersEnabled={true}
@@ -60,10 +56,6 @@ const Content = () => {
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: '2.5%',
-    },
-    header: {
-        paddingBottom: '5%',
-        backgroundColor: 'white'
     },
     text: {
         color: 'gray',

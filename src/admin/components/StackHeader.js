@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { capitalize } from '../../utils/text'
 
-const Header = () => {
+const StackHeader = ({ title }) => {
 
     const navigation = useNavigation()
 
@@ -11,10 +12,10 @@ const Header = () => {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={pressHandler} style={styles.button}>
-                <Image style={styles.icon} source={require('../../../icons/right.png')} />
+                <Image style={styles.icon} source={require('../../icons/right.png')} />
             </TouchableOpacity>
             <Text style={styles.text}>
-                Merchandise
+                {capitalize(title)}
             </Text>
         </View>
     )
@@ -23,10 +24,10 @@ const Header = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        paddingTop: '5%',
+        paddingVertical: '5%',
         paddingHorizontal: '2.5%',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     icon: {
         width: 15,
@@ -46,4 +47,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Header
+export default StackHeader
