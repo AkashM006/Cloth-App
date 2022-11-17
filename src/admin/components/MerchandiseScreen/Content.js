@@ -1,43 +1,56 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
+import { View, Text, StyleSheet, Image, SectionList } from 'react-native'
 import React from 'react'
 import Card from './Card'
 import CLOTHES from '../../../data/clothes'
 import { useState } from 'react'
-import { useCallback } from 'react'
-
-const Header = () => {
-    return (
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
-            <Text style={styles.text}>Clothes</Text>
-            <Image source={require('../../../icons/chevron-right.png')} style={styles.icon} />
-        </View>
-    )
-}
+import Header from '../MerchandiseScreen/Header'
 
 const Content = () => {
     let cl = [...CLOTHES, ...CLOTHES, ...CLOTHES]
+    let old = [...cl]
 
+    cl = [{ data: [...cl], title: 'Clothes' }]
     const [clothes, setClothes] = useState(cl)
 
-    const endReachedHandler = () => { setClothes(prev => [...prev, ...cl]) }
+    const endReachedHandler = () => { setClothes(prev => [{ data: [...old, ...prev[0].data], title: 'Clothes' }]) }
 
-    const renderItem = useCallback(({ item, index }) => <Card cloth={item} index={index} />, [])
+    let items = []
+
+    const renderItem = ({ item, index }) => {
+        if (index % 2 === 0) {
+            items = []
+            items.push(<Card cloth={item} index={index} />)
+            return (index === clothes[0].data.length - 1) ? <View style={styles.row}>{items}</View> : null
+        }
+
+        items.push(<Card cloth={item} index={index} />)
+        return (
+            <View style={styles.row}>
+                {items}
+            </View>
+        )
+    }
+
+    const renderSectionHeader = () => {
+        return (
+            <View style={styles.header}>
+                <Header />
+            </View>
+        )
+    }
 
     return (
         <View style={styles.container}>
-            <FlatList
-                data={clothes}
-                keyExtractor={(_, index) => index}
+            <SectionList
+                sections={clothes}
                 renderItem={renderItem}
-                contentContainerStyle={{ paddingBottom: '51%' }}
-                numColumns={2}
-                showsVerticalScrollIndicator={false}
-                ListHeaderComponent={Header}
-                bounces={false}
+                keyExtractor={(item, index) => index}
+                renderSectionHeader={renderSectionHeader}
+                stickyHeaderHiddenOnScroll={true}
+                stickySectionHeadersEnabled={true}
                 onEndReached={endReachedHandler}
                 onEndReachedThreshold={0.25}
-            // extraData={pages}
+                contentContainerStyle={{ paddingBottom: '25%' }}
             />
         </View>
     )
@@ -46,7 +59,10 @@ const Content = () => {
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: '2.5%',
-        marginTop: '10%',
+    },
+    header: {
+        paddingBottom: '5%',
+        backgroundColor: 'white'
     },
     text: {
         color: 'gray',
@@ -59,7 +75,9 @@ const styles = StyleSheet.create({
         marginLeft: '5%',
         tintColor: 'gray'
     },
-
+    row: {
+        flexDirection: 'row'
+    }
 })
 
 export default Content
