@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import DashboardScreen from '../Screens/DashboardScreen'
 import MerchandiseScreen from '../Screens/MerchandiseScreen'
 import DetailScreen from '../Screens/DetailScreen'
+import MerchandiseNavigation from './MerchandiseNavigation'
 
 const Stack = createNativeStackNavigator()
 
@@ -17,7 +18,7 @@ const AdminHomeNavigation = () => {
                 options={options}
                 component={DashboardScreen}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
                 name='Merchandise'
                 options={options}
                 component={MerchandiseScreen}
@@ -26,6 +27,11 @@ const AdminHomeNavigation = () => {
                 name='Detail'
                 options={options}
                 component={DetailScreen}
+            /> */}
+            <Stack.Screen
+                name='Merchandise'
+                options={options}
+                component={MerchandiseNavigation}
             />
         </Stack.Navigator>
     )

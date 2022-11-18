@@ -6,7 +6,8 @@ import { useState } from 'react'
 import StackHeader from '../StackHeader'
 
 const Content = () => {
-    let cl = [...CLOTHES, ...CLOTHES, ...CLOTHES]
+    // let cl = [...CLOTHES, ...CLOTHES, ...CLOTHES]
+    let cl = [...CLOTHES]
     let old = [...cl]
 
     cl = [{ data: [...cl], title: 'Clothes' }]
@@ -44,8 +45,8 @@ const Content = () => {
                 renderSectionHeader={renderSectionHeader}
                 stickyHeaderHiddenOnScroll={true}
                 stickySectionHeadersEnabled={true}
-                onEndReached={endReachedHandler}
-                onEndReachedThreshold={0.25}
+                // onEndReached={endReachedHandler}
+                // onEndReachedThreshold={0.25}
                 contentContainerStyle={{ paddingBottom: '25%' }}
                 showsVerticalScrollIndicator={false}
             />

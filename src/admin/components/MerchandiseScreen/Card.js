@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { memo } from 'react'
 import { capitalize, formatCurrency } from '../../../utils/text'
 import { useNavigation } from '@react-navigation/native'
+import { SharedElement } from 'react-navigation-shared-element'
 
 const Card = ({ cloth, index }) => {
 
@@ -20,21 +21,25 @@ const Card = ({ cloth, index }) => {
         <View
             style={styles.container}
         >
-            <View style={styles.iconContainer}>
-                <TouchableOpacity onPress={pressHandler}>
-                    <Image source={require('../../../icons/edit-admin.png')} style={styles.icon} />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.rating}>
-                <Image source={require('../../../icons/star.png')} style={styles.star} />
-                <Text style={styles.ratingText}>{cloth.rating.toFixed(1)}</Text>
-            </View>
+            <TouchableOpacity onPress={pressHandler} style={styles.iconContainer}>
+                <Image source={require('../../../icons/edit-admin.png')} style={styles.icon} />
+            </TouchableOpacity>
+            {/* <View style={styles.rating}> */}
+            <SharedElement id={`item.${cloth.id}.rating`} style={styles.rating}>
+                <View style={styles.ratingContentContainer}>
+                    <Image source={require('../../../icons/star.png')} style={styles.star} />
+                    <Text style={styles.ratingText}>{cloth.rating.toFixed(1)}</Text>
+                </View>
+            </SharedElement>
+            {/* </View> */}
             <View style={styles.contentContainer}>
-                <Image source={(cloth.adminImage)} style={styles.photo} />
+                <SharedElement id={`item.${cloth.id}.photo`} style={styles.imageContainer}>
+                    <Image source={(cloth.adminImage)} style={styles.photo} />
+                </SharedElement>
                 <Text style={[styles.title, styles.text]}>{capitalize(cloth.title)}</Text>
                 <Text style={[styles.price, styles.text]}>{formatCurrency(cloth.price)}</Text>
             </View>
-        </View>
+        </View >
     )
 }
 
@@ -62,12 +67,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: '2%',
         paddingTop: '2%'
     },
+    imageContainer: { width: '100%', height: '70%' },
     photo: {
         resizeMode: 'cover',
         width: '100%',
-        height: '70%',
+        height: '100%',
         borderRadius: 14,
-        transform: [{ rotate: '1deg' },]
     },
     title: {
         color: 'white',
@@ -104,18 +109,22 @@ const styles = StyleSheet.create({
     },
     rating: {
         padding: '2%',
-        paddingHorizontal: '5%',
+        paddingHorizontal: 0,
         backgroundColor: 'white',
         borderRadius: 7,
         position: 'absolute',
         zIndex: 10,
         left: 10,
         top: '58%',
-        justifyContent: 'space-around',
+        borderColor: '#ffc107',
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+    },
+    ratingContentContainer: {
+        paddingLeft: '5%',
         alignItems: 'center',
         flexDirection: 'row',
-        borderColor: '#ffc107',
-        borderWidth: 1
     },
     star: {
         height: 20,
@@ -125,6 +134,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 14,
         color: '#ffc107',
+        marginLeft: '5%'
     }
 })
 
