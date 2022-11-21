@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 14,
         color: '#ffc107',
-        marginLeft: '5%'
+        marginLeft: '2%'
     }
 })
 

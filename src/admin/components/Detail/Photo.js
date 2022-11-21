@@ -31,14 +31,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: '2.5%'
     },
     rating: {
-        padding: '2%',
-        paddingHorizontal: '1%',
+        padding: '1%',
+        paddingRight: 0,
         backgroundColor: 'white',
         borderRadius: 7,
         position: 'absolute',
         right: 20,
         top: 10,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         flexDirection: 'row',
         borderColor: '#ffc107',
@@ -51,12 +51,13 @@ const styles = StyleSheet.create({
     star: {
         height: 20,
         width: 20,
+        marginLeft: '5%',
     },
     ratingText: {
         fontWeight: '700',
         fontSize: 16,
         color: '#ffc107',
-        marginLeft: '5%',
+        paddingLeft: '2%',
     },
 })
 

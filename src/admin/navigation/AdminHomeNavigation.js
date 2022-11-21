@@ -1,11 +1,10 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import DashboardScreen from '../Screens/DashboardScreen'
 import MerchandiseScreen from '../Screens/MerchandiseScreen'
 import DetailScreen from '../Screens/DetailScreen'
-import MerchandiseNavigation from './MerchandiseNavigation'
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 
-const Stack = createNativeStackNavigator()
+const Stack = createSharedElementStackNavigator()
 
 const AdminHomeNavigation = () => {
     const options = {
@@ -18,20 +17,34 @@ const AdminHomeNavigation = () => {
                 options={options}
                 component={DashboardScreen}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
                 name='Merchandise'
-                options={options}
                 component={MerchandiseScreen}
+                options={options}
             />
             <Stack.Screen
                 name='Detail'
-                options={options}
                 component={DetailScreen}
-            /> */}
-            <Stack.Screen
-                name='Merchandise'
-                options={options}
-                component={MerchandiseNavigation}
+                options={() => ({
+                    header: () => { },
+                    gestureEnabled: false,
+                    cardStyleInterpolator: ({ current: { progress } }) => {
+                        return {
+                            cardStyle: {
+                                opacity: progress,
+                            }
+                        }
+                    },
+                    transitionSpec: {
+                        open: { animation: 'timing', config: { duration: 300 } },
+                        close: { animation: 'timing', config: { duration: 300 } },
+                    }
+                })}
+                sharedElements={(route, otherRoute, showing) => {
+                    const { id } = route.params
+                    return [{ id: `item.${id}.photo` }, { id: `item.${id}.rating` },]
+                }}
+
             />
         </Stack.Navigator>
     )

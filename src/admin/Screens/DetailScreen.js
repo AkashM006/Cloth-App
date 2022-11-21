@@ -10,10 +10,12 @@ const DetailScreen = () => {
     const details = useRoute().params
 
     return (
-        <>
-            <StackHeader title={details.name} />
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+            <View style={{ paddingHorizontal: '2.5%' }}>
+                <StackHeader title={details.name} />
+            </View>
             <Body item={details} />
-        </>
+        </View>
     )
 }
 

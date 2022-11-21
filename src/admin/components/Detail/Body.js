@@ -2,6 +2,7 @@ import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import { useRoute } from '@react-navigation/native'
 import Photo from './Photo'
+import Details from './Details'
 
 const Body = () => {
 
@@ -10,6 +11,7 @@ const Body = () => {
     return (
         <View style={styles.container}>
             <Photo image={item.image} rating={item.rating} id={item.id} />
+            <Details price={1234} qty={20} />
         </View>
     )
 }
