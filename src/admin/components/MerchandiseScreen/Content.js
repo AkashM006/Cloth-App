@@ -1,9 +1,11 @@
-import { View, StyleSheet, SectionList } from 'react-native'
+import { View, StyleSheet, SectionList, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Card from './Card'
 import CLOTHES from '../../../data/clothes'
 import { useState } from 'react'
 import StackHeader from '../StackHeader'
+import AddModal from './AddModal'
+import { Easing, useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
 
 const Content = () => {
     // let cl = [...CLOTHES, ...CLOTHES, ...CLOTHES]
@@ -12,6 +14,8 @@ const Content = () => {
 
     cl = [{ data: [...cl], title: 'Clothes' }]
     const [clothes, setClothes] = useState(cl)
+    // const [isModalOpen, setIsModalOpen] = useState(false)
+    const visibility = useSharedValue(0)
 
     const endReachedHandler = () => { setClothes(prev => [{ data: [...old, ...prev[0].data], title: 'Clothes' }]) }
 
@@ -32,8 +36,15 @@ const Content = () => {
         )
     }
 
-    const renderSectionHeader = () => {
-        return <StackHeader title={'Merchandise'} />
+    const renderSectionHeader = () => { return <StackHeader title={'Merchandise'} /> }
+
+    const pressHandler = () => {
+        // setIsModalOpen(prev => !prev)
+        // visibility.value = withSpring(1, { damping: 50 })
+        visibility.value = withTiming(1, {
+            duration: 700,
+            easing: Easing.out(Easing.exp)
+        })
     }
 
     return (
@@ -50,6 +61,10 @@ const Content = () => {
                 contentContainerStyle={{ paddingBottom: '25%' }}
                 showsVerticalScrollIndicator={false}
             />
+            <TouchableOpacity onPress={pressHandler} style={styles.addContainer}>
+                <Image source={require('../../../icons/add.png')} style={styles.add} />
+            </TouchableOpacity>
+            <AddModal visible={visibility} />
         </View>
     )
 }
@@ -57,6 +72,7 @@ const Content = () => {
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: '2.5%',
+        flex: 1,
     },
     text: {
         color: 'gray',
@@ -71,6 +87,21 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row'
+    },
+    add: {
+        height: 30,
+        width: 30,
+        tintColor: 'white',
+    },
+    addContainer: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        padding: '2.5%',
+        backgroundColor: '#0180ff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 14,
     }
 })
 
