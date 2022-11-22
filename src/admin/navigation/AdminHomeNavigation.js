@@ -3,6 +3,8 @@ import DashboardScreen from '../Screens/DashboardScreen'
 import MerchandiseScreen from '../Screens/MerchandiseScreen'
 import DetailScreen from '../Screens/DetailScreen'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
+import FormScreen from '../Screens/FormScreen'
+import { CardStyleInterpolators } from '@react-navigation/stack'
 
 const Stack = createSharedElementStackNavigator()
 
@@ -44,7 +46,16 @@ const AdminHomeNavigation = () => {
                     const { id } = route.params
                     return [{ id: `item.${id}.photo` }, { id: `item.${id}.rating` },]
                 }}
-
+            />
+            <Stack.Screen
+                name='Form'
+                component={FormScreen}
+                options={() => ({
+                    gestureDirection: 'vertical',
+                    cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+                    gestureEnabled: true,
+                    header: () => { }
+                })}
             />
         </Stack.Navigator>
     )

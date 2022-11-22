@@ -4,8 +4,7 @@ import Card from './Card'
 import CLOTHES from '../../../data/clothes'
 import { useState } from 'react'
 import StackHeader from '../StackHeader'
-import AddModal from './AddModal'
-import { Easing, useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
+import { useNavigation } from '@react-navigation/native'
 
 const Content = () => {
     // let cl = [...CLOTHES, ...CLOTHES, ...CLOTHES]
@@ -14,8 +13,7 @@ const Content = () => {
 
     cl = [{ data: [...cl], title: 'Clothes' }]
     const [clothes, setClothes] = useState(cl)
-    // const [isModalOpen, setIsModalOpen] = useState(false)
-    const visibility = useSharedValue(0)
+    const navigation = useNavigation()
 
     const endReachedHandler = () => { setClothes(prev => [{ data: [...old, ...prev[0].data], title: 'Clothes' }]) }
 
@@ -38,14 +36,7 @@ const Content = () => {
 
     const renderSectionHeader = () => { return <StackHeader title={'Merchandise'} /> }
 
-    const pressHandler = () => {
-        // setIsModalOpen(prev => !prev)
-        // visibility.value = withSpring(1, { damping: 50 })
-        visibility.value = withTiming(1, {
-            duration: 700,
-            easing: Easing.out(Easing.exp)
-        })
-    }
+    const pressHandler = () => { navigation.navigate('Form') }
 
     return (
         <View style={styles.container}>
@@ -64,7 +55,6 @@ const Content = () => {
             <TouchableOpacity onPress={pressHandler} style={styles.addContainer}>
                 <Image source={require('../../../icons/add.png')} style={styles.add} />
             </TouchableOpacity>
-            <AddModal visible={visibility} />
         </View>
     )
 }

@@ -1,52 +1,46 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, BackHandler, ScrollView, TextInput } from 'react-native'
-import React, { useEffect } from 'react'
-import Animated, { Easing, interpolate, useAnimatedStyle, withTiming } from 'react-native-reanimated'
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import React from 'react'
+import { Formik } from 'formik'
+import Form from './Form'
+import { useNavigation } from '@react-navigation/native'
 
-const AddModal = ({ visible }) => {
+const AddModal = () => {
 
-    const closeHandler = () => visible.value = withTiming(0, {
-        duration: 700,
-        easing: Easing.in(Easing.exp)
-    })
+    const navigation = useNavigation()
 
-    const rStyle = useAnimatedStyle(() => {
-        return {
-            top: interpolate(visible.value, [0, 1], [100, 0]) + '%',
-            left: interpolate(visible.value, [0, 1], [100, 0]) + '%',
-            borderRadius: interpolate(visible.value, [0, 0., 1], [100, 100, 0])
-        }
-    }, [])
-
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            if (visible.value === 1) {
-                closeHandler()
-                return true
-            }
-            return false
-        })
-
-        return () => backHandler.remove()
-    }, [])
+    const closeHandler = () => { navigation.goBack() }
 
     return (
-        <>
-            {visible && <Animated.View style={[styles.modal, rStyle]}>
-                <View style={styles.container}>
-                    <View style={styles.header}>
-                        <Text style={styles.heading}>Add New Cloth</Text>
-                        <TouchableOpacity onPress={closeHandler} style={styles.iconContainer}>
-                            <Image source={require('../../../icons/close.png')} style={styles.icon} />
-                        </TouchableOpacity>
-                    </View>
-                    {/* Other content */}
+        <View style={styles.modal}>
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.heading}>Add New Cloth</Text>
+                    <TouchableOpacity onPress={closeHandler} style={styles.iconContainer}>
+                        <Image source={require('../../../icons/close.png')} style={styles.icon} />
+                    </TouchableOpacity>
                 </View>
-                <ScrollView style={styles.contentContainer}>
-                    <Text style={styles.text}>Name</Text>
-                    <TextInput />
-                </ScrollView>
-            </Animated.View>}
-        </>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}>
+                <Formik
+                    initialValues={{
+                        name: '',
+                        about: '',
+                        currentSize: '',
+                        sizes: [],
+                        currentColor: '',
+                        currentColorCode: '',
+                        colors: [],
+                        photo: ''
+                    }}
+                    // validationSchema={}
+                    onSubmit={values => {
+                        // do something
+                    }}
+                >
+                    {(props) => <Form formik={props} />}
+                </Formik>
+            </ScrollView>
+        </View>
     )
 }
 
@@ -71,13 +65,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     modal: {
-        position: 'absolute',
-        top: '100%',
-        left: '100%',
-        bottom: 0,
-        right: 0,
         padding: '5%',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        marginBottom: '5%',
     },
     heading: {
         fontSize: 24,
@@ -87,10 +77,6 @@ const styles = StyleSheet.create({
     contentContainer: {
         marginTop: '5%',
     },
-    text: {
-        color: 'black',
-        fontSize: 16,
-    }
 })
 
 export default AddModal
