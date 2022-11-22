@@ -19,8 +19,8 @@ const Size = ({ formik }) => {
 
                     const addHandler = _ => {
                         let sizeName = form.values.currentSize
+                        if (sizeName === '') return
                         push(sizeName)
-                        // form.values.currentSize = ''
                         formik.setFieldValue('currentSize', '')
                     }
 

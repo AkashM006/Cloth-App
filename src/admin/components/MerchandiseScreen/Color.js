@@ -20,6 +20,9 @@ const Color = ({ formik }) => {
                         const { push, remove, form } = props
 
                         const pressHandler = () => {
+                            if (form.values.currentColor === '' || form.values.currentColorCode === '') {
+                                return
+                            }
                             let colorObj = {
                                 name: form.values.currentColor,
                                 colorCode: form.values.currentColorCode,

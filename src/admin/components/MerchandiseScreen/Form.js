@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, Text, Alert } from 'react-native'
 import React from 'react'
 import Field from './Field'
 import Size from './Size'
@@ -8,13 +8,21 @@ import Photo from './Photo'
 const Form = ({ formik }) => {
 
     const pressHandler = () => {
-        // first validate the form and then submit
         formik.validateForm()
             .then(res => {
-                console.log("Finished")
-            })
-            .catch(err => {
-                console.log("Error: ", err)
+                if (Object.keys(res).length === 0) {
+                    console.log("Success")
+                    props.submitForm()
+                } else {
+                    console.log("Failure")
+                    let message = res.message
+                    Alert.alert(
+                        'Whoops!',
+                        message,
+                        [{ text: 'OK', }],
+                        { cancelable: true }
+                    )
+                }
             })
     }
 
