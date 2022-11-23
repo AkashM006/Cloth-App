@@ -41,6 +41,22 @@ const Form = ({ formik }) => {
                 placeholder='About Cloth'
                 multiline={true}
             />
+            <Field
+                text='Price'
+                onChangeText={formik.handleChange('price')}
+                value={formik.values.price}
+                placeholder='Price ( 100, 1500 )'
+                multiline={false}
+                type='numeric'
+            />
+            <Field
+                text='Discount'
+                onChangeText={formik.handleChange('discount')}
+                value={formik.values.discount}
+                placeholder='Discount ( 10, 12.5 )'
+                multiline={false}
+                type='numeric'
+            />
             <Size formik={formik} />
             <Color formik={formik} />
             <Photo formik={formik} />

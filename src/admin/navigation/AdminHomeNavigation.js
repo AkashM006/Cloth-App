@@ -51,9 +51,8 @@ const AdminHomeNavigation = () => {
                 name='Form'
                 component={FormScreen}
                 options={() => ({
-                    gestureDirection: 'vertical',
                     cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
-                    gestureEnabled: true,
+                    gestureEnabled: false,
                     header: () => { }
                 })}
             />

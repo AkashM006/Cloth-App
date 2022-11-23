@@ -26,6 +26,8 @@ const AddModal = () => {
         colors: Yup.array().min(1, 'Atleast one color must be available!').required('Alteast one size must be available!'),
         photo: Yup.string().required('Alteast one picture is required!'),
         photoURI: Yup.string().required('Alteast one picture is required!'),
+        price: Yup.number().min(0, 'Minimum price can be only 0!').required(),
+        discount: Yup.number().min(0, 'Minimum discount can be only 0!').max(100, 'Discount Cannot be greater than 100 percentage').required(),
     })
 
     return (
@@ -50,6 +52,9 @@ const AddModal = () => {
                         colors: [],
                         photo: '',
                         photoURI: '',
+                        price: 0,
+                        discount: 0,
+                        rawImg: ''
                     }}
                     validate={async formFields => {
                         let values = { ...formFields }
@@ -66,7 +71,7 @@ const AddModal = () => {
                     }}
                     onSubmit={async values => {
                         // validate if the cloth is already present in firestore
-                        let { name, about, sizes, colors, photo, photoURI } = values
+                        let { name, about, sizes, colors, photo, photoURI, price, discount } = values
 
                         try {
                             const cloth = await (await firestore().collection('clothes').where('name', '==', name.toLowerCase()).count().get())
@@ -96,7 +101,11 @@ const AddModal = () => {
                                     about,
                                     sizes,
                                     colors,
-                                    photo
+                                    photo,
+                                    price,
+                                    discount,
+                                    totalRating: 0,
+                                    ratedCount: 0,
                                 })
                                 console.log("Result: ", result)
                             } catch (err) {
@@ -104,6 +113,7 @@ const AddModal = () => {
                             }
 
                             // clear the form and go back
+                            Alert.alert("Success", "New Cloth Added to database")
                             navigation.goBack()
 
                         } catch (err) {
