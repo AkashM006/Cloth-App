@@ -1,9 +1,11 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import React from 'react'
 import { Formik } from 'formik'
 import Form from './Form'
 import { useNavigation } from '@react-navigation/native'
 import * as Yup from 'yup'
+import firestore from '@react-native-firebase/firestore'
+import storage from '@react-native-firebase/storage'
 
 const AddModal = () => {
 
@@ -23,6 +25,7 @@ const AddModal = () => {
         sizes: Yup.array().min(1, 'Alteast one size must be available!').required('Alteast one size must be available!'),
         colors: Yup.array().min(1, 'Atleast one color must be available!').required('Alteast one size must be available!'),
         photo: Yup.string().required('Alteast one picture is required!'),
+        photoURI: Yup.string().required('Alteast one picture is required!'),
     })
 
     return (
@@ -45,7 +48,8 @@ const AddModal = () => {
                         currentColor: '',
                         currentColorCode: '',
                         colors: [],
-                        photo: ''
+                        photo: '',
+                        photoURI: '',
                     }}
                     validate={async formFields => {
                         let values = { ...formFields }
@@ -60,9 +64,51 @@ const AddModal = () => {
                         }
 
                     }}
-                    onSubmit={values => {
-                        console.log("Values: ", values)
+                    onSubmit={async values => {
                         // validate if the cloth is already present in firestore
+                        let { name, about, sizes, colors, photo, photoURI } = values
+
+                        try {
+                            const cloth = await (await firestore().collection('clothes').where('name', '==', name.toLowerCase()).count().get())
+
+                            if (cloth._data.count !== 0) {
+                                Alert.alert("Duplicate Cloth Name!", 'A cloth with the same name already exists please enter a new name!')
+                                return
+                            }
+
+                            // Task: here create an entry in db until then disable the button
+
+                            // Sub Task: first upload the file to file storage and get the link
+
+                            try {
+                                await storage().ref(photo).putFile(photoURI)
+                                console.log("Uploded the photo")
+                            } catch (err) {
+                                console.log("Error while uploading the photo")
+                            }
+
+                            // Sub Task: create document in clothes collection
+
+                            try {
+                                photo = await storage().ref(photo).getDownloadURL()
+                                const result = await firestore().collection('clothes').add({
+                                    name,
+                                    about,
+                                    sizes,
+                                    colors,
+                                    photo
+                                })
+                                console.log("Result: ", result)
+                            } catch (err) {
+                                console.log("Error: ", err)
+                            }
+
+                            // clear the form and go back
+                            navigation.goBack()
+
+                        } catch (err) {
+                            console.log("Error: ", err)
+                        }
                     }}
                 >
                     {(props) => <Form formik={props} />}
@@ -102,9 +148,7 @@ const styles = StyleSheet.create({
         fontWeight: '800',
         color: 'black'
     },
-    contentContainer: {
-        marginTop: '5%',
-    },
+    contentContainer: { marginTop: '5%', },
 })
 
 export default AddModal

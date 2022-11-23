@@ -19,6 +19,7 @@ const Photo = ({ formik }) => {
         let fileName = imgUri.substring(imgUri.lastIndexOf('/') + 1)
 
         formik.setFieldValue('photo', fileName)
+        formik.setFieldValue('photoURI', imgUri)
     }
 
     const cameraHandler = () => {
@@ -45,8 +46,10 @@ const Photo = ({ formik }) => {
         }
         if (formik.values.photo === '')
             launchImageLibrary(options, imageHandler)
-        else
+        else {
             formik.setFieldValue('photo', '')
+            formik.setFieldValue('photoURI', '')
+        }
     }
 
     return (

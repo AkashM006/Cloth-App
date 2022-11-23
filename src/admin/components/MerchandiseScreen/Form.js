@@ -12,7 +12,7 @@ const Form = ({ formik }) => {
             .then(res => {
                 if (Object.keys(res).length === 0) {
                     console.log("Success")
-                    props.submitForm()
+                    formik.submitForm()
                 } else {
                     console.log("Failure")
                     let message = res.message
@@ -44,16 +44,22 @@ const Form = ({ formik }) => {
             <Size formik={formik} />
             <Color formik={formik} />
             <Photo formik={formik} />
-            <TouchableOpacity onPress={pressHandler} style={styles.button}>
-                <Text style={styles.text}>Submit</Text>
+            <TouchableOpacity
+                disabled={!formik.dirty || !formik.isValid || formik.isSubmitting}
+                onPress={pressHandler}
+                style={[styles.button, { backgroundColor: (!formik.dirty || !formik.isValid || formik.isSubmitting) ? 'gray' : '#0180ff' }]}
+            >
+                <Text style={styles.text}>
+                    Submit
+                </Text>
             </TouchableOpacity>
-        </View>
+        </View >
     )
 }
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#0180ff',
+        // backgroundColor: '#0180ff',
         padding: '5%',
         borderRadius: 7,
         marginVertical: '5%',
@@ -62,8 +68,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'white',
-        fontWeight: '400',
-        fontSize: 16
+        fontWeight: '500',
+        fontSize: 18,
     }
 })
 

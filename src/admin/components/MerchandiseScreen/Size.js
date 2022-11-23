@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, FlatList, Alert } from 'react-native'
 import React from 'react'
 import { FieldArray } from 'formik'
 
@@ -19,7 +19,16 @@ const Size = ({ formik }) => {
 
                     const addHandler = _ => {
                         let sizeName = form.values.currentSize
-                        if (sizeName === '') return
+                        if (sizeName.trim() === '') {
+                            Alert.alert('Empty size name!', "Size name cannot be empty!")
+                            return
+                        }
+                        for (let sizes of form.values.sizes) {
+                            if (sizes === sizeName) {
+                                Alert.alert('Duplicate size name!', "Size with the same name is already present!")
+                                return
+                            }
+                        }
                         push(sizeName)
                         formik.setFieldValue('currentSize', '')
                     }

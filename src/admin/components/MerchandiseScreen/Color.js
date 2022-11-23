@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Alert } from 'react-native'
 import React from 'react'
 import Field from './Field'
 import { FieldArray } from 'formik'
@@ -19,13 +19,27 @@ const Color = ({ formik }) => {
                     {props => {
                         const { push, remove, form } = props
 
+                        const alert = (msg) => {
+                            Alert.alert('Duplicate details!', msg)
+                        }
+
                         const pressHandler = () => {
                             if (form.values.currentColor === '' || form.values.currentColorCode === '') {
+                                Alert.alert('Empty color name or code!', 'Color code and name cannot be empty!')
                                 return
                             }
                             let colorObj = {
                                 name: form.values.currentColor,
                                 colorCode: form.values.currentColorCode,
+                            }
+                            for (let color of form.values.colors) {
+                                if (color.name === colorObj.name)
+                                    alert("There already exists a color with the same name!")
+                                else if (color.colorCode === colorObj.colorCode)
+                                    alert('There already exists a color with the sane code!')
+                                else continue
+
+                                return
                             }
                             push(colorObj)
                             form.setFieldValue('currentColor', '')
