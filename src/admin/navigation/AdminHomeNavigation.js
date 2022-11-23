@@ -43,8 +43,8 @@ const AdminHomeNavigation = () => {
                     }
                 })}
                 sharedElements={(route, otherRoute, showing) => {
-                    const { id } = route.params
-                    return [{ id: `item.${id}.photo` }, { id: `item.${id}.rating` },]
+                    const { name } = route.params
+                    return [{ id: `item.${name}.photo` }, { id: `item.${name}.rating` },]
                 }}
             />
             <Stack.Screen

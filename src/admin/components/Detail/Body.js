@@ -10,7 +10,7 @@ const Body = () => {
 
     return (
         <View style={styles.container}>
-            <Photo image={item.image} rating={item.rating} id={item.id} />
+            <Photo image={item.image} rating={item.rating} name={item.name} />
             <Details price={1234} qty={20} />
         </View>
     )

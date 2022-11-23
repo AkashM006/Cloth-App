@@ -10,9 +10,8 @@ const Card = ({ cloth, index }) => {
 
     const pressHandler = () => {
         navigation.navigate('Detail', {
-            id: cloth.id,
-            name: cloth.title,
-            image: cloth.adminImage,
+            name: cloth.name,
+            image: cloth.photo,
             rating: cloth.rating
         })
     }
@@ -24,19 +23,17 @@ const Card = ({ cloth, index }) => {
             <TouchableOpacity onPress={pressHandler} style={styles.iconContainer}>
                 <Image source={require('../../../icons/edit-admin.png')} style={styles.icon} />
             </TouchableOpacity>
-            {/* <View style={styles.rating}> */}
-            <SharedElement id={`item.${cloth.id}.rating`} style={styles.rating}>
+            <SharedElement id={`item.${cloth.name}.rating`} style={styles.rating}>
                 <View style={styles.ratingContentContainer}>
                     <Image source={require('../../../icons/star.png')} style={styles.star} />
                     <Text style={styles.ratingText}>{cloth.rating.toFixed(1)}</Text>
                 </View>
             </SharedElement>
-            {/* </View> */}
             <View style={styles.contentContainer}>
-                <SharedElement id={`item.${cloth.id}.photo`} style={styles.imageContainer}>
-                    <Image source={(cloth.adminImage)} style={styles.photo} />
+                <SharedElement id={`item.${cloth.name}.photo`} style={styles.imageContainer}>
+                    <Image source={{ uri: cloth.photo }} style={styles.photo} />
                 </SharedElement>
-                <Text style={[styles.title, styles.text]}>{capitalize(cloth.title)}</Text>
+                <Text style={[styles.title, styles.text]}>{capitalize(cloth.name)}</Text>
                 <Text style={[styles.price, styles.text]}>{formatCurrency(cloth.price)}</Text>
             </View>
         </View >

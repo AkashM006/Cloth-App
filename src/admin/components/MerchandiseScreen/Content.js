@@ -1,21 +1,70 @@
-import { View, StyleSheet, SectionList, Image, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, SectionList, Image, TouchableOpacity, ActivityIndicator, Text } from 'react-native'
 import React from 'react'
 import Card from './Card'
 import CLOTHES from '../../../data/clothes'
 import { useState } from 'react'
 import StackHeader from '../StackHeader'
 import { useNavigation } from '@react-navigation/native'
+import { useEffect } from 'react'
+import firestore from '@react-native-firebase/firestore'
+
+const Empty = ({ loading }) => {
+    return <>
+        <StackHeader title={'Merchandise'} />
+        <View style={styles.emptyContainer}>
+            {loading === true ? <ActivityIndicator /> : <Text style={styles.text}>You have added no items</Text>}
+        </View>
+    </>
+}
 
 const Content = () => {
     // let cl = [...CLOTHES, ...CLOTHES, ...CLOTHES]
-    let cl = [...CLOTHES]
-    let old = [...cl]
+    // let cl = [...CLOTHES]
+    // let old = [...cl]
 
-    cl = [{ data: [...cl], title: 'Clothes' }]
-    const [clothes, setClothes] = useState(cl)
+    const [clothes, setClothes] = useState([{ data: [], title: 'Clothes' }])
     const navigation = useNavigation()
+    const [isLoading, setIsLoading] = useState(true) // for maintaining if the screen has finished loading
+    const [isWaiting, setIsWaiting] = useState(false) // when waiting for more elements
+    const [lastDoc, setLastDoc] = useState()
 
-    const endReachedHandler = () => { setClothes(prev => [{ data: [...old, ...prev[0].data], title: 'Clothes' }]) }
+    const getData = async () => {
+        let result;
+        try {
+            if (lastDoc === undefined)
+                result = await firestore().collection('clothes').orderBy('name').limit(10).get()
+            else
+                result = await firestore().collection('clothes').orderBy('name').startAfter(lastDoc).limit(10).get()
+        } catch (err) {
+            console.log("Error: ", error)
+        }
+
+        try {
+            let last = await result.docs
+            setLastDoc(last[last.length - 1])
+        } catch (err) {
+            console.log("Error here: ", err)
+        }
+
+        let fetchedClothes = result.docs.map(cloth => {
+            let { name, about, price, discount, sizes, colors, photo, totalRating, ratedCount } = cloth._data
+            return {
+                name, about, price, discount, sizes, colors, photo, rating: ratedCount === 0 ? 0 : totalRating / ratedCount
+            }
+        })
+        setClothes(prev => [{ title: 'Clothes', data: [...prev[0].data, ...fetchedClothes] }])
+        if (isLoading === true) setIsLoading(false)
+        if (isWaiting === true) setIsWaiting(false)
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
+
+    const endReachedHandler = () => {
+        setIsWaiting(true)
+        getData()
+    }
 
     let items = []
 
@@ -34,24 +83,24 @@ const Content = () => {
         )
     }
 
-    const renderSectionHeader = () => { return <StackHeader title={'Merchandise'} /> }
+    const renderSectionHeader = ({ section }) => { return section.title === 'sub' ? <></> : <StackHeader title={'Merchandise'} /> }
 
     const pressHandler = () => { navigation.navigate('Form') }
 
     return (
         <View style={styles.container}>
-            <SectionList
+            {clothes[0].data.length === 0 ? <Empty loading={isLoading} /> : <SectionList
                 sections={clothes}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => Math.random()}
                 renderSectionHeader={renderSectionHeader}
                 stickyHeaderHiddenOnScroll={true}
                 stickySectionHeadersEnabled={true}
-                // onEndReached={endReachedHandler}
-                // onEndReachedThreshold={0.25}
+                onEndReached={endReachedHandler}
+                onEndReachedThreshold={0.25}
                 contentContainerStyle={{ paddingBottom: '25%' }}
                 showsVerticalScrollIndicator={false}
-            />
+            />}
             <TouchableOpacity onPress={pressHandler} style={styles.addContainer}>
                 <Image source={require('../../../icons/add.png')} style={styles.add} />
             </TouchableOpacity>
@@ -63,6 +112,7 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: '2.5%',
         flex: 1,
+        backgroundColor: 'white',
     },
     text: {
         color: 'gray',
@@ -92,6 +142,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 14,
+    },
+    emptyContainer: {
+        flex: 1,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })
 

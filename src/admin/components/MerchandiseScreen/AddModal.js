@@ -107,7 +107,6 @@ const AddModal = () => {
                                     totalRating: 0,
                                     ratedCount: 0,
                                 })
-                                console.log("Result: ", result)
                             } catch (err) {
                                 console.log("Error: ", err)
                             }
