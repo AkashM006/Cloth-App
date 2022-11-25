@@ -50,6 +50,14 @@ const Form = ({ formik }) => {
                 type='numeric'
             />
             <Field
+                text='Quantity'
+                onChangeText={formik.handleChange('qty')}
+                value={formik.values.qty}
+                placeholder='Quantity ( 10, 150 )'
+                multiline={false}
+                type='numeric'
+            />
+            <Field
                 text='Discount'
                 onChangeText={formik.handleChange('discount')}
                 value={formik.values.discount}

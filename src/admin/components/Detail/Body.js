@@ -10,8 +10,8 @@ const Body = () => {
 
     return (
         <View style={styles.container}>
-            <Photo image={item.image} rating={item.rating} name={item.name} />
-            <Details price={1234} qty={20} />
+            <Photo image={item.image} name={item.name} />
+            <Details name={item.name} price={1234} qty={20} />
         </View>
     )
 }

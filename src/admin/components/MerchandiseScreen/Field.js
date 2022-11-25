@@ -1,11 +1,15 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import React from 'react'
+import { useState } from 'react'
 
 const Field = ({ text, value, onChangeText, placeholder, type, ...props }) => {
+
+    const [isFocused, setIsFocused] = useState(false)
+
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{text}</Text>
-            <View style={styles.inputContainer}>
+            <View style={[styles.inputContainer, { borderColor: isFocused === true ? '#0180ff' : 'white' }]}>
                 <TextInput
                     style={styles.input}
                     placeholder={placeholder}
@@ -13,6 +17,8 @@ const Field = ({ text, value, onChangeText, placeholder, type, ...props }) => {
                     value={value}
                     placeholderTextColor={'gray'}
                     keyboardType={type ?? 'default'}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
                     {...props}
                 />
             </View>
@@ -31,7 +37,10 @@ const styles = StyleSheet.create({
         borderRadius: 7,
     },
     inputContainer: {
-        marginTop: '2%'
+        marginTop: '2%',
+        borderRadius: 7,
+        padding: 4,
+        borderWidth: 1
     },
     container: {
         marginBottom: '5%'

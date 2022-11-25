@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, FlatList, Alert } from 'react-native'
 import React from 'react'
 import { FieldArray } from 'formik'
+import { useState } from 'react'
 
 const EmptySize = () => {
     return <View style={styles.textContainer}>
@@ -9,6 +10,8 @@ const EmptySize = () => {
 }
 
 const Size = ({ formik }) => {
+
+    const [isFocused, setIsFocused] = useState(false)
 
     return (
         <View style={styles.container}>
@@ -36,13 +39,17 @@ const Size = ({ formik }) => {
                     return (
                         <>
                             <View style={styles.inputContainer}>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder='Enter a size ( XS, S, L )'
-                                    onChangeText={formik.handleChange('currentSize')}
-                                    value={formik.values.currentSize}
-                                    placeholderTextColor='gray'
-                                />
+                                <View style={[styles.borderIndicator, { borderColor: isFocused === true ? '#0180ff' : 'white' }]}>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder='Enter a size ( XS, S, L )'
+                                        onChangeText={formik.handleChange('currentSize')}
+                                        value={formik.values.currentSize}
+                                        placeholderTextColor='gray'
+                                        onFocus={() => setIsFocused(true)}
+                                        onBlur={() => setIsFocused(false)}
+                                    />
+                                </View>
                                 <TouchableOpacity onPress={addHandler} style={styles.add}>
                                     <Text style={styles.addText}>Add</Text>
                                 </TouchableOpacity>
@@ -81,7 +88,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: '#f0f0f0',
         borderRadius: 7,
-        width: '75%'
+        width: '100%',
     },
     inputContainer: {
         marginTop: '2%',
@@ -136,6 +143,12 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#f0f0f0',
         borderRadius: 10
+    },
+    borderIndicator: {
+        padding: 4,
+        width: '75%',
+        borderWidth: 1,
+        borderRadius: 10,
     }
 })
 

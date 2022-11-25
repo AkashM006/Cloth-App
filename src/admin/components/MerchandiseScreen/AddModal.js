@@ -28,6 +28,7 @@ const AddModal = () => {
         photoURI: Yup.string().required('Alteast one picture is required!'),
         price: Yup.number().min(0, 'Minimum price can be only 0!').required(),
         discount: Yup.number().min(0, 'Minimum discount can be only 0!').max(100, 'Discount Cannot be greater than 100 percentage').required(),
+        qty: Yup.number().min(0, "Minimum quantity can be only 0!").required()
     })
 
     return (
@@ -54,7 +55,8 @@ const AddModal = () => {
                         photoURI: '',
                         price: 0,
                         discount: 0,
-                        rawImg: ''
+                        rawImg: '',
+                        qty: 0,
                     }}
                     validate={async formFields => {
                         let values = { ...formFields }
@@ -71,7 +73,7 @@ const AddModal = () => {
                     }}
                     onSubmit={async values => {
                         // validate if the cloth is already present in firestore
-                        let { name, about, sizes, colors, photo, photoURI, price, discount } = values
+                        let { name, about, sizes, colors, photo, photoURI, price, discount, qty } = values
 
                         try {
                             const cloth = await (await firestore().collection('clothes').where('name', '==', name.toLowerCase()).count().get())
@@ -106,6 +108,7 @@ const AddModal = () => {
                                     discount,
                                     totalRating: 0,
                                     ratedCount: 0,
+                                    qty,
                                 })
                             } catch (err) {
                                 console.log("Error: ", err)

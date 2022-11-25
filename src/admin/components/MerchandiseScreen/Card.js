@@ -3,16 +3,19 @@ import React, { memo } from 'react'
 import { capitalize, formatCurrency } from '../../../utils/text'
 import { useNavigation } from '@react-navigation/native'
 import { SharedElement } from 'react-navigation-shared-element'
+import { useDispatch } from 'react-redux'
+import { setName } from '../../../redux/selectedItemSlice'
 
 const Card = ({ cloth, index }) => {
 
     const navigation = useNavigation()
+    const dispatch = useDispatch()
 
     const pressHandler = () => {
+        dispatch(setName(cloth.name))
         navigation.navigate('Detail', {
             name: cloth.name,
             image: cloth.photo,
-            rating: cloth.rating
         })
     }
 
@@ -23,18 +26,30 @@ const Card = ({ cloth, index }) => {
             <TouchableOpacity onPress={pressHandler} style={styles.iconContainer}>
                 <Image source={require('../../../icons/edit-admin.png')} style={styles.icon} />
             </TouchableOpacity>
-            <SharedElement id={`item.${cloth.name}.rating`} style={styles.rating}>
+            {/* <SharedElement id={`item.${cloth.name}.rating`} style={styles.rating}>
                 <View style={styles.ratingContentContainer}>
-                    <Image source={require('../../../icons/star.png')} style={styles.star} />
-                    <Text style={styles.ratingText}>{cloth.rating.toFixed(1)}</Text>
+                    {cloth.ratedCount !== 0 && <Image source={require('../../../icons/star.png')} style={styles.star} />}
+                    <Text style={styles.ratingText}>
+                        {cloth.ratedCount !== 0 ? cloth.rating.toFixed(1) : 'Not Rated'}
+                    </Text>
                 </View>
-            </SharedElement>
+            </SharedElement> */}
+            {/* <SharedElement id={`item.${cloth.name}.rating`} style={styles.rating}> */}
+            <View style={styles.rating}>
+                <View style={styles.ratingContentContainer}>
+                    {cloth.ratedCount !== 0 && <Image source={require('../../../icons/star.png')} style={styles.star} />}
+                    <Text style={styles.ratingText}>
+                        {cloth.ratedCount === 0 ? 'Not Rated' : cloth.rating.toFixed(2)}
+                    </Text>
+                </View>
+            </View>
+            {/* </SharedElement> */}
             <View style={styles.contentContainer}>
                 <SharedElement id={`item.${cloth.name}.photo`} style={styles.imageContainer}>
                     <Image source={{ uri: cloth.photo }} style={styles.photo} />
                 </SharedElement>
                 <Text style={[styles.title, styles.text]}>{capitalize(cloth.name)}</Text>
-                <Text style={[styles.price, styles.text]}>{formatCurrency(cloth.price)}</Text>
+                <Text style={[styles.price, styles.text]}>{formatCurrency(+cloth.price)}</Text>
             </View>
         </View >
     )
@@ -105,34 +120,31 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     rating: {
-        padding: '2%',
-        paddingHorizontal: 0,
-        backgroundColor: 'white',
-        borderRadius: 7,
         position: 'absolute',
-        zIndex: 10,
-        left: 10,
-        top: '58%',
+        zIndex: 5,
+        left: 15,
+        top: '56%',
         borderColor: '#ffc107',
-        borderWidth: 1,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
+        borderWidth: 2,
+        paddingHorizontal: 5,
+        paddingVertical: 2,
+        justifyContent: 'space-between',
+        borderRadius: 7,
+        backgroundColor: 'rgba(0,0,0,0.25)'
     },
     ratingContentContainer: {
-        paddingLeft: '5%',
-        alignItems: 'center',
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
     star: {
+        width: 20,
         height: 20,
-        width: 20
+        marginRight: 5
     },
     ratingText: {
-        fontWeight: '700',
-        fontSize: 14,
+        fontSize: 16,
+        fontWeight: '500',
         color: '#ffc107',
-        marginLeft: '2%'
-    }
+    },
 })
 
 export default memo(Card, arePropsEqual)// using memo to memoise and prevent old cards from re rendering

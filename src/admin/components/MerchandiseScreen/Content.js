@@ -12,21 +12,19 @@ const Empty = ({ loading }) => {
     return <>
         <StackHeader title={'Merchandise'} />
         <View style={styles.emptyContainer}>
-            {loading === true ? <ActivityIndicator /> : <Text style={styles.text}>You have added no items</Text>}
+            {loading === true ? <ActivityIndicator size={'large'} /> : <Text style={styles.text}>You have added no items</Text>}
         </View>
     </>
 }
 
 const Content = () => {
-    // let cl = [...CLOTHES, ...CLOTHES, ...CLOTHES]
-    // let cl = [...CLOTHES]
-    // let old = [...cl]
 
     const [clothes, setClothes] = useState([{ data: [], title: 'Clothes' }])
     const navigation = useNavigation()
     const [isLoading, setIsLoading] = useState(true) // for maintaining if the screen has finished loading
     const [isWaiting, setIsWaiting] = useState(false) // when waiting for more elements
     const [lastDoc, setLastDoc] = useState()
+    const [endReached, setEndReached] = useState(false)
 
     const getData = async () => {
         let result;
@@ -41,6 +39,10 @@ const Content = () => {
 
         try {
             let last = await result.docs
+            if (last.length === 0) {
+                setEndReached(true)
+                return
+            }
             setLastDoc(last[last.length - 1])
         } catch (err) {
             console.log("Error here: ", err)
@@ -49,7 +51,16 @@ const Content = () => {
         let fetchedClothes = result.docs.map(cloth => {
             let { name, about, price, discount, sizes, colors, photo, totalRating, ratedCount } = cloth._data
             return {
-                name, about, price, discount, sizes, colors, photo, rating: ratedCount === 0 ? 0 : totalRating / ratedCount
+                name,
+                about,
+                price,
+                discount,
+                sizes,
+                colors,
+                photo,
+                rating: ratedCount === 0 ? 0 : totalRating / ratedCount,
+                totalRating,
+                ratedCount
             }
         })
         setClothes(prev => [{ title: 'Clothes', data: [...prev[0].data, ...fetchedClothes] }])
@@ -62,6 +73,7 @@ const Content = () => {
     }, [])
 
     const endReachedHandler = () => {
+        if (endReached === true) return
         setIsWaiting(true)
         getData()
     }
@@ -87,6 +99,12 @@ const Content = () => {
 
     const pressHandler = () => { navigation.navigate('Form') }
 
+    const Footer = () => {
+        return (<>
+            {endReached === false && <ActivityIndicator size={'large'} style={styles.footer} />}
+        </>)
+    }
+
     return (
         <View style={styles.container}>
             {clothes[0].data.length === 0 ? <Empty loading={isLoading} /> : <SectionList
@@ -100,6 +118,7 @@ const Content = () => {
                 onEndReachedThreshold={0.25}
                 contentContainerStyle={{ paddingBottom: '25%' }}
                 showsVerticalScrollIndicator={false}
+                ListFooterComponent={Footer}
             />}
             <TouchableOpacity onPress={pressHandler} style={styles.addContainer}>
                 <Image source={require('../../../icons/add.png')} style={styles.add} />
@@ -148,6 +167,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    footer: {
+        marginTop: '5%',
     }
 })
 
